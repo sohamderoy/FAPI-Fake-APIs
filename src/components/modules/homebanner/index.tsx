@@ -3,6 +3,7 @@ import { HomeBannerProps } from "./types";
 import { BANNER_DATA } from "./data";
 import { getGradientStyles } from "./utils";
 import FeatureCard from "../featureCard";
+import Button from "@/components/lib/button";
 
 const HomeBanner = ({
   title = BANNER_DATA.defaultTitle,
@@ -22,10 +23,13 @@ const HomeBanner = ({
         </p>
 
         {/* Quick action buttons */}
+
         <div className="mt-12 flex gap-4 justify-center">
-          <button className=" font-outfit font-normal px-6 py-3 text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
-            Get Started
-          </button>
+          {/* Create Mock API button */}
+          <Button name="Create Mock API" />
+
+          {/* Upload Mock API Generator JSON button */}
+          <Button name="Upload Mock API Creator JSON" />
         </div>
 
         {/* Feature highlights */}
