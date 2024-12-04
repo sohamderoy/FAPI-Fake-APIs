@@ -1,30 +1,22 @@
 import fs from "fs/promises";
-import path from "path";
-import {
-  DYNAMIC_STORAGE_PATH,
-  FAPI_STORAGE_FOLDER_NAME,
-} from "./globalConstants";
-
-const getStorageDirectory = () => {
-  const cwd = process.cwd();
-
-  return path.join(cwd, FAPI_STORAGE_FOLDER_NAME);
-};
+import { getStorageDirectory } from "./getStorageDirectory.util";
+import { getFapiStorageFilePathPerPort } from "./getFapiStorageFilePathPerPort.util";
+import { getInitialStorage } from "./getInitialStorage.util";
 
 export const initializeFapiStorage = async (port: string): Promise<void> => {
-  // Check if port is not valid, then return
+  /* Check if port is not valid, then return */
   if (!port?.trim()) {
     console.warn("PORT_NOT_VALID_SKIPPING_STORAGE_INITIALIZATION");
     return;
   }
 
-  // If port is valid the start initializing fapi storage
+  /* If port is valid the start initializing fapi storage */
   console.log("STARTING_INITIALIZE_FAPI_STORAGE");
   const fapiStorageDirectory = getStorageDirectory();
 
-  const fapiStorageFilePathPerPort = path.join(
+  const fapiStorageFilePathPerPort = getFapiStorageFilePathPerPort(
     fapiStorageDirectory,
-    DYNAMIC_STORAGE_PATH(port)
+    port
   );
 
   try {
@@ -34,7 +26,11 @@ export const initializeFapiStorage = async (port: string): Promise<void> => {
     console.log("ERR_FILE_DOES_NOT_EXIST", err);
   }
 
-  // Create empty storage file
-  await fs.writeFile(fapiStorageFilePathPerPort, JSON.stringify({}));
+  /* Create empty storage file */
+  const initialStorage = getInitialStorage();
+  await fs.writeFile(
+    fapiStorageFilePathPerPort,
+    JSON.stringify(initialStorage, null, 2)
+  );
   console.log("SUCCESS_INITIALIZING_FAPI_STORAGE");
 };

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { outfit } from "./fonts";
-import { initializeFapiStorage } from "@/utils/fapiStorage";
+import { initializeFapiStorage } from "@/utils/functions/initializeFapiStorage.util";
 
 const inter = Inter({ subsets: ["latin"] });
 
