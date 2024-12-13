@@ -20,5 +20,10 @@ export const BANNER_DATA = {
       title: "Local First",
       description: "No data leaves your local machine, runs completely offline",
     },
+    {
+      title: "Multi Instance Support",
+      description:
+        "Run multiple instances of FAPI on different ports to support multi UI project development and testing",
+    },
   ],
 } as const;

@@ -34,7 +34,7 @@ const HomeBanner = ({
 
         {/* Feature highlights */}
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
           {BANNER_DATA.features.map((feature, index) => (
             <FeatureCard
               key={index}
