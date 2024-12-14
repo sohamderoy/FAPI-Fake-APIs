@@ -13,9 +13,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Server-side initialization
+  /* Server-side initialization */
   await initializeApp();
 
-  // Pass children to client component
+  /* Pass children to client component */
   return <RootLayoutClient>{children}</RootLayoutClient>;
 }
