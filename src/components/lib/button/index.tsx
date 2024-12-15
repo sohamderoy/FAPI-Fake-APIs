@@ -1,6 +1,6 @@
-import { ButtonProps } from "./props";
+import { ButtonProps } from "./types";
 
-const Button = ({ name }: ButtonProps) => {
+const Button = ({ name, onClick }: ButtonProps) => {
   return (
     <>
       <div className="relative group">
@@ -15,7 +15,10 @@ const Button = ({ name }: ButtonProps) => {
         {/* Sharp border */}
         <div className="absolute -inset-[1px] bg-gradient-to-r from-[#0EA5E9] via-[#8B5CF6] to-[#EC4899] rounded-lg opacity-0 group-hover:opacity-80 transition-all duration-500 group-hover:duration-200 ease-out"></div>
 
-        <button className="relative font-outfit font-normal px-6 py-3 text-base bg-blue-600 text-white rounded-lg hover:bg-black hover:text-blue-600 transition-all duration-500 ease-out">
+        <button
+          onClick={onClick}
+          className="relative font-outfit font-normal px-6 py-3 text-base bg-blue-600 text-white rounded-lg hover:bg-black hover:text-blue-600 transition-all duration-500 ease-out"
+        >
           {name}
         </button>
       </div>

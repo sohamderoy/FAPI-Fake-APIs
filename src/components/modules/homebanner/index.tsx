@@ -1,14 +1,23 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { HomeBannerProps } from "./types";
 import { BANNER_DATA } from "./data";
 import { getGradientStyles } from "./utils";
 import FeatureCard from "../featureCard";
 import Button from "@/components/lib/button";
+import CreateEndpointModal from "../createEndpointModal";
 
 const HomeBanner = ({
   title = BANNER_DATA.defaultTitle,
   subtitle = BANNER_DATA.defaultSubtitle,
 }: HomeBannerProps) => {
+  const [isCreateEndpointModalOpen, setIsCreateEndpointModalOpen] =
+    useState<boolean>(false);
+  const handleOpenCreateEndpointModal = () =>
+    setIsCreateEndpointModalOpen(true);
+  const handleCloseCreateEndpointModal = () =>
+    setIsCreateEndpointModalOpen(false);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4">
       <div className="text-center max-w-3xl mx-auto">
@@ -26,7 +35,10 @@ const HomeBanner = ({
 
         <div className="mt-12 flex gap-4 justify-center">
           {/* Create Mock API button */}
-          <Button name="Create Mock API" />
+          <Button
+            onClick={handleOpenCreateEndpointModal}
+            name="Create Mock API"
+          />
 
           {/* Upload Mock API Generator JSON button */}
           <Button name="Upload Mock API Creator JSON" />
@@ -44,6 +56,10 @@ const HomeBanner = ({
           ))}
         </div>
       </div>
+      <CreateEndpointModal
+        isCreateEndpointModalOpen={isCreateEndpointModalOpen}
+        handleCloseCreateEndpointModal={handleCloseCreateEndpointModal}
+      ></CreateEndpointModal>
     </div>
   );
 };

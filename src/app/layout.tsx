@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import { initializeApp } from "@/utils/functions/initializeApp";
 import RootLayoutClient from "./rootLayoutClient";
 import type { Metadata } from "next";
