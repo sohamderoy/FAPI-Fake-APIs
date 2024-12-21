@@ -12,6 +12,7 @@ import { useState } from "react";
 import { CREATE_FAPI_ENDPOINT_INITIAL_DATA } from "./data";
 import { FapiEndpointBase, HttpMethods } from "@/types/fapi";
 import { FAPI } from "@/utils/data/global.constants";
+import Editor from "@/components/lib/editor";
 
 const CreateEndpointModal = ({
   isCreateEndpointModalOpen,
@@ -20,10 +21,18 @@ const CreateEndpointModal = ({
   const [formData, setFormData] = useState<FapiEndpointBase>(
     CREATE_FAPI_ENDPOINT_INITIAL_DATA
   );
-  const handleSubmitFapiDetails = () => {};
+
+  const handleResponseChange = (value: string | undefined) => {
+    setFormData((prev) => ({
+      ...prev,
+      response: value || JSON.stringify({}, null, 2),
+    }));
+  };
+  const handleSubmitFapiDetails = () => {
+    console.log("$$d1, formData", JSON.stringify(formData, null, 2));
+  };
   const modalFooter = (
     <div className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4">
-      <Button name="Cancel" onClick={handleCloseCreateEndpointModal}></Button>
       <Button name="Create FAPI" onClick={handleSubmitFapiDetails}></Button>
     </div>
   );
@@ -123,6 +132,13 @@ const CreateEndpointModal = ({
 
             {/* Actual Response */}
           </>
+        </div>
+
+        {/* Editor Section */}
+
+        <div className="w-full">
+          <p className="text-gray-300 mb-2 text-sm">Response Body (JSON)</p>
+          <Editor value={formData.response} onChange={handleResponseChange} />
         </div>
       </div>
     </Modal>
