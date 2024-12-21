@@ -1,10 +1,6 @@
+import { initializeApp } from "@/utils/functions/initializeApp";
+import RootLayoutClient from "./rootLayoutClient";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { outfit } from "./fonts";
-import { initializeFapiStorage } from "@/utils/functions/initializeFapiStorage.util";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "FAPI - Fake APIs on the fly",
@@ -16,11 +12,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const port = process.env.PORT || "3000";
-  await initializeFapiStorage(port);
-  return (
-    <html lang="en" className={outfit.variable}>
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
+  /* Server-side initialization */
+  await initializeApp();
+
+  /* Pass children to client component */
+  return <RootLayoutClient>{children}</RootLayoutClient>;
 }
