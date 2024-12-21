@@ -6,7 +6,7 @@ export interface FapiEndpointBase {
   method: HttpMethods;
   responseCode: number;
   responseDelay: number | 0;
-  response: Record<string, any> | string;
+  response: string;
 }
 export interface FapiEndpoint extends FapiEndpointBase {
   id: string;

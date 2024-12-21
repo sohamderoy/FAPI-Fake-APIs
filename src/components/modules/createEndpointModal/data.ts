@@ -5,5 +5,5 @@ export const CREATE_FAPI_ENDPOINT_INITIAL_DATA: FapiEndpointBase = {
   method: "GET",
   responseCode: 200,
   responseDelay: 0,
-  response: "",
+  response: JSON.stringify({}, null, 2),
 };
