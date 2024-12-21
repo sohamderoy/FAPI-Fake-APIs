@@ -3,7 +3,7 @@ import { ButtonProps } from "./types";
 const Button = ({ name, onClick }: ButtonProps) => {
   return (
     <>
-      <div className="relative group">
+      <div className="relative group w-full sm:w-auto">
         <div className="absolute -inset-6 bg-gradient-to-r from-[#0EA5E9] via-[#8B5CF6] to-[#EC4899] rounded-3xl opacity-0 group-hover:opacity-5 blur-2xl transition-all duration-500 group-hover:duration-200 ease-out -z-10"></div>
 
         {/* Middle glow - medium spread */}
@@ -17,7 +17,7 @@ const Button = ({ name, onClick }: ButtonProps) => {
 
         <button
           onClick={onClick}
-          className="relative font-outfit font-normal px-6 py-3 text-base bg-blue-600 text-white rounded-lg hover:bg-black hover:text-blue-600 transition-all duration-500 ease-out"
+          className="relative w-full sm:w-auto font-outfit font-normal px-6 py-3 text-base bg-blue-600 text-white rounded-lg hover:bg-black hover:text-blue-600 transition-all duration-500 ease-out text-center flex justify-center items-center"
         >
           {name}
         </button>

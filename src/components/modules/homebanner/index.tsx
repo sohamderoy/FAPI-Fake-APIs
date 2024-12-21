@@ -33,7 +33,7 @@ const HomeBanner = ({
 
         {/* Quick action buttons */}
 
-        <div className="mt-12 flex gap-4 justify-center">
+        <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
           {/* Create Mock API button */}
           <Button
             onClick={handleOpenCreateEndpointModal}

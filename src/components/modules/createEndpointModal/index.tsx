@@ -22,100 +22,109 @@ const CreateEndpointModal = ({
   );
   const handleSubmitFapiDetails = () => {};
   const modalFooter = (
-    <>
+    <div className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4">
       <Button name="Cancel" onClick={handleCloseCreateEndpointModal}></Button>
       <Button name="Create FAPI" onClick={handleSubmitFapiDetails}></Button>
-    </>
+    </div>
   );
   return (
     <Modal
       isModalOpen={isCreateEndpointModalOpen}
       onClose={handleCloseCreateEndpointModal}
       title="Create New Mock API Endpoint"
-      size="lg"
+      size="fullscreen"
       footer={modalFooter}
     >
-      <>
-        {/* FAPI Endpoint Path */}
+      <div className="flex flex-col space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          <>
+            {/* FAPI Endpoint Path */}
 
-        <TextField
-          fullWidth
-          label="FAPI Endpoint Path"
-          placeholder="/api/your-endpoint"
-          value={formData.path}
-          onChange={(e) => setFormData({ ...formData, path: e.target.value })}
-          className="font-outfit"
-        ></TextField>
+            <TextField
+              fullWidth
+              label="FAPI Endpoint Path"
+              placeholder="/api/your-endpoint"
+              value={formData.path}
+              onChange={(e) =>
+                setFormData({ ...formData, path: e.target.value })
+              }
+              className="font-outfit"
+            ></TextField>
 
-        {/* HTTP Method */}
+            {/* HTTP Method */}
 
-        <FormControl fullWidth>
-          <InputLabel>HTTP Method</InputLabel>
-          <Select
-            value={formData.method}
-            label="HTTP Method"
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                method: e.target.value as HttpMethods,
-              })
-            }
-          >
-            {Object.values(FAPI.SUPPORTED_HTTP_METHODS).map(
-              (method: HttpMethods) => (
-                <MenuItem key={method} value={method}>
-                  {method}
-                </MenuItem>
-              )
-            )}
-          </Select>
-        </FormControl>
+            <FormControl fullWidth>
+              <InputLabel>HTTP Method</InputLabel>
+              <Select
+                value={formData.method}
+                label="HTTP Method"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    method: e.target.value as HttpMethods,
+                  })
+                }
+              >
+                {Object.values(FAPI.SUPPORTED_HTTP_METHODS).map(
+                  (method: HttpMethods) => (
+                    <MenuItem key={method} value={method}>
+                      {method}
+                    </MenuItem>
+                  )
+                )}
+              </Select>
+            </FormControl>
 
-        {/* HTTP Response Code */}
+            {/* HTTP Response Code */}
 
-        <FormControl fullWidth>
-          <InputLabel>HTTP Response Status Code</InputLabel>
-          <Select
-            value={formData.responseCode}
-            label="HTTP Response Status Code"
-            onChange={(e) =>
-              setFormData({ ...formData, responseCode: Number(e.target.value) })
-            }
-          >
-            {Object.values(FAPI.SUPPORTED_HTTP_RESPONSE_STATUS_CODE).map(
-              (responseCode) => (
-                <MenuItem key={responseCode.code} value={responseCode.code}>
-                  {responseCode.label}
-                </MenuItem>
-              )
-            )}
-          </Select>
-        </FormControl>
+            <FormControl fullWidth>
+              <InputLabel>HTTP Response Status Code</InputLabel>
+              <Select
+                value={formData.responseCode}
+                label="HTTP Response Status Code"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    responseCode: Number(e.target.value),
+                  })
+                }
+              >
+                {Object.values(FAPI.SUPPORTED_HTTP_RESPONSE_STATUS_CODE).map(
+                  (responseCode) => (
+                    <MenuItem key={responseCode.code} value={responseCode.code}>
+                      {responseCode.label}
+                    </MenuItem>
+                  )
+                )}
+              </Select>
+            </FormControl>
 
-        {/* Response Delay */}
+            {/* Response Delay */}
 
-        <FormControl fullWidth>
-          <InputLabel>Response Delay</InputLabel>
-          <Select
-            value={formData.responseDelay}
-            label="Response Delay"
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                responseDelay: Number(e.target.value),
-              })
-            }
-          >
-            {Object.values(FAPI.SUPPORTED_RESPONSE_DELAYS).map((delay) => (
-              <MenuItem key={delay.value} value={delay.value}>
-                {delay.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+            <FormControl fullWidth>
+              <InputLabel>Response Delay</InputLabel>
+              <Select
+                value={formData.responseDelay}
+                label="Response Delay"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    responseDelay: Number(e.target.value),
+                  })
+                }
+              >
+                {Object.values(FAPI.SUPPORTED_RESPONSE_DELAYS).map((delay) => (
+                  <MenuItem key={delay.value} value={delay.value}>
+                    {delay.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-        {/* Actual Response */}
-      </>
+            {/* Actual Response */}
+          </>
+        </div>
+      </div>
     </Modal>
   );
 };
