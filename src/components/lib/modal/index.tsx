@@ -27,7 +27,7 @@ const Modal = ({
         className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 p-6 rounded-xl border border-gray-800 outline-none font-outfit overflow-y-auto shadow-2xl ${MODAL_SIZES[size]}`}
       >
         {/* Header Section */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center px-6 py-4">
           <h2 className="text-xl font-semibold text-gray-50">{title}</h2>
           {/* Close Button */}
           {showCloseButton && (
@@ -43,7 +43,7 @@ const Modal = ({
 
         {/* Main Content */}
 
-        <div className="space-y-4">{children}</div>
+        <div className="relative h-[calc(90vh-120px)]">{children}</div>
 
         {/* Footer Section */}
         {footer && (

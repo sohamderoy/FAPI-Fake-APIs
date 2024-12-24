@@ -31,114 +31,125 @@ const CreateEndpointModal = ({
   const handleSubmitFapiDetails = () => {
     console.log("$$d1, formData", JSON.stringify(formData, null, 2));
   };
-  const modalFooter = (
-    <div className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4">
-      <Button name="Create FAPI" onClick={handleSubmitFapiDetails}></Button>
-    </div>
-  );
+
   return (
     <Modal
       isModalOpen={isCreateEndpointModalOpen}
       onClose={handleCloseCreateEndpointModal}
       title="Create New Mock API Endpoint"
       size="fullscreen"
-      footer={modalFooter}
     >
-      <div className="flex flex-col space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-          <>
-            {/* FAPI Endpoint Path */}
+      <div className="absolute inset-0 p-6">
+        <div className="flex flex-col h-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-4">
+            <>
+              {/* FAPI Endpoint Path */}
 
-            <TextField
-              fullWidth
-              label="FAPI Endpoint Path"
-              placeholder="/api/your-endpoint"
-              value={formData.path}
-              onChange={(e) =>
-                setFormData({ ...formData, path: e.target.value })
-              }
-              className="font-outfit"
-            ></TextField>
-
-            {/* HTTP Method */}
-
-            <FormControl fullWidth>
-              <InputLabel>HTTP Method</InputLabel>
-              <Select
-                value={formData.method}
-                label="HTTP Method"
+              <TextField
+                fullWidth
+                label="FAPI Endpoint Path"
+                placeholder="/api/your-endpoint"
+                value={formData.path}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    method: e.target.value as HttpMethods,
-                  })
+                  setFormData({ ...formData, path: e.target.value })
                 }
-              >
-                {Object.values(FAPI.SUPPORTED_HTTP_METHODS).map(
-                  (method: HttpMethods) => (
-                    <MenuItem key={method} value={method}>
-                      {method}
-                    </MenuItem>
-                  )
-                )}
-              </Select>
-            </FormControl>
+                className="font-outfit"
+              ></TextField>
 
-            {/* HTTP Response Code */}
+              {/* HTTP Method */}
 
-            <FormControl fullWidth>
-              <InputLabel>HTTP Response Status Code</InputLabel>
-              <Select
-                value={formData.responseCode}
-                label="HTTP Response Status Code"
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    responseCode: Number(e.target.value),
-                  })
-                }
-              >
-                {Object.values(FAPI.SUPPORTED_HTTP_RESPONSE_STATUS_CODE).map(
-                  (responseCode) => (
-                    <MenuItem key={responseCode.code} value={responseCode.code}>
-                      {responseCode.label}
-                    </MenuItem>
-                  )
-                )}
-              </Select>
-            </FormControl>
+              <FormControl fullWidth>
+                <InputLabel>HTTP Method</InputLabel>
+                <Select
+                  value={formData.method}
+                  label="HTTP Method"
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      method: e.target.value as HttpMethods,
+                    })
+                  }
+                >
+                  {Object.values(FAPI.SUPPORTED_HTTP_METHODS).map(
+                    (method: HttpMethods) => (
+                      <MenuItem key={method} value={method}>
+                        {method}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
 
-            {/* Response Delay */}
+              {/* HTTP Response Code */}
 
-            <FormControl fullWidth>
-              <InputLabel>Response Delay</InputLabel>
-              <Select
-                value={formData.responseDelay}
-                label="Response Delay"
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    responseDelay: Number(e.target.value),
-                  })
-                }
-              >
-                {Object.values(FAPI.SUPPORTED_RESPONSE_DELAYS).map((delay) => (
-                  <MenuItem key={delay.value} value={delay.value}>
-                    {delay.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+              <FormControl fullWidth>
+                <InputLabel>HTTP Response Status Code</InputLabel>
+                <Select
+                  value={formData.responseCode}
+                  label="HTTP Response Status Code"
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      responseCode: Number(e.target.value),
+                    })
+                  }
+                >
+                  {Object.values(FAPI.SUPPORTED_HTTP_RESPONSE_STATUS_CODE).map(
+                    (responseCode) => (
+                      <MenuItem
+                        key={responseCode.code}
+                        value={responseCode.code}
+                      >
+                        {responseCode.label}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
 
-            {/* Actual Response */}
-          </>
-        </div>
+              {/* Response Delay */}
 
-        {/* Editor Section */}
+              <FormControl fullWidth>
+                <InputLabel>Response Delay</InputLabel>
+                <Select
+                  value={formData.responseDelay}
+                  label="Response Delay"
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      responseDelay: Number(e.target.value),
+                    })
+                  }
+                >
+                  {Object.values(FAPI.SUPPORTED_RESPONSE_DELAYS).map(
+                    (delay) => (
+                      <MenuItem key={delay.value} value={delay.value}>
+                        {delay.label}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
 
-        <div className="w-full">
-          <p className="text-gray-300 mb-2 text-sm">Response Body (JSON)</p>
-          <Editor value={formData.response} onChange={handleResponseChange} />
+              {/* Actual Response */}
+            </>
+          </div>
+
+          {/* Editor Section */}
+
+          <div className="flex-1 min-h-0 mb-8">
+            <p className="text-gray-300 mb-2 text-sm">Response Body (JSON)</p>
+            <div className="h-[calc(100%-40px)]">
+              <Editor
+                value={formData.response}
+                onChange={handleResponseChange}
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-start mt-auto pt-2">
+            <Button name="Create FAPI" onClick={handleSubmitFapiDetails} />
+          </div>
         </div>
       </div>
     </Modal>
