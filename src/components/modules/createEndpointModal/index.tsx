@@ -13,6 +13,8 @@ import { CREATE_FAPI_ENDPOINT_INITIAL_DATA } from "./data";
 import { FapiEndpointBase, HttpMethods } from "@/types/fapi";
 import { FAPI } from "@/utils/data/global.constants";
 import Editor from "@/components/lib/editor";
+import { createEndpoint } from "@/utils/functions/createEndpoint";
+import { LoadingOverlay } from "@/components/lib/loadingOverlay";
 
 const CreateEndpointModal = ({
   isCreateEndpointModalOpen,
@@ -22,14 +24,31 @@ const CreateEndpointModal = ({
     CREATE_FAPI_ENDPOINT_INITIAL_DATA
   );
 
+  const [isSubmittingEndpointDetails, setIsSubmittingEndpointDetails] =
+    useState<boolean>(false);
+
   const handleResponseChange = (value: string | undefined) => {
     setFormData((prev) => ({
       ...prev,
       response: value || JSON.stringify({}, null, 2),
     }));
   };
-  const handleSubmitFapiDetails = () => {
+  const handleSubmitFapiDetails = async () => {
     console.log("$$d1, formData", JSON.stringify(formData, null, 2));
+    try {
+      setIsSubmittingEndpointDetails(true);
+      const result = await createEndpoint(formData);
+
+      if (result.success) {
+        handleCloseCreateEndpointModal();
+      } else {
+        console.log("Failed to create endpoint:", result.error);
+      }
+    } catch (error) {
+      console.log("Error submitting form:", error);
+    } finally {
+      setIsSubmittingEndpointDetails(false);
+    }
   };
 
   return (
@@ -40,6 +59,11 @@ const CreateEndpointModal = ({
       size="fullscreen"
     >
       <div className="absolute inset-0 p-6">
+        {/* Show loading overlay when submitting api details */}
+        {isSubmittingEndpointDetails && (
+          <LoadingOverlay overlayMessage="Saving Details and Creating FAPI ..." />
+        )}
+
         <div className="flex flex-col h-full">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-4">
             <>
@@ -148,7 +172,13 @@ const CreateEndpointModal = ({
           </div>
 
           <div className="flex justify-start mt-auto pt-2">
-            <Button name="Create FAPI" onClick={handleSubmitFapiDetails} />
+            <Button
+              name={
+                isSubmittingEndpointDetails ? "Creating FAPI" : "Create FAPI"
+              }
+              disabled={isSubmittingEndpointDetails}
+              onClick={handleSubmitFapiDetails}
+            />
           </div>
         </div>
       </div>
