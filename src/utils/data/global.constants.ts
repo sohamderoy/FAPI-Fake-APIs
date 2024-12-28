@@ -75,3 +75,12 @@ export const FAPI: Fapi = {
     },
   },
 };
+
+export const STATUS_COLORS = {
+  SUCCESS: "#4CAF50",
+  ERROR: "#f44336",
+};
+
+export const FAPI_REGEX = {
+  ENDPOINT_PATH: /^[/a-zA-Z0-9-_]+(?:[?&=a-zA-Z0-9-_'"% ])*$/,
+};

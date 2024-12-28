@@ -1,6 +1,6 @@
 import { ButtonProps } from "./types";
 
-const Button = ({ name, onClick }: ButtonProps) => {
+const Button = ({ name, onClick, disabled }: ButtonProps) => {
   return (
     <>
       <div className="relative group w-full sm:w-auto">
@@ -17,6 +17,7 @@ const Button = ({ name, onClick }: ButtonProps) => {
 
         <button
           onClick={onClick}
+          disabled={disabled}
           className="relative w-full sm:w-auto font-outfit font-normal px-6 py-3 text-base bg-blue-600 text-white rounded-lg hover:bg-black hover:text-blue-600 transition-all duration-500 ease-out text-center flex justify-center items-center"
         >
           {name}

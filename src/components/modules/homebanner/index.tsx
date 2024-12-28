@@ -19,7 +19,7 @@ const HomeBanner = ({
   const handleCloseCreateEndpointModal = () =>
     setIsCreateEndpointModalOpen(false);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4">
+    <div className="flex flex-col items-center justify-center h-full w-full p-4">
       <div className="text-center max-w-3xl mx-auto">
         <h1
           className="text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 font-outfit tracking-[10px]"
