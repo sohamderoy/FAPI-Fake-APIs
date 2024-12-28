@@ -1,7 +1,7 @@
 import { CircularProgress } from "@mui/material";
-import { Props } from "./types";
+import { LoadingOverlayProps } from "./types";
 
-export const LoadingOverlay = ({ overlayMessage }: Props) => {
+const LoadingOverlay = ({ overlayMessage }: LoadingOverlayProps) => {
   return (
     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-xl z-50">
       <div className="flex flex-col items-center space-y-4">
@@ -11,3 +11,5 @@ export const LoadingOverlay = ({ overlayMessage }: Props) => {
     </div>
   );
 };
+
+export default LoadingOverlay;
