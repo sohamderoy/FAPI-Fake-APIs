@@ -13,7 +13,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CREATE_FAPI_ENDPOINT_INITIAL_DATA } from "./data";
 import { FapiEndpointBase, HttpMethods } from "@/types/fapi";
 import { FAPI, FAPI_REGEX, STATUS_COLORS } from "@/utils/data/global.constants";
@@ -21,6 +21,7 @@ import Editor from "@/components/lib/editor";
 import { createEndpoint } from "@/utils/functions/createEndpoint";
 import LoadingOverlay from "@/components/lib/loadingOverlay";
 import Snackbar from "@/components/lib/snackbar";
+import { validateJSON } from "@/utils/functions/validateJSON";
 
 const CreateEndpointModal = ({
   isCreateEndpointModalOpen,
@@ -70,6 +71,19 @@ const CreateEndpointModal = ({
 
   const handleSubmitFapiDetails = async () => {
     console.log("$$d1, formData", JSON.stringify(formData, null, 2));
+
+    /* Validate JSON Response */
+    const jsonValidation = validateJSON(formData.response);
+
+    if (!jsonValidation.isValid) {
+      setSnackbar({
+        isOpen: true,
+        message: `Invalid JSON in response: ${jsonValidation.error}`,
+        backgroundColor: STATUS_COLORS.ERROR,
+      });
+
+      return;
+    }
 
     /* Validating all fields before submission */
     const isFormValid = validateForm();
@@ -134,11 +148,29 @@ const CreateEndpointModal = ({
     }));
   };
 
+  const resetModalState = useCallback(() => {
+    setFormData(CREATE_FAPI_ENDPOINT_INITIAL_DATA);
+    setFormErrors({});
+    setFormTouched({});
+    setIsSubmittingEndpointDetails(false);
+  }, []);
+
+  const handelModalClose = useCallback(() => {
+    resetModalState();
+    handleCloseCreateEndpointModal();
+  }, [handleCloseCreateEndpointModal, resetModalState]);
+
+  useEffect(() => {
+    if (!isCreateEndpointModalOpen) {
+      resetModalState();
+    }
+  }, [isCreateEndpointModalOpen, resetModalState]);
+
   return (
     <>
       <Modal
         isModalOpen={isCreateEndpointModalOpen}
-        onClose={handleCloseCreateEndpointModal}
+        onClose={handelModalClose}
         title="Create New Mock API Endpoint"
         size="fullscreen"
       >
