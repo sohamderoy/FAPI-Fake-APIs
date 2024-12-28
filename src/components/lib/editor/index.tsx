@@ -52,7 +52,6 @@ const Editor = ({ value, onChange }: EditorProps) => {
           }}
           value={value}
           onChange={onChange}
-          onBlur={onBlur}
           height="100%"
           options={{
             fontSize: 16,
