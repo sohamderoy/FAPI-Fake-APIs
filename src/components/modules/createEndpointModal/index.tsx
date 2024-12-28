@@ -1,5 +1,10 @@
 import Modal from "@/components/lib/modal";
-import { CreateEndpointModalProps } from "./types";
+import {
+  CreateEndpointModalProps,
+  FormErrors,
+  FormTouched,
+  SnackbarState,
+} from "./types";
 import Button from "@/components/lib/button";
 import {
   FormControl,
@@ -8,10 +13,10 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { CREATE_FAPI_ENDPOINT_INITIAL_DATA } from "./data";
 import { FapiEndpointBase, HttpMethods } from "@/types/fapi";
-import { FAPI } from "@/utils/data/global.constants";
+import { FAPI, FAPI_REGEX, STATUS_COLORS } from "@/utils/data/global.constants";
 import Editor from "@/components/lib/editor";
 import { createEndpoint } from "@/utils/functions/createEndpoint";
 import LoadingOverlay from "@/components/lib/loadingOverlay";
@@ -25,18 +30,26 @@ const CreateEndpointModal = ({
     CREATE_FAPI_ENDPOINT_INITIAL_DATA
   );
 
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [formTouched, setFormTouched] = useState<FormTouched>({});
+
   const [isSubmittingEndpointDetails, setIsSubmittingEndpointDetails] =
     useState<boolean>(false);
 
-  const [snackbar, setSnackbar] = useState<{
-    isOpen: boolean;
-    message: string;
-    backgroundColor: string;
-  }>({
+  const [snackbar, setSnackbar] = useState<SnackbarState>({
     isOpen: false,
     message: "",
     backgroundColor: "",
   });
+
+  const validatePath = useCallback((path: string): string | undefined => {
+    if (!path.trim()) return "Endpoint path is required";
+    if (!path.startsWith("/")) return "Endpoint path must start with /";
+    if (path.length < 2) return "Endpoint path must have at least 2 characters";
+    if (!FAPI_REGEX.ENDPOINT_PATH.test(path))
+      return "Invalid characters in path. Allowed: letters, numbers, and the following special characters: / - _ ? & = ' \" % space";
+    return undefined;
+  }, []);
 
   const handleResponseChange = (value: string | undefined) => {
     setFormData((prev) => ({
@@ -48,8 +61,30 @@ const CreateEndpointModal = ({
   const handleCloseSnackbar = () => {
     setSnackbar((prev) => ({ ...prev, isOpen: false }));
   };
+
+  const validateForm = useCallback((): boolean => {
+    const pathError = validatePath(formData.path);
+    setFormErrors((prev) => ({ ...prev, path: pathError }));
+    return !pathError;
+  }, [formData.path, validatePath]);
+
   const handleSubmitFapiDetails = async () => {
     console.log("$$d1, formData", JSON.stringify(formData, null, 2));
+
+    /* Validating all fields before submission */
+    const isFormValid = validateForm();
+
+    if (!isFormValid) {
+      setSnackbar({
+        isOpen: true,
+        message: "Please fix the validation errors before submitting",
+        backgroundColor: STATUS_COLORS.ERROR,
+      });
+
+      return;
+    }
+
+    /* Try form submission */
     try {
       setIsSubmittingEndpointDetails(true);
       const result = await createEndpoint(formData);
@@ -58,14 +93,14 @@ const CreateEndpointModal = ({
         setSnackbar({
           isOpen: true,
           message: "FAPI endpoint created successfully",
-          backgroundColor: "#4CAF50",
+          backgroundColor: STATUS_COLORS.SUCCESS,
         });
         handleCloseCreateEndpointModal();
       } else {
         setSnackbar({
           isOpen: true,
           message: result.error || "Failed to create endpoint",
-          backgroundColor: "#f44336",
+          backgroundColor: STATUS_COLORS.ERROR,
         });
         console.log("Failed to create endpoint:", result.error);
       }
@@ -74,11 +109,29 @@ const CreateEndpointModal = ({
       setSnackbar({
         isOpen: true,
         message: "An unexpected error occurred",
-        backgroundColor: "#f44336",
+        backgroundColor: STATUS_COLORS.ERROR,
       });
     } finally {
       setIsSubmittingEndpointDetails(false);
     }
+  };
+
+  const handlePathChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, path: value }));
+    if (formTouched.path) {
+      setFormErrors((prev) => ({
+        ...prev,
+        path: validatePath(value),
+      }));
+    }
+  };
+
+  const handlePathBlur = () => {
+    setFormTouched((prev) => ({ ...prev, path: true }));
+    setFormErrors((prev) => ({
+      ...prev,
+      path: validatePath(formData.path),
+    }));
   };
 
   return (
@@ -103,11 +156,12 @@ const CreateEndpointModal = ({
                 <TextField
                   fullWidth
                   label="FAPI Endpoint Path"
-                  placeholder="/api/your-endpoint"
+                  placeholder={`/api/endpoint/paths?query="params"`}
                   value={formData.path}
-                  onChange={(e) =>
-                    setFormData({ ...formData, path: e.target.value })
-                  }
+                  onChange={(e) => handlePathChange(e.target.value)}
+                  onBlur={handlePathBlur}
+                  error={Boolean(formTouched.path && formErrors.path)}
+                  helperText={formTouched.path && formErrors.path}
                   className="font-outfit"
                 ></TextField>
 
