@@ -87,7 +87,7 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
           </div>
 
           {/* Action Section - Edit response, Update Fapi, Delete Fapi */}
-          <div className="flex justify-between items-center mt-auto pt-4">
+          <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-800/70">
             {/* Edit response button */}
             <Button
               startIcon={<EditIcon size={18} />}

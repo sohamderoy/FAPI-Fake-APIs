@@ -26,7 +26,8 @@ const FapiSimulatorPage = () => {
     },
   ];
   return (
-    <div className="min-h-screen bg-black p-6">
+    <div className="min-h-screen bg-gradient-to-tl from-black via-gray-900 to-black p-6">
+      <div className="backdrop-blur-3xl bg-black/20 min-h-screen fixed inset-0 -z-10" />
       <div className="max-w-[1440px] mx-auto">
         {/* Header Section - Title and Create FAPI Button*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">

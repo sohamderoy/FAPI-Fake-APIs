@@ -21,6 +21,7 @@ const Card = ({
 
   return (
     <div className="group relative inline-block">
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
       <div className={`rounded-lg p-[1px] ${getBorderClasses()}`}>
         <div
           className={`relative rounded-lg bg-black font-outfit p-4 ${CARD_SIZES.width[width]} ${CARD_SIZES.height[height]} ${className}`}
