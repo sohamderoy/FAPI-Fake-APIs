@@ -22,8 +22,8 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
     id: "1",
     path: "/api/users/dfsdfasdfsdfasdfafasfs",
     method: "GET",
-    responseCode: 400,
-    responseDelay: 0,
+    responseCode: 500,
+    responseDelay: 60000,
     response: {},
     createdAt: new Date().toISOString(),
   };
@@ -50,40 +50,49 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
           </div>
 
           {/* Simulation Controls Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4 mb-6">
             {/* HTTP Response Code */}
-            <FormControl fullWidth size="small">
-              <InputLabel>HTTP Response Status Code</InputLabel>
-              <Select
-                value={mockEndpoint.responseCode}
-                label="HTTP Response Status Code"
-                className="font-outfit"
-              >
-                {Object.values(FAPI.SUPPORTED_HTTP_RESPONSE_STATUS_CODE).map(
-                  (responseCode) => (
-                    <MenuItem key={responseCode.code} value={responseCode.code}>
-                      {responseCode.label}
-                    </MenuItem>
-                  )
-                )}
-              </Select>
-            </FormControl>
+            <div className="flex-[0.65]">
+              <FormControl fullWidth size="small">
+                <InputLabel>HTTP Response Status Code</InputLabel>
+                <Select
+                  value={mockEndpoint.responseCode}
+                  label="HTTP Response Status Code"
+                  className="font-outfit"
+                >
+                  {Object.values(FAPI.SUPPORTED_HTTP_RESPONSE_STATUS_CODE).map(
+                    (responseCode) => (
+                      <MenuItem
+                        key={responseCode.code}
+                        value={responseCode.code}
+                      >
+                        {responseCode.label}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
+            </div>
 
             {/* Response Delay */}
-            <FormControl fullWidth size="small">
-              <InputLabel>Response Delay</InputLabel>
-              <Select
-                value={mockEndpoint.responseDelay}
-                label="Response Delay"
-                className="font-outfit"
-              >
-                {Object.values(FAPI.SUPPORTED_RESPONSE_DELAYS).map((delay) => (
-                  <MenuItem key={delay.value} value={delay.value}>
-                    {delay.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <div className="flex-[0.35]">
+              <FormControl fullWidth size="small">
+                <InputLabel>Delay</InputLabel>
+                <Select
+                  value={mockEndpoint.responseDelay}
+                  label="Delay"
+                  className="font-outfit"
+                >
+                  {Object.values(FAPI.SUPPORTED_RESPONSE_DELAYS).map(
+                    (delay) => (
+                      <MenuItem key={delay.value} value={delay.value}>
+                        {delay.label}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
+            </div>
           </div>
 
           {/* Action Section - Edit response, Update Fapi, Delete Fapi */}
