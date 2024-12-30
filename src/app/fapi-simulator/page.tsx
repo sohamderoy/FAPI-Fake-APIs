@@ -5,8 +5,6 @@ import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
 import { useRouter } from "next/router";
 
 const FapiSimulatorPage = () => {
-  //   const router = useRouter();
-
   return (
     <div className="min-h-screen bg-black p-6 border border-red-600">
       <div className="max-w-7xl mx-auto border border-blue-400">

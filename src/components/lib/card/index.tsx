@@ -1,5 +1,3 @@
-// Simplified card component with enhanced transition timing and easing
-
 import { CARD_SIZES } from "./data";
 import { CardProps } from "./types";
 
