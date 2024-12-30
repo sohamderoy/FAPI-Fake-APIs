@@ -22,7 +22,7 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
     id: "1",
     path: "/api/users/dfsdfasdfsdfasdfafasfs",
     method: "GET",
-    responseCode: 200,
+    responseCode: 400,
     responseDelay: 0,
     response: {},
     createdAt: new Date().toISOString(),
@@ -39,7 +39,7 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
   };
   return (
     <>
-      <Card borderGradient="hover" height="md">
+      <Card borderGradient="hover" height="md" width="full">
         <div className="flex flex-col h-full">
           {/* Header Section with Method Badge and Endpoint Path */}
           <div className="flex items-center space-x-4 mb-6">
@@ -87,14 +87,14 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
           </div>
 
           {/* Action Section - Edit response, Update Fapi, Delete Fapi */}
-          <div className="flex justify-between items-center mt-auto">
+          <div className="flex justify-between items-center mt-auto pt-4">
             {/* Edit response button */}
             <Button
               startIcon={<EditIcon size={18} />}
               onClick={handleEditResponse}
               className="font-outfit"
               variant="outlined"
-              color="warning"
+              color="primary"
             >
               Edit Response
             </Button>
@@ -108,7 +108,11 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
                 placement="top"
                 title="Update FAPI Endpoint Details"
               >
-                <IconButton onClick={handleUpdateFapi} color="primary">
+                <IconButton
+                  onClick={handleUpdateFapi}
+                  color="secondary"
+                  disabled={true}
+                >
                   <SaveIcon size={20} />
                 </IconButton>
               </Tooltip>
