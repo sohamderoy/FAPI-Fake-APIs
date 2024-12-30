@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 
 const FapiSimulatorPage = () => {
   return (
-    <div className="min-h-screen bg-black p-6 border border-red-600">
-      <div className="max-w-7xl mx-auto border border-blue-400">
+    <div className="min-h-screen bg-black p-6">
+      <div className="max-w-7xl mx-auto">
         {/* Header Section - Title and Create FAPI Button*/}
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-outfit">
@@ -18,9 +18,6 @@ const FapiSimulatorPage = () => {
 
         {/* FAPI Simulation Cards */}
         <div className="space-y-6">
-          <p className="text-gray-400 text-center py-12">
-            FAPI CARDS PLACEHOLDER
-          </p>
           <FapiSimulationCard></FapiSimulationCard>
         </div>
       </div>
