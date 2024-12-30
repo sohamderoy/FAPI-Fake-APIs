@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/lib/button";
+import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
 import { useRouter } from "next/router";
 
 const FapiSimulatorPage = () => {
@@ -22,6 +23,7 @@ const FapiSimulatorPage = () => {
           <p className="text-gray-400 text-center py-12">
             FAPI CARDS PLACEHOLDER
           </p>
+          <FapiSimulationCard></FapiSimulationCard>
         </div>
       </div>
     </div>
