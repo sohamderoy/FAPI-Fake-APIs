@@ -1,6 +1,7 @@
 import { initializeApp } from "@/utils/functions/initializeApp";
 import RootLayoutClient from "./rootLayoutClient";
 import type { Metadata } from "next";
+import StoreProvider from "./storeprovider";
 
 export const metadata: Metadata = {
   title: "FAPI - Fake APIs on the fly",
@@ -16,5 +17,9 @@ export default async function RootLayout({
   await initializeApp();
 
   /* Pass children to client component */
-  return <RootLayoutClient>{children}</RootLayoutClient>;
+  return (
+    <StoreProvider>
+      <RootLayoutClient>{children}</RootLayoutClient>
+    </StoreProvider>
+  );
 }
