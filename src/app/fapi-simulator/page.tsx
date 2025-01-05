@@ -1,13 +1,34 @@
 "use client";
 
 import Button from "@/components/lib/button";
+import SpeedDial from "@/components/lib/speedDial";
+import { SpeedDialAction } from "@/components/lib/speedDial/types";
 import CreateEndpointModal from "@/components/modules/createEndpointModal";
 import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
 import { EndpointsListForFapiSimulationCard } from "@/components/modules/fapiSimulationCard/types";
 import { RootState } from "@/store/store";
 import { HttpMethods } from "@/types/fapi";
+import { PlusCircle, Upload, Download } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+
+const FAPI_SPEED_DIAL_ACTIONS: SpeedDialAction[] = [
+  {
+    icon: PlusCircle,
+    name: "Create FAPI",
+    action: "create",
+  },
+  {
+    icon: Download,
+    name: "Export FAPI Details",
+    action: "export",
+  },
+  {
+    icon: Upload,
+    name: "Import FAPI Details",
+    action: "import",
+  },
+];
 
 const FapiSimulatorPage = () => {
   const endpoints = useSelector(
@@ -30,6 +51,22 @@ const FapiSimulatorPage = () => {
       details,
     };
   });
+
+  const handleSpeedDialAction = (action: string) => {
+    switch (action) {
+      case "create":
+        handleOpenCreateEndpointModal();
+        break;
+      case "export":
+        console.log("Export Speed dial clicked");
+        break;
+      case "import":
+        console.log("Import Speed dial clicked");
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-tl from-black via-gray-900 to-black p-6">
@@ -58,6 +95,13 @@ const FapiSimulatorPage = () => {
           ))}
         </div>
       </div>
+
+      {/* Speed Dial */}
+      <SpeedDial
+        actions={FAPI_SPEED_DIAL_ACTIONS}
+        onActionClick={handleSpeedDialAction}
+      ></SpeedDial>
+
       <CreateEndpointModal
         isCreateEndpointModalOpen={isCreateEndpointModalOpen}
         handleCloseCreateEndpointModal={handleCloseCreateEndpointModal}

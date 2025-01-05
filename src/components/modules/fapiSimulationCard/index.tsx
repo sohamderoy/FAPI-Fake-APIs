@@ -37,17 +37,19 @@ const FapiSimulationCard = ({
   return (
     <>
       <Card borderGradient="hover" height="md" width="full">
-        <div className="flex flex-col h-full">
-          {/* Header Section with Method Badge and Endpoint Path */}
-          <div className="flex items-center space-x-4 mb-6">
+        <div className="h-full flex flex-col">
+          {/* Header Section with Path and Method Badge */}
+          <div className="flex flex-col items-start space-y-2 mb-4">
+            <Tooltip title={path} arrow placement="top">
+              <span className="text-gray-200 font-medium font-outfit truncate max-w-full">
+                {path}
+              </span>
+            </Tooltip>
             <Badge method={method}></Badge>
-            <span className="text-gray-200 font-medium font-outfit truncate">
-              {path}
-            </span>
           </div>
 
           {/* Simulation Controls Section */}
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4">
             {/* HTTP Response Code */}
             <div className="flex-[0.65]">
               <FormControl fullWidth size="small">
@@ -93,7 +95,7 @@ const FapiSimulationCard = ({
           </div>
 
           {/* Action Section - Edit response, Update Fapi, Delete Fapi */}
-          <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-800/70">
+          <div className="mt-4 flex justify-between items-center">
             {/* Edit response button */}
             <Button
               startIcon={<EditIcon size={18} />}
@@ -106,7 +108,6 @@ const FapiSimulationCard = ({
             </Button>
 
             {/* Update and Delete Fapi button group */}
-
             <div className="flex items-center space-x-2">
               {/* Update Fapi button */}
               <Tooltip
