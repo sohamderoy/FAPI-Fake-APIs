@@ -6,18 +6,17 @@ import { BANNER_DATA } from "./data";
 import { getGradientStyles } from "./utils";
 import FeatureCard from "../featureCard";
 import Button from "@/components/lib/button";
-import CreateEndpointModal from "../createEndpointModal";
+import { useRouter } from "next/navigation";
+import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data/paths/paths.ui.constants";
 
 const HomeBanner = ({
   title = BANNER_DATA.defaultTitle,
   subtitle = BANNER_DATA.defaultSubtitle,
 }: HomeBannerProps) => {
-  const [isCreateEndpointModalOpen, setIsCreateEndpointModalOpen] =
-    useState<boolean>(false);
-  const handleOpenCreateEndpointModal = () =>
-    setIsCreateEndpointModalOpen(true);
-  const handleCloseCreateEndpointModal = () =>
-    setIsCreateEndpointModalOpen(false);
+  const router = useRouter();
+  const handleNavigateToSimulator = () => {
+    router.push(FAPI_SIMULATOR_PAGE_PATH);
+  };
   return (
     <div className="flex flex-col items-center justify-center h-full w-full p-4">
       <div className="text-center max-w-3xl mx-auto">
@@ -32,20 +31,11 @@ const HomeBanner = ({
         </p>
 
         {/* Quick action buttons */}
-
         <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-          {/* Create Mock API button */}
-          <Button
-            onClick={handleOpenCreateEndpointModal}
-            name="Create Mock API"
-          />
-
-          {/* Upload Mock API Generator JSON button */}
-          <Button name="Upload Mock API Creator JSON" />
+          <Button name="Let's Go !!!" onClick={handleNavigateToSimulator} />
         </div>
 
         {/* Feature highlights */}
-
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
           {BANNER_DATA.features.map((feature, index) => (
             <FeatureCard
@@ -56,10 +46,6 @@ const HomeBanner = ({
           ))}
         </div>
       </div>
-      <CreateEndpointModal
-        isCreateEndpointModalOpen={isCreateEndpointModalOpen}
-        handleCloseCreateEndpointModal={handleCloseCreateEndpointModal}
-      ></CreateEndpointModal>
     </div>
   );
 };

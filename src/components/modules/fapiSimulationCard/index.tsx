@@ -1,5 +1,8 @@
 import Card from "@/components/lib/card";
-import { FapiSimulationCardProps } from "./types";
+import {
+  EndpointsListForFapiSimulationCard,
+  FapiSimulationCardProps,
+} from "./types";
 import Badge from "@/components/lib/badge";
 import {
   Button,
@@ -17,17 +20,11 @@ import {
   Save as SaveIcon,
 } from "lucide-react";
 
-const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
-  const mockEndpoint = endpoint || {
-    id: "1",
-    path: "/api/users/dfsdfasdfsdfasdfafasfs",
-    method: "GET",
-    responseCode: 500,
-    responseDelay: 60000,
-    response: {},
-    createdAt: new Date().toISOString(),
-  };
-
+const FapiSimulationCard = ({
+  method,
+  path,
+  details,
+}: EndpointsListForFapiSimulationCard) => {
   const handleEditResponse = () => {
     console.log("$$d1, edit response button clicked");
   };
@@ -43,9 +40,9 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
         <div className="flex flex-col h-full">
           {/* Header Section with Method Badge and Endpoint Path */}
           <div className="flex items-center space-x-4 mb-6">
-            <Badge method={mockEndpoint.method}></Badge>
+            <Badge method={method}></Badge>
             <span className="text-gray-200 font-medium font-outfit truncate">
-              {mockEndpoint?.path}
+              {path}
             </span>
           </div>
 
@@ -56,7 +53,7 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
               <FormControl fullWidth size="small">
                 <InputLabel>HTTP Response Status Code</InputLabel>
                 <Select
-                  value={mockEndpoint.responseCode}
+                  value={details.responseCode}
                   label="HTTP Response Status Code"
                   className="font-outfit"
                 >
@@ -79,7 +76,7 @@ const FapiSimulationCard = ({ endpoint }: FapiSimulationCardProps) => {
               <FormControl fullWidth size="small">
                 <InputLabel>Delay</InputLabel>
                 <Select
-                  value={mockEndpoint.responseDelay}
+                  value={details.responseDelay}
                   label="Delay"
                   className="font-outfit"
                 >

@@ -15,18 +15,22 @@ import {
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { CREATE_FAPI_ENDPOINT_INITIAL_DATA } from "./data";
-import { FapiEndpointBase, HttpMethods } from "@/types/fapi";
+import { EndpointKey, FapiEndpointBase, HttpMethods } from "@/types/fapi";
 import { FAPI, FAPI_REGEX, STATUS_COLORS } from "@/utils/data/global.constants";
 import Editor from "@/components/lib/editor";
 import { createEndpoint } from "@/utils/functions/createEndpoint";
 import LoadingOverlay from "@/components/lib/loadingOverlay";
 import Snackbar from "@/components/lib/snackbar";
 import { validateJSON } from "@/utils/functions/validateJSON";
+import { useDispatch } from "react-redux";
+import { setHasFapiEndpoints } from "@/store/slices/navigationSlice";
+import { addEndpoint } from "@/store/slices/endpointsSlice";
 
 const CreateEndpointModal = ({
   isCreateEndpointModalOpen,
   handleCloseCreateEndpointModal,
 }: CreateEndpointModalProps) => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState<FapiEndpointBase>(
     CREATE_FAPI_ENDPOINT_INITIAL_DATA
   );
@@ -102,6 +106,7 @@ const CreateEndpointModal = ({
     try {
       setIsSubmittingEndpointDetails(true);
       const result = await createEndpoint(formData);
+      dispatch(setHasFapiEndpoints(true));
 
       if (result.success) {
         setSnackbar({
@@ -109,7 +114,21 @@ const CreateEndpointModal = ({
           message: "FAPI endpoint created successfully",
           backgroundColor: STATUS_COLORS.SUCCESS,
         });
-        handleCloseCreateEndpointModal();
+        try {
+          dispatch(
+            addEndpoint({
+              key: `${result?.endpoint?.method} ${result?.endpoint?.path}` as EndpointKey,
+              details: {
+                responseCode: result?.endpoint?.responseCode as number,
+                responseDelay: result?.endpoint?.responseDelay as number,
+              },
+            })
+          );
+        } catch (err) {
+          console.log("Error saving details to redux");
+        } finally {
+          handleCloseCreateEndpointModal();
+        }
       } else {
         setSnackbar({
           isOpen: true,
