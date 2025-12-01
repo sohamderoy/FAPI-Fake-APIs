@@ -3,7 +3,7 @@
 import Button from "@/components/lib/button";
 import SpeedDial from "@/components/lib/speedDial";
 import { SpeedDialAction } from "@/components/lib/speedDial/types";
-import CreateEndpointModal from "@/components/modules/createEndpointModal";
+import EndpointModal from "@/components/modules/endpointModal";
 import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
 import { EndpointsListForFapiSimulationCard } from "@/components/modules/fapiSimulationCard/types";
 import { RootState } from "@/store/store";
@@ -102,10 +102,10 @@ const FapiSimulatorPage = () => {
         onActionClick={handleSpeedDialAction}
       ></SpeedDial>
 
-      <CreateEndpointModal
-        isCreateEndpointModalOpen={isCreateEndpointModalOpen}
-        handleCloseCreateEndpointModal={handleCloseCreateEndpointModal}
-      ></CreateEndpointModal>
+      <EndpointModal
+        isOpen={isCreateEndpointModalOpen}
+        onClose={handleCloseCreateEndpointModal}
+      ></EndpointModal>
     </div>
   );
 };

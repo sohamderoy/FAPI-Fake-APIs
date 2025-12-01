@@ -1,6 +1,6 @@
 import Modal from "@/components/lib/modal";
 import {
-  CreateEndpointModalProps,
+  EndpointModalProps,
   FormErrors,
   FormTouched,
   SnackbarState,
@@ -19,20 +19,40 @@ import { EndpointKey, FapiEndpointBase, HttpMethods } from "@/types/fapi";
 import { FAPI, FAPI_REGEX, STATUS_COLORS } from "@/utils/data/global.constants";
 import Editor from "@/components/lib/editor";
 import { createEndpoint } from "@/utils/functions/createEndpoint";
+import { updateFapiEndpoint } from "@/utils/functions/updateFapiEndpoint";
 import LoadingOverlay from "@/components/lib/loadingOverlay";
 import Snackbar from "@/components/lib/snackbar";
 import { validateJSON } from "@/utils/functions/validateJSON";
 import { useDispatch } from "react-redux";
 import { setHasFapiEndpoints } from "@/store/slices/navigationSlice";
-import { addEndpoint } from "@/store/slices/endpointsSlice";
+import { addEndpoint, updateEndpoint } from "@/store/slices/endpointsSlice";
+import { createEndpointKey } from "@/utils/functions/createEndpointKey";
 
-const CreateEndpointModal = ({
-  isCreateEndpointModalOpen,
-  handleCloseCreateEndpointModal,
-}: CreateEndpointModalProps) => {
+const EndpointModal = ({
+  isOpen,
+  onClose,
+  mode = "create",
+  editData,
+}: EndpointModalProps) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState<FapiEndpointBase>(
-    CREATE_FAPI_ENDPOINT_INITIAL_DATA
+  const isEditMode = mode === "edit";
+
+  // Initialize form data based on mode
+  const getInitialFormData = useCallback((): FapiEndpointBase => {
+    if (isEditMode && editData) {
+      return {
+        path: editData.path,
+        method: editData.method as HttpMethods,
+        responseCode: editData.responseCode,
+        responseDelay: editData.responseDelay,
+        response: JSON.stringify(editData.response, null, 2),
+      };
+    }
+    return CREATE_FAPI_ENDPOINT_INITIAL_DATA;
+  }, [isEditMode, editData]);
+
+  const [formData, setFormData] = useState<FapiEndpointBase>(() =>
+    getInitialFormData()
   );
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
@@ -89,53 +109,98 @@ const CreateEndpointModal = ({
       return;
     }
 
-    /* Validating all fields before submission */
-    const isFormValid = validateForm();
+    /* Validating all fields before submission (skip path validation in edit mode) */
+    if (!isEditMode) {
+      const isFormValid = validateForm();
 
-    if (!isFormValid) {
-      setSnackbar({
-        isOpen: true,
-        message: "Please fix the validation errors before submitting",
-        backgroundColor: STATUS_COLORS.ERROR,
-      });
+      if (!isFormValid) {
+        setSnackbar({
+          isOpen: true,
+          message: "Please fix the validation errors before submitting",
+          backgroundColor: STATUS_COLORS.ERROR,
+        });
 
-      return;
+        return;
+      }
     }
 
     /* Try form submission */
     try {
       setIsSubmittingEndpointDetails(true);
-      const result = await createEndpoint(formData);
-      dispatch(setHasFapiEndpoints(true));
 
-      if (result.success) {
-        setSnackbar({
-          isOpen: true,
-          message: "FAPI endpoint created successfully",
-          backgroundColor: STATUS_COLORS.SUCCESS,
+      if (isEditMode) {
+        // Update existing endpoint
+        const parsedResponse = JSON.parse(formData.response);
+        const result = await updateFapiEndpoint({
+          method: formData.method,
+          path: formData.path,
+          response: parsedResponse,
+          responseCode: formData.responseCode,
+          responseDelay: formData.responseDelay,
         });
-        try {
+
+        if (result.success) {
+          setSnackbar({
+            isOpen: true,
+            message: "FAPI endpoint updated successfully",
+            backgroundColor: STATUS_COLORS.SUCCESS,
+          });
+
+          // Update Redux store
           dispatch(
-            addEndpoint({
-              key: `${result?.endpoint?.method} ${result?.endpoint?.path}` as EndpointKey,
+            updateEndpoint({
+              key: createEndpointKey(formData.method, formData.path),
               details: {
-                responseCode: result?.endpoint?.responseCode as number,
-                responseDelay: result?.endpoint?.responseDelay as number,
+                response: parsedResponse,
+                responseCode: formData.responseCode,
+                responseDelay: formData.responseDelay,
               },
             })
           );
-        } catch (err) {
-          console.log("Error saving details to redux");
-        } finally {
-          handleCloseCreateEndpointModal();
+
+          onClose();
+        } else {
+          setSnackbar({
+            isOpen: true,
+            message: result.error || "Failed to update endpoint",
+            backgroundColor: STATUS_COLORS.ERROR,
+          });
         }
       } else {
-        setSnackbar({
-          isOpen: true,
-          message: result.error || "Failed to create endpoint",
-          backgroundColor: STATUS_COLORS.ERROR,
-        });
-        console.log("Failed to create endpoint:", result.error);
+        // Create new endpoint
+        const result = await createEndpoint(formData);
+        dispatch(setHasFapiEndpoints(true));
+
+        if (result.success) {
+          setSnackbar({
+            isOpen: true,
+            message: "FAPI endpoint created successfully",
+            backgroundColor: STATUS_COLORS.SUCCESS,
+          });
+          try {
+            dispatch(
+              addEndpoint({
+                key: `${result?.endpoint?.method} ${result?.endpoint?.path}` as EndpointKey,
+                details: {
+                  responseCode: result?.endpoint?.responseCode as number,
+                  responseDelay: result?.endpoint?.responseDelay as number,
+                  response: (result?.endpoint?.response || {}) as object,
+                },
+              })
+            );
+          } catch (err) {
+            console.log("Error saving details to redux");
+          } finally {
+            onClose();
+          }
+        } else {
+          setSnackbar({
+            isOpen: true,
+            message: result.error || "Failed to create endpoint",
+            backgroundColor: STATUS_COLORS.ERROR,
+          });
+          console.log("Failed to create endpoint:", result.error);
+        }
       }
     } catch (error) {
       console.log("Error submitting form:", error);
@@ -168,35 +233,41 @@ const CreateEndpointModal = ({
   };
 
   const resetModalState = useCallback(() => {
-    setFormData(CREATE_FAPI_ENDPOINT_INITIAL_DATA);
+    setFormData(getInitialFormData());
     setFormErrors({});
     setFormTouched({});
     setIsSubmittingEndpointDetails(false);
-  }, []);
+  }, [getInitialFormData]);
 
   const handelModalClose = useCallback(() => {
     resetModalState();
-    handleCloseCreateEndpointModal();
-  }, [handleCloseCreateEndpointModal, resetModalState]);
+    onClose();
+  }, [onClose, resetModalState]);
 
   useEffect(() => {
-    if (!isCreateEndpointModalOpen) {
+    if (!isOpen) {
       resetModalState();
     }
-  }, [isCreateEndpointModalOpen, resetModalState]);
+  }, [isOpen, resetModalState]);
 
   return (
     <>
       <Modal
-        isModalOpen={isCreateEndpointModalOpen}
+        isModalOpen={isOpen}
         onClose={handelModalClose}
-        title="Create New Mock API Endpoint"
+        title={isEditMode ? "Edit Mock API Endpoint" : "Create New Mock API Endpoint"}
         size="fullscreen"
       >
         <div className="absolute inset-0 p-6">
           {/* Show loading overlay when submitting api details */}
           {isSubmittingEndpointDetails && (
-            <LoadingOverlay overlayMessage="Saving Details and Creating FAPI ..." />
+            <LoadingOverlay
+              overlayMessage={
+                isEditMode
+                  ? "Updating FAPI Endpoint..."
+                  : "Saving Details and Creating FAPI ..."
+              }
+            />
           )}
 
           <div className="flex flex-col h-full">
@@ -214,11 +285,12 @@ const CreateEndpointModal = ({
                   error={Boolean(formTouched.path && formErrors.path)}
                   helperText={formTouched.path && formErrors.path}
                   className="font-outfit"
+                  disabled={isEditMode}
                 ></TextField>
 
                 {/* HTTP Method */}
 
-                <FormControl fullWidth>
+                <FormControl fullWidth disabled={isEditMode}>
                   <InputLabel>HTTP Method</InputLabel>
                   <Select
                     value={formData.method}
@@ -310,7 +382,13 @@ const CreateEndpointModal = ({
             <div className="flex justify-start mt-auto pt-2">
               <Button
                 name={
-                  isSubmittingEndpointDetails ? "Creating FAPI" : "Create FAPI"
+                  isEditMode
+                    ? isSubmittingEndpointDetails
+                      ? "Updating FAPI"
+                      : "Update FAPI"
+                    : isSubmittingEndpointDetails
+                    ? "Creating FAPI"
+                    : "Create FAPI"
                 }
                 disabled={isSubmittingEndpointDetails}
                 onClick={handleSubmitFapiDetails}
@@ -329,4 +407,4 @@ const CreateEndpointModal = ({
     </>
   );
 };
-export default CreateEndpointModal;
+export default EndpointModal;

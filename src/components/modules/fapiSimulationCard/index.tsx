@@ -25,6 +25,7 @@ import {
 import { useState } from "react";
 import Modal from "@/components/lib/modal";
 import Snackbar from "@/components/lib/snackbar";
+import EndpointModal from "@/components/modules/endpointModal";
 import { deleteEndpoint } from "@/utils/functions/deleteEndpoint";
 import { useDispatch } from "react-redux";
 import { removeEndpoint } from "@/store/slices/endpointsSlice";
@@ -38,6 +39,7 @@ const FapiSimulationCard = ({
   const dispatch = useDispatch();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [snackbar, setSnackbar] = useState({
     isOpen: false,
     message: "",
@@ -45,7 +47,11 @@ const FapiSimulationCard = ({
   });
 
   const handleEditResponse = () => {
-    console.log("$$d1, edit response button clicked");
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
   };
 
   const handleUpdateFapi = () => {
@@ -239,6 +245,20 @@ const FapiSimulationCard = ({
           </div>
         </div>
       </Modal>
+
+      {/* Edit Endpoint Modal */}
+      <EndpointModal
+        isOpen={showEditModal}
+        onClose={handleCloseEditModal}
+        mode="edit"
+        editData={{
+          method,
+          path,
+          responseCode: details.responseCode,
+          responseDelay: details.responseDelay,
+          response: details.response,
+        }}
+      />
 
       {/* Snackbar for feedback */}
       <Snackbar
