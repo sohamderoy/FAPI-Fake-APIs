@@ -1,0 +1,25 @@
+export interface EndpointModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  mode?: "create" | "edit";
+  editData?: {
+    method: string;
+    path: string;
+    responseCode: number;
+    responseDelay: number;
+    response: object;
+  };
+}
+
+export interface FormErrors {
+  path?: string;
+}
+export interface FormTouched {
+  path?: boolean;
+}
+
+export interface SnackbarState {
+  isOpen: boolean;
+  message: string;
+  backgroundColor: string;
+}
