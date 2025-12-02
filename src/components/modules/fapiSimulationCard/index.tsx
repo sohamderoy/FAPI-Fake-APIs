@@ -22,14 +22,15 @@ import {
   Trash2 as DeleteIcon,
   Save as SaveIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/lib/modal";
 import Snackbar from "@/components/lib/snackbar";
 import EndpointModal from "@/components/modules/endpointModal";
 import { deleteEndpoint } from "@/utils/functions/deleteEndpoint";
 import { useDispatch } from "react-redux";
-import { removeEndpoint } from "@/store/slices/endpointsSlice";
+import { removeEndpoint, updateEndpoint } from "@/store/slices/endpointsSlice";
 import { createEndpointKey } from "@/utils/functions/createEndpointKey";
+import { updateFapiEndpoint } from "@/utils/functions/updateFapiEndpoint";
 
 const FapiSimulationCard = ({
   method,
@@ -38,8 +39,15 @@ const FapiSimulationCard = ({
 }: EndpointsListForFapiSimulationCard) => {
   const dispatch = useDispatch();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [currentResponseCode, setCurrentResponseCode] = useState(
+    details.responseCode
+  );
+  const [currentResponseDelay, setCurrentResponseDelay] = useState(
+    details.responseDelay
+  );
   const [snackbar, setSnackbar] = useState({
     isOpen: false,
     message: "",
@@ -47,6 +55,10 @@ const FapiSimulationCard = ({
   });
 
   const handleEditResponse = () => {
+    // Reset local state to saved values when opening modal
+    // This ensures modal shows the source of truth and avoids confusion
+    setCurrentResponseCode(details.responseCode);
+    setCurrentResponseDelay(details.responseDelay);
     setShowEditModal(true);
   };
 
@@ -54,8 +66,73 @@ const FapiSimulationCard = ({
     setShowEditModal(false);
   };
 
-  const handleUpdateFapi = () => {
-    console.log("$$d1, update button clicked");
+  // Sync local state with details prop when it changes (e.g., after modal update)
+  useEffect(() => {
+    setCurrentResponseCode(details.responseCode);
+    setCurrentResponseDelay(details.responseDelay);
+  }, [details.responseCode, details.responseDelay]);
+
+  // Check if changes have been made
+  const hasChanges =
+    currentResponseCode !== details.responseCode ||
+    currentResponseDelay !== details.responseDelay;
+
+  const handleUpdateFapi = async () => {
+    if (!hasChanges) return;
+
+    setIsSaving(true);
+
+    try {
+      const result = await updateFapiEndpoint({
+        method,
+        path,
+        responseCode: currentResponseCode,
+        responseDelay: currentResponseDelay,
+      });
+
+      if (result.success) {
+        // Update Redux store
+        dispatch(
+          updateEndpoint({
+            key: createEndpointKey(method, path),
+            details: {
+              responseCode: currentResponseCode,
+              responseDelay: currentResponseDelay,
+            },
+          })
+        );
+
+        // Show success feedback
+        setSnackbar({
+          isOpen: true,
+          message: "FAPI endpoint updated successfully",
+          backgroundColor: STATUS_COLORS.SUCCESS,
+        });
+      } else {
+        // Show error feedback
+        setSnackbar({
+          isOpen: true,
+          message: result.error || "Failed to update endpoint",
+          backgroundColor: STATUS_COLORS.ERROR,
+        });
+
+        // Reset to original values on error
+        setCurrentResponseCode(details.responseCode);
+        setCurrentResponseDelay(details.responseDelay);
+      }
+    } catch (error) {
+      setSnackbar({
+        isOpen: true,
+        message: "An unexpected error occurred",
+        backgroundColor: STATUS_COLORS.ERROR,
+      });
+
+      // Reset to original values on error
+      setCurrentResponseCode(details.responseCode);
+      setCurrentResponseDelay(details.responseDelay);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleDeleteFapi = async () => {
@@ -114,7 +191,10 @@ const FapiSimulationCard = ({
               <FormControl fullWidth size="small">
                 <InputLabel>HTTP Response Status Code</InputLabel>
                 <Select
-                  value={details.responseCode}
+                  value={currentResponseCode}
+                  onChange={(e) =>
+                    setCurrentResponseCode(e.target.value as number)
+                  }
                   label="HTTP Response Status Code"
                   className="font-outfit"
                 >
@@ -137,7 +217,10 @@ const FapiSimulationCard = ({
               <FormControl fullWidth size="small">
                 <InputLabel>Delay</InputLabel>
                 <Select
-                  value={details.responseDelay}
+                  value={currentResponseDelay}
+                  onChange={(e) =>
+                    setCurrentResponseDelay(e.target.value as number)
+                  }
                   label="Delay"
                   className="font-outfit"
                 >
@@ -172,15 +255,25 @@ const FapiSimulationCard = ({
               <Tooltip
                 arrow
                 placement="top"
-                title="Update FAPI Endpoint Details"
+                title={
+                  hasChanges
+                    ? "Save changes"
+                    : "No changes to save"
+                }
               >
-                <IconButton
-                  onClick={handleUpdateFapi}
-                  color="secondary"
-                  disabled={true}
-                >
-                  <SaveIcon size={20} />
-                </IconButton>
+                <span>
+                  <IconButton
+                    onClick={handleUpdateFapi}
+                    color="secondary"
+                    disabled={!hasChanges || isSaving}
+                  >
+                    {isSaving ? (
+                      <CircularProgress size={20} color="secondary" />
+                    ) : (
+                      <SaveIcon size={20} />
+                    )}
+                  </IconButton>
+                </span>
               </Tooltip>
 
               {/* Delete Fapi Button */}
