@@ -12,6 +12,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { CREATE_FAPI_ENDPOINT_INITIAL_DATA } from "./data";
@@ -86,6 +87,74 @@ const EndpointModal = ({
   const handleCloseSnackbar = () => {
     setSnackbar((prev) => ({ ...prev, isOpen: false }));
   };
+
+  // Check if any changes have been made in edit mode
+  const hasChanges = useCallback((): boolean => {
+    if (!isEditMode || !editData) return true; // In create mode, always allow submission
+
+    // Compare current form data with original edit data
+    const responseChanged = formData.response !== JSON.stringify(editData.response, null, 2);
+    const responseCodeChanged = formData.responseCode !== editData.responseCode;
+    const responseDelayChanged = formData.responseDelay !== editData.responseDelay;
+
+    return responseChanged || responseCodeChanged || responseDelayChanged;
+  }, [isEditMode, editData, formData]);
+
+  // Check if the button should be disabled
+  const isButtonDisabled = useCallback((): boolean => {
+    // Always disable during submission
+    if (isSubmittingEndpointDetails) return true;
+
+    // Check if JSON is valid
+    const jsonValidation = validateJSON(formData.response);
+    if (!jsonValidation.isValid) return true;
+
+    // In create mode, check if path is valid
+    if (!isEditMode) {
+      const pathError = validatePath(formData.path);
+      if (pathError) return true;
+    }
+
+    // In edit mode, check if there are changes
+    if (isEditMode && !hasChanges()) return true;
+
+    return false;
+  }, [
+    isSubmittingEndpointDetails,
+    formData.response,
+    formData.path,
+    isEditMode,
+    hasChanges,
+    validatePath,
+  ]);
+
+  // Get the tooltip message explaining why button is disabled
+  const getButtonDisabledTooltip = useCallback((): string => {
+    if (isSubmittingEndpointDetails) return "";
+
+    const jsonValidation = validateJSON(formData.response);
+    if (!jsonValidation.isValid) {
+      return `Invalid JSON: ${jsonValidation.error}`;
+    }
+
+    if (!isEditMode) {
+      const pathError = validatePath(formData.path);
+      if (pathError) return pathError;
+    }
+
+    if (isEditMode && !hasChanges()) {
+      return "No changes to save";
+    }
+
+    return "";
+  }, [
+    isSubmittingEndpointDetails,
+    formData.response,
+    formData.path,
+    isEditMode,
+    hasChanges,
+    validatePath,
+  ]);
 
   const validateForm = useCallback((): boolean => {
     const pathError = validatePath(formData.path);
@@ -380,19 +449,27 @@ const EndpointModal = ({
             </div>
 
             <div className="flex justify-start mt-auto pt-2">
-              <Button
-                name={
-                  isEditMode
-                    ? isSubmittingEndpointDetails
-                      ? "Updating FAPI"
-                      : "Update FAPI"
-                    : isSubmittingEndpointDetails
-                    ? "Creating FAPI"
-                    : "Create FAPI"
-                }
-                disabled={isSubmittingEndpointDetails}
-                onClick={handleSubmitFapiDetails}
-              />
+              <Tooltip
+                title={getButtonDisabledTooltip()}
+                arrow
+                placement="top"
+              >
+                <span>
+                  <Button
+                    name={
+                      isEditMode
+                        ? isSubmittingEndpointDetails
+                          ? "Updating FAPI"
+                          : "Update FAPI"
+                        : isSubmittingEndpointDetails
+                        ? "Creating FAPI"
+                        : "Create FAPI"
+                    }
+                    disabled={isButtonDisabled()}
+                    onClick={handleSubmitFapiDetails}
+                  />
+                </span>
+              </Tooltip>
             </div>
           </div>
         </div>
