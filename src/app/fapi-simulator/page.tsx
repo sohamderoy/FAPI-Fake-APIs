@@ -297,10 +297,10 @@ const FapiSimulatorPage = () => {
     },
     {
       label: "Merge",
-      onClick: () => handleImportStrategy(IMPORT_STRATEGY.MERGE),
+      onClick: isAtLimit ? () => {} : () => handleImportStrategy(IMPORT_STRATEGY.MERGE),
       variant: "primary",
       className: isAtLimit
-        ? "opacity-50 cursor-not-allowed bg-gray-600"
+        ? "flex-1 px-4 py-3 text-gray-400 font-medium rounded-lg bg-gray-700 cursor-not-allowed opacity-60"
         : undefined,
     },
     {
