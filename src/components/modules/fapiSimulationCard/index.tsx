@@ -23,8 +23,9 @@ import {
   Save as SaveIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import Modal from "@/components/lib/modal";
 import Snackbar from "@/components/lib/snackbar";
+import ConfirmationModal from "@/components/lib/confirmationModal";
+import { ConfirmationButton } from "@/components/lib/confirmationModal/types";
 import EndpointModal from "@/components/modules/endpointModal";
 import { deleteEndpoint } from "@/utils/functions/deleteEndpoint";
 import { useDispatch } from "react-redux";
@@ -135,6 +136,10 @@ const FapiSimulationCard = ({
     }
   };
 
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirm(false);
+  };
+
   const handleDeleteFapi = async () => {
     setShowDeleteConfirm(false);
     setIsDeleting(true);
@@ -170,10 +175,23 @@ const FapiSimulationCard = ({
       setIsDeleting(false);
     }
   };
+
+  const deleteConfirmationButtons: ConfirmationButton[] = [
+    {
+      label: "Cancel",
+      onClick: handleDeleteCancel,
+      variant: "secondary",
+    },
+    {
+      label: "Yes, Delete",
+      onClick: handleDeleteFapi,
+      variant: "danger",
+    },
+  ];
   return (
     <>
       <Card borderGradient="hover" height="md" width="full">
-        <div className="h-full flex flex-col">
+        <div className="h-full flex flex-col pb-4">
           {/* Header Section with Path and Method Badge */}
           <div className="flex flex-col items-start space-y-2 mb-4">
             <Tooltip title={path} arrow placement="top">
@@ -237,7 +255,7 @@ const FapiSimulationCard = ({
           </div>
 
           {/* Action Section - Edit response, Update Fapi, Delete Fapi */}
-          <div className="mt-4 flex justify-between items-center">
+          <div className="mt-auto pt-6 flex justify-between items-center">
             {/* Edit response button */}
             <Button
               startIcon={<EditIcon size={18} />}
@@ -296,48 +314,13 @@ const FapiSimulationCard = ({
       </Card>
 
       {/* Delete Confirmation Modal */}
-      <Modal
-        isModalOpen={showDeleteConfirm}
-        onClose={() => setShowDeleteConfirm(false)}
+      <ConfirmationModal
+        isOpen={showDeleteConfirm}
         title="Delete FAPI Endpoint?"
-        size="sm"
-      >
-        <div className="p-6">
-          <p className="text-gray-300 mb-4">
-            Are you sure you want to delete this endpoint?
-          </p>
-          <div className="bg-gray-800 p-4 rounded-lg mb-4">
-            <p className="text-gray-400 text-sm mb-2">
-              <strong className="text-gray-200">Method:</strong>{" "}
-              <Badge method={method} />
-            </p>
-            <p className="text-gray-400 text-sm break-all">
-              <strong className="text-gray-200">Path:</strong> {path}
-            </p>
-          </div>
-          <p className="text-red-400 text-sm mb-6">
-            ⚠️ This action cannot be undone.
-          </p>
-
-          <div className="flex justify-end space-x-3">
-            <Button
-              variant="outlined"
-              onClick={() => setShowDeleteConfirm(false)}
-              className="font-outfit"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={handleDeleteFapi}
-              className="font-outfit"
-            >
-              Delete
-            </Button>
-          </div>
-        </div>
-      </Modal>
+        message={`Are you sure you want to delete this endpoint?\n\nMethod: ${method}\nPath: ${path}\n\n⚠️ This action cannot be undone.`}
+        buttons={deleteConfirmationButtons}
+        onClose={handleDeleteCancel}
+      />
 
       {/* Edit Endpoint Modal */}
       <EndpointModal

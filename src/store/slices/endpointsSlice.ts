@@ -4,6 +4,7 @@ import { EndpointKey, HttpMethods } from "@/types/fapi";
 
 const initialState: EndpointsState = {
   endpoints: {},
+  projectName: "",
 };
 
 const endpointsSlice = createSlice({
@@ -18,7 +19,6 @@ const endpointsSlice = createSlice({
       }>
     ) => {
       const { key, details } = action.payload;
-      console.log("$$t1", action.payload, key, details);
       state.endpoints[key] = details;
     },
     removeEndpoint: (state, action: PayloadAction<EndpointKey>) => {
@@ -42,9 +42,29 @@ const endpointsSlice = createSlice({
         };
       }
     },
+
+    hydrateEndpoints: (
+      state,
+      action: PayloadAction<{
+        endpoints: Record<EndpointKey, EndpointDetails>;
+        projectName: string;
+      }>
+    ) => {
+      state.endpoints = action.payload.endpoints;
+      state.projectName = action.payload.projectName;
+    },
+
+    setProjectName: (state, action: PayloadAction<string>) => {
+      state.projectName = action.payload;
+    },
   },
 });
 
-export const { addEndpoint, updateEndpoint, removeEndpoint } =
-  endpointsSlice.actions;
+export const {
+  addEndpoint,
+  updateEndpoint,
+  removeEndpoint,
+  hydrateEndpoints,
+  setProjectName,
+} = endpointsSlice.actions;
 export default endpointsSlice.reducer;

@@ -20,17 +20,28 @@ export const initializeFapiStorage = async (port: string): Promise<void> => {
   );
 
   try {
+    // Ensure directory exists
     await fs.mkdir(fapiStorageDirectory, { recursive: true });
-    await fs.unlink(fapiStorageFilePathPerPort);
-  } catch (err) {
-    console.log("ERR_FILE_DOES_NOT_EXIST", err);
-  }
 
-  /* Create empty storage file */
-  const initialStorage = getInitialStorage();
-  await fs.writeFile(
-    fapiStorageFilePathPerPort,
-    JSON.stringify(initialStorage, null, 2)
-  );
-  console.log("SUCCESS_INITIALIZING_FAPI_STORAGE");
+    // Check if storage file already exists
+    try {
+      await fs.access(fapiStorageFilePathPerPort);
+      console.log("STORAGE_FILE_EXISTS_SKIPPING_INITIALIZATION");
+      return; // File exists, don't overwrite
+    } catch {
+      // File doesn't exist, proceed with creation
+      console.log("STORAGE_FILE_NOT_FOUND_CREATING_NEW");
+    }
+
+    // Create empty storage file only if it doesn't exist
+    const initialStorage = getInitialStorage();
+    await fs.writeFile(
+      fapiStorageFilePathPerPort,
+      JSON.stringify(initialStorage, null, 2)
+    );
+    console.log("SUCCESS_INITIALIZING_FAPI_STORAGE");
+  } catch (err) {
+    console.error("ERROR_INITIALIZING_FAPI_STORAGE", err);
+    throw err;
+  }
 };

@@ -83,4 +83,25 @@ export const STATUS_COLORS = {
 
 export const FAPI_REGEX = {
   ENDPOINT_PATH: /^[/a-zA-Z0-9-_]+(?:[?&=a-zA-Z0-9-_'"% ])*$/,
+  PROJECT_NAME: /^[a-zA-Z0-9 ]*$/,
 };
+
+export const UPDATE_PROJECT_NAME_API_PATH = "/api/update-project-name";
+
+export const FAPI_EXPORT_FILENAME_PREFIX = "FAPI-Endpoints";
+
+// FAPI Limits
+export const FAPI_LIMITS = {
+  MAX_ENDPOINTS: 5, // Total limit for endpoints (applies to both file import and total count)
+  MAX_FILE_SIZE_MB: 5,
+  MAX_FILE_SIZE_BYTES: 5 * 1024 * 1024, // 5MB in bytes
+} as const;
+
+// Import Strategies
+export const IMPORT_STRATEGY = {
+  MERGE: "merge",
+  REPLACE: "replace",
+} as const;
+
+export type ImportStrategy =
+  (typeof IMPORT_STRATEGY)[keyof typeof IMPORT_STRATEGY];

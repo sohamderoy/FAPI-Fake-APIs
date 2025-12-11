@@ -6,6 +6,7 @@ export const getInitialStorage = (): FapiStorage => {
     metadata: {
       lastUpdated: new Date().toISOString(),
       totalEndpoints: 0,
+      projectName: "",
     },
   };
 };

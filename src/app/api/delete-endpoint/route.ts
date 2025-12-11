@@ -10,8 +10,6 @@ export const POST = async (req: NextRequest) => {
     const { method, path }: { method: HttpMethods; path: string } =
       await req.json();
 
-    console.log("$$d1, delete endpoint request", { method, path });
-
     /* Check if required fields are present */
     if (!method || !path) {
       return new NextResponse(
@@ -65,7 +63,6 @@ export const POST = async (req: NextRequest) => {
 
     /* Generate endpoint key and check if endpoint exists */
     const endpointKey = createEndpointKey(method, path);
-    console.log("$$d2, endpoint key", endpointKey);
 
     if (!storage.endpoints[endpointKey]) {
       return new NextResponse(
@@ -92,8 +89,6 @@ export const POST = async (req: NextRequest) => {
       fapiStorageFilePathPerPort,
       JSON.stringify(storage, null, 2)
     );
-
-    console.log("$$d3, endpoint deleted successfully", endpointKey);
 
     return new NextResponse(
       JSON.stringify({

@@ -18,6 +18,7 @@ export interface FapiStorage {
   metadata: {
     lastUpdated: string;
     totalEndpoints: number;
+    projectName?: string;
   };
 }
 
