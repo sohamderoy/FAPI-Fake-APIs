@@ -21,14 +21,6 @@ export const POST = async (req: NextRequest) => {
       responseDelay?: number;
     } = await req.json();
 
-    console.log("$$u1, update endpoint request", {
-      method,
-      path,
-      response,
-      responseCode,
-      responseDelay,
-    });
-
     /* Check if required fields are present */
     if (!method || !path) {
       return new NextResponse(
@@ -99,7 +91,6 @@ export const POST = async (req: NextRequest) => {
 
     /* Generate endpoint key and check if endpoint exists */
     const endpointKey = createEndpointKey(method, path);
-    console.log("$$u2, endpoint key", endpointKey);
 
     if (!storage.endpoints[endpointKey]) {
       return new NextResponse(
@@ -133,8 +124,6 @@ export const POST = async (req: NextRequest) => {
       fapiStorageFilePathPerPort,
       JSON.stringify(storage, null, 2)
     );
-
-    console.log("$$u3, endpoint updated successfully", endpointKey);
 
     return new NextResponse(
       JSON.stringify({

@@ -9,7 +9,6 @@ import { createEndpointKey } from "@/utils/functions/createEndpointKey";
 export const POST = async (req: NextRequest) => {
   try {
     const data = (await req.json()) as FapiEndpoint;
-    console.log("$$a1, post data", data);
     const port = process.env.PORT || "3000";
     const fapiStorageDirectory = getStorageDirectory();
     const fapiStorageFilePathPerPort = getFapiStorageFilePathPerPort(
@@ -57,8 +56,6 @@ export const POST = async (req: NextRequest) => {
     }
 
     const endpointKey = createEndpointKey(data.method, data.path);
-
-    console.log("$$a2 endpoint key", endpointKey);
 
     /* Adding the new endpoint in the storage and updating metadata */
     storage.endpoints[endpointKey] = {

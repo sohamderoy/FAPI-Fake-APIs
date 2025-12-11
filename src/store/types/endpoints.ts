@@ -8,4 +8,5 @@ export interface EndpointDetails {
 
 export interface EndpointsState {
   endpoints: Record<EndpointKey, EndpointDetails>;
+  projectName: string;
 }

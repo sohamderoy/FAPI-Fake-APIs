@@ -163,8 +163,6 @@ const EndpointModal = ({
   }, [formData.path, validatePath]);
 
   const handleSubmitFapiDetails = async () => {
-    console.log("$$d1, formData", JSON.stringify(formData, null, 2));
-
     /* Validate JSON Response */
     const jsonValidation = validateJSON(formData.response);
 
