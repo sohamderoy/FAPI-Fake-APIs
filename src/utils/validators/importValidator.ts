@@ -126,7 +126,7 @@ export const validateImportData = (
 
   // Validate total count after import
   const totalCountCheck = validateTotalEndpointCount(
-    currentCount,
+    currentEndpointCount,
     endpointEntries.length,
     isReplaceMode
   );
