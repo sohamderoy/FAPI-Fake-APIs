@@ -1,14 +1,11 @@
 "use client";
 
 import Button from "@/components/lib/button";
-import SpeedDial from "@/components/lib/speedDial";
-import { SpeedDialAction } from "@/components/lib/speedDial/types";
 import EndpointModal from "@/components/modules/endpointModal";
 import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
 import { EndpointsListForFapiSimulationCard } from "@/components/modules/fapiSimulationCard/types";
 import { RootState } from "@/store/store";
 import { HttpMethods } from "@/types/fapi";
-import { PlusCircle, Upload, Download } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -35,24 +32,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Save as SaveIcon } from "lucide-react";
-
-const FAPI_SPEED_DIAL_ACTIONS: SpeedDialAction[] = [
-  {
-    icon: PlusCircle,
-    name: "Create FAPI",
-    action: "create",
-  },
-  {
-    icon: Download,
-    name: "Export FAPI Details",
-    action: "export",
-  },
-  {
-    icon: Upload,
-    name: "Import FAPI Details",
-    action: "import",
-  },
-];
 
 const FapiSimulatorPage = () => {
   const dispatch = useDispatch();
@@ -297,7 +276,9 @@ const FapiSimulatorPage = () => {
     },
     {
       label: "Merge",
-      onClick: isAtLimit ? () => {} : () => handleImportStrategy(IMPORT_STRATEGY.MERGE),
+      onClick: isAtLimit
+        ? () => {}
+        : () => handleImportStrategy(IMPORT_STRATEGY.MERGE),
       variant: "primary",
       className: isAtLimit
         ? "flex-1 px-4 py-3 text-gray-400 font-medium rounded-lg bg-gray-700 cursor-not-allowed opacity-60"
@@ -309,37 +290,6 @@ const FapiSimulatorPage = () => {
       variant: "danger",
     },
   ];
-
-  const handleSpeedDialAction = (action: string) => {
-    switch (action) {
-      case "create":
-        handleOpenCreateEndpointModal();
-        break;
-      case "export":
-        if (Object.keys(endpoints).length === 0) {
-          setSnackbar({
-            isOpen: true,
-            message: "No endpoints to export",
-            backgroundColor: STATUS_COLORS.ERROR,
-          });
-        } else {
-          exportEndpoints(endpoints, projectName);
-          setSnackbar({
-            isOpen: true,
-            message: `Successfully exported ${
-              Object.keys(endpoints).length
-            } endpoint(s)`,
-            backgroundColor: STATUS_COLORS.SUCCESS,
-          });
-        }
-        break;
-      case "import":
-        handleImport();
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-tl from-black via-gray-900 to-black p-6">
@@ -355,28 +305,73 @@ const FapiSimulatorPage = () => {
       />
 
       <div className="max-w-[1440px] mx-auto">
-        {/* Header Section - Title and Create FAPI Button*/}
+        {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-outfit">
             FAPI Simulator
           </h1>
-          <Tooltip
-            title={
-              isAtLimit
-                ? `Maximum limit of ${FAPI_LIMITS.MAX_ENDPOINTS} endpoints reached`
-                : "Create a new FAPI endpoint"
-            }
-            arrow
-            placement="left"
-          >
-            <span>
-              <Button
-                onClick={isAtLimit ? undefined : handleOpenCreateEndpointModal}
-                name="Create New FAPI"
-                disabled={isAtLimit}
-              ></Button>
-            </span>
-          </Tooltip>
+          <div className="flex items-center gap-2">
+            <Tooltip
+              title={
+                isAtLimit
+                  ? `Maximum limit of ${FAPI_LIMITS.MAX_ENDPOINTS} endpoints reached`
+                  : "Create a new FAPI endpoint"
+              }
+              arrow
+              placement="top"
+            >
+              <span>
+                <Button
+                  onClick={
+                    isAtLimit ? undefined : handleOpenCreateEndpointModal
+                  }
+                  name="Create a new FAPI"
+                  disabled={isAtLimit}
+                ></Button>
+              </span>
+            </Tooltip>
+
+            <Tooltip
+              title="Import FAPI details from JSON file"
+              arrow
+              placement="top"
+            >
+              <span>
+                <Button
+                  onClick={handleImport}
+                  name="Import FAPIs"
+                  disabled={isImporting}
+                  variant="secondary"
+                ></Button>
+              </span>
+            </Tooltip>
+
+            <Tooltip
+              title={
+                currentEndpointCount === 0
+                  ? "No endpoints to export"
+                  : "Export FAPI details to JSON file"
+              }
+              arrow
+              placement="top"
+            >
+              <span>
+                <Button
+                  onClick={() => {
+                    exportEndpoints(endpoints, projectName);
+                    setSnackbar({
+                      isOpen: true,
+                      message: `Successfully exported ${currentEndpointCount} endpoint(s)`,
+                      backgroundColor: STATUS_COLORS.SUCCESS,
+                    });
+                  }}
+                  name="Export FAPIs"
+                  disabled={currentEndpointCount === 0}
+                  variant="secondary"
+                ></Button>
+              </span>
+            </Tooltip>
+          </div>
         </div>
 
         {/* Project Name Section */}
@@ -436,7 +431,7 @@ const FapiSimulatorPage = () => {
         <div className="mb-6">
           <div className="inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-lg">
             <span className="text-sm text-gray-400 font-outfit">
-              Endpoints:
+              No. of FAPIs Created:
             </span>
             <span className="text-lg font-semibold text-white font-outfit">
               {currentEndpointCount}
@@ -465,12 +460,6 @@ const FapiSimulatorPage = () => {
           ))}
         </div>
       </div>
-
-      {/* Speed Dial */}
-      <SpeedDial
-        actions={FAPI_SPEED_DIAL_ACTIONS}
-        onActionClick={handleSpeedDialAction}
-      ></SpeedDial>
 
       <EndpointModal
         isOpen={isCreateEndpointModalOpen}

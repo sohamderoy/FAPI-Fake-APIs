@@ -190,20 +190,20 @@ const FapiSimulationCard = ({
   ];
   return (
     <>
-      <Card borderGradient="hover" height="md" width="full">
-        <div className="h-full flex flex-col pb-4">
+      <Card borderGradient="hover" height="full" width="full">
+        <div className="h-full flex flex-col">
           {/* Header Section with Path and Method Badge */}
-          <div className="flex flex-col items-start space-y-2 mb-4">
+          <div className="flex flex-col items-start space-y-2">
+            <Badge method={method}></Badge>
             <Tooltip title={path} arrow placement="top">
               <span className="text-gray-200 font-medium font-outfit truncate max-w-full">
                 {path}
               </span>
             </Tooltip>
-            <Badge method={method}></Badge>
           </div>
 
           {/* Simulation Controls Section */}
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col md:flex-row gap-4 mt-6 mb-6">
             {/* HTTP Response Code */}
             <div className="flex-[0.65]">
               <FormControl fullWidth size="small">
@@ -255,7 +255,7 @@ const FapiSimulationCard = ({
           </div>
 
           {/* Action Section - Edit response, Update Fapi, Delete Fapi */}
-          <div className="mt-auto pt-6 flex justify-between items-center">
+          <div className="mt-auto flex justify-between items-center">
             {/* Edit response button */}
             <Button
               startIcon={<EditIcon size={18} />}
@@ -273,11 +273,7 @@ const FapiSimulationCard = ({
               <Tooltip
                 arrow
                 placement="top"
-                title={
-                  hasChanges
-                    ? "Save changes"
-                    : "No changes to save"
-                }
+                title={hasChanges ? "Save changes" : "No changes to save"}
               >
                 <span>
                   <IconButton
