@@ -193,17 +193,17 @@ const FapiSimulationCard = ({
       <Card borderGradient="hover" height="full" width="full">
         <div className="h-full flex flex-col">
           {/* Header Section with Path and Method Badge */}
-          <div className="flex flex-col items-start space-y-2">
-            <Badge method={method}></Badge>
+          <div className="flex items-center justify-between w-full gap-4">
             <Tooltip title={path} arrow placement="top">
-              <span className="text-gray-200 font-medium font-outfit truncate max-w-full">
+              <span className="text-base font-semibold font-mono truncate bg-gray-800/50 px-3 py-1.5 rounded-md text-gray-100">
                 {path}
               </span>
             </Tooltip>
+            <Badge method={method}></Badge>
           </div>
 
           {/* Simulation Controls Section */}
-          <div className="flex flex-col md:flex-row gap-4 mt-6 mb-6">
+          <div className="flex flex-col md:flex-row gap-4 my-7">
             {/* HTTP Response Code */}
             <div className="flex-[0.65]">
               <FormControl fullWidth size="small">
