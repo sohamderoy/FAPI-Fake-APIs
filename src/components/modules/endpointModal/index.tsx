@@ -28,6 +28,7 @@ import { useDispatch } from "react-redux";
 import { setHasFapiEndpoints } from "@/store/slices/navigationSlice";
 import { addEndpoint, updateEndpoint } from "@/store/slices/endpointsSlice";
 import { createEndpointKey } from "@/utils/functions/createEndpointKey";
+import PrivacyBanner from "@/components/lib/privacyBanner";
 
 const EndpointModal = ({
   isOpen,
@@ -73,7 +74,7 @@ const EndpointModal = ({
     if (!path.startsWith("/")) return "Endpoint path must start with /";
     if (path.length < 2) return "Endpoint path must have at least 2 characters";
     if (!FAPI_REGEX.ENDPOINT_PATH.test(path))
-      return "Invalid characters in path. Allowed: letters, numbers, and the following special characters: / - _ ? & = ' \" % space";
+      return "Invalid characters in path. Allowed: letters, numbers, and the following special characters: / - _ ? & = , ' \" % space";
     return undefined;
   }, []);
 
@@ -93,9 +94,11 @@ const EndpointModal = ({
     if (!isEditMode || !editData) return true; // In create mode, always allow submission
 
     // Compare current form data with original edit data
-    const responseChanged = formData.response !== JSON.stringify(editData.response, null, 2);
+    const responseChanged =
+      formData.response !== JSON.stringify(editData.response, null, 2);
     const responseCodeChanged = formData.responseCode !== editData.responseCode;
-    const responseDelayChanged = formData.responseDelay !== editData.responseDelay;
+    const responseDelayChanged =
+      formData.responseDelay !== editData.responseDelay;
 
     return responseChanged || responseCodeChanged || responseDelayChanged;
   }, [isEditMode, editData, formData]);
@@ -322,7 +325,9 @@ const EndpointModal = ({
       <Modal
         isModalOpen={isOpen}
         onClose={handelModalClose}
-        title={isEditMode ? "Edit Mock API Endpoint" : "Create New Mock API Endpoint"}
+        title={
+          isEditMode ? "Edit Mock API Endpoint" : "Create New Mock API Endpoint"
+        }
         size="fullscreen"
       >
         <div className="absolute inset-0 p-6">
@@ -338,6 +343,11 @@ const EndpointModal = ({
           )}
 
           <div className="flex flex-col h-full">
+            {/* Privacy Banner */}
+            <div className="mb-4">
+              <PrivacyBanner />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-4">
               <>
                 {/* FAPI Endpoint Path */}
@@ -353,8 +363,8 @@ const EndpointModal = ({
                   helperText={formTouched.path && formErrors.path}
                   disabled={isEditMode}
                   sx={{
-                    '& .MuiInputBase-input': {
-                      fontFamily: 'var(--font-jetbrains-mono)',
+                    "& .MuiInputBase-input": {
+                      fontFamily: "var(--font-jetbrains-mono)",
                     },
                   }}
                 ></TextField>
@@ -440,7 +450,7 @@ const EndpointModal = ({
 
             {/* Editor Section */}
 
-            <div className="flex-1 min-h-0 mb-8">
+            <div className="flex-1 min-h-0 mb-1">
               <p className="text-gray-300 mb-2 text-sm">Response Body (JSON)</p>
               <div className="h-[calc(100%-40px)]">
                 <Editor
@@ -451,11 +461,7 @@ const EndpointModal = ({
             </div>
 
             <div className="flex justify-start mt-auto pt-2">
-              <Tooltip
-                title={getButtonDisabledTooltip()}
-                arrow
-                placement="top"
-              >
+              <Tooltip title={getButtonDisabledTooltip()} arrow placement="top">
                 <span>
                   <Button
                     name={

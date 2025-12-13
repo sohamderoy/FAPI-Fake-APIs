@@ -1,6 +1,11 @@
 import { ButtonProps } from "./types";
 
-const Button = ({ name, onClick, disabled, variant = "primary" }: ButtonProps) => {
+const Button = ({
+  name,
+  onClick,
+  disabled,
+  variant = "primary",
+}: ButtonProps) => {
   const isPrimary = variant === "primary";
   const isSecondary = variant === "secondary";
 
@@ -28,9 +33,9 @@ const Button = ({ name, onClick, disabled, variant = "primary" }: ButtonProps) =
           disabled={disabled}
           className={`relative w-full sm:w-auto font-outfit font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center ${
             disabled
-              ? "bg-gray-700 text-gray-500 cursor-not-allowed"
+              ? "bg-gray-700 text-gray-500 cursor-not-allowed border-2 border-gray-700"
               : isPrimary
-              ? "bg-blue-600 text-white hover:bg-black hover:text-blue-600"
+              ? "bg-blue-600 text-white hover:bg-black hover:text-blue-600 border-2 border-blue-600 hover:border-black"
               : isSecondary
               ? "bg-transparent border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 hover:text-white"
               : ""

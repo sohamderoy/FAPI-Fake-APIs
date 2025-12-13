@@ -5,3 +5,7 @@ export const MODAL_SIZES = {
   xl: "w-[1000px]",
   fullscreen: "w-[95vw] h-[90vh]",
 };
+
+export const BASE_STYLE = {
+  height: "h-[calc(90vh-120px)]",
+};
