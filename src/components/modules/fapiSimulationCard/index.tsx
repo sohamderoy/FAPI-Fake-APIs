@@ -241,7 +241,7 @@ const FapiSimulationCard = ({
           </div>
 
           {/* Simulation Controls Section */}
-          <div className="flex flex-col md:flex-row gap-4 my-7">
+          <div className="flex flex-col md:flex-row gap-4 my-8">
             {/* HTTP Response Code */}
             <div className="flex-[0.65]">
               <FormControl fullWidth size="small">

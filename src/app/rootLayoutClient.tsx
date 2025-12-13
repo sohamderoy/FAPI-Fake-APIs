@@ -1,7 +1,7 @@
 "use client";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { outfit, jetbrainsMono } from "./fonts";
+import { outfit, jetbrainsMono, montserrat } from "./fonts";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "@/theme/theme";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,7 +13,7 @@ export default function RootLayoutClient({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable} ${montserrat.variable}`}>
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>

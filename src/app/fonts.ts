@@ -1,4 +1,4 @@
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { Outfit, JetBrains_Mono, Montserrat } from "next/font/google";
 
 export const outfit = Outfit({
   subsets: ["latin"],
@@ -8,4 +8,9 @@ export const outfit = Outfit({
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+});
+
+export const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
 });
