@@ -305,8 +305,8 @@ const FapiSimulatorPage = () => {
       <div className="max-w-[1440px] mx-auto">
         {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-montserrat">
-            FAPI Simulator
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-montserrat">
+            FAPI
           </h1>
           <div className="flex items-center gap-2">
             <Tooltip

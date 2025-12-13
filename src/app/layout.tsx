@@ -1,7 +1,7 @@
 import { initializeApp } from "@/utils/functions/initializeApp";
 import RootLayoutClient from "./rootLayoutClient";
 import type { Metadata } from "next";
-import StoreProvider from "./storeprovider";
+import StoreProvider from "./storeProvider";
 
 export const metadata: Metadata = {
   title: "FAPI - Fake APIs on the fly",
