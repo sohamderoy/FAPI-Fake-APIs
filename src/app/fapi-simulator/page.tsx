@@ -305,7 +305,7 @@ const FapiSimulatorPage = () => {
       <div className="max-w-[1440px] mx-auto">
         {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-outfit">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-montserrat">
             FAPI Simulator
           </h1>
           <div className="flex items-center gap-2">
@@ -519,7 +519,7 @@ const FapiSimulatorPage = () => {
               <div className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center mt-0.5">
                   <span className="text-red-400 text-lg leading-none flex items-center justify-center">
-                    ⚠
+                    !
                   </span>
                 </div>
                 <div className="flex-1">
