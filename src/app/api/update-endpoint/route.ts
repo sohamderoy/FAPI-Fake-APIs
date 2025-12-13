@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
     }: {
       method: HttpMethods;
       path: string;
-      response?: object;
+      response?: string;
       responseCode?: number;
       responseDelay?: number;
     } = await req.json();

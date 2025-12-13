@@ -254,7 +254,7 @@ const EndpointModal = ({
                 details: {
                   responseCode: result?.endpoint?.responseCode as number,
                   responseDelay: result?.endpoint?.responseDelay as number,
-                  response: (result?.endpoint?.response || {}) as object,
+                  response: (result?.endpoint?.response || "") as string,
                 },
               })
             );

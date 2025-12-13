@@ -112,10 +112,19 @@ export const validateEndpoint = (
     };
   }
 
-  if (typeof details.response !== "object" || details.response === null) {
+  // Response can be either a string or an object (will be stringified later)
+  if (typeof details.response !== "object" && typeof details.response !== "string") {
     return {
       isValid: false,
-      error: `Invalid 'response' for endpoint "${key}" - must be an object`,
+      error: `Invalid 'response' for endpoint "${key}" - must be an object or string`,
+      invalidKey: key,
+    };
+  }
+
+  if (details.response === null) {
+    return {
+      isValid: false,
+      error: `Invalid 'response' for endpoint "${key}" - cannot be null`,
       invalidKey: key,
     };
   }

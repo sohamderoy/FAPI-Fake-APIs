@@ -7,7 +7,7 @@ export interface EndpointModalProps {
     path: string;
     responseCode: number;
     responseDelay: number;
-    response: object;
+    response: string;
   };
 }
 
