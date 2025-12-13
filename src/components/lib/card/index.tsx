@@ -20,9 +20,11 @@ const Card = ({
   };
 
   return (
-    <div className="group relative inline-block">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out animate-tilt"></div>
-      <div className={`rounded-lg p-[1px] ${getBorderClasses()}`}>
+    <div className="group relative inline-block transition-all duration-300 hover:scale-[1.02]">
+      {/* Animated gradient glow on hover */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-lg blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
+
+      <div className={`relative rounded-lg p-[1px] ${getBorderClasses()} transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]`}>
         <div
           className={`relative rounded-lg bg-black font-outfit p-4 ${CARD_SIZES.width[width]} ${CARD_SIZES.height[height]} ${className}`}
         >
