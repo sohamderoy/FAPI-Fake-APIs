@@ -16,6 +16,7 @@ const config: Config = {
     },
     fontFamily: {
       outfit: ["var(--font-outfit)"],
+      jetbrains: ["var(--font-jetbrains-mono)"],
     },
   },
   plugins: [],
