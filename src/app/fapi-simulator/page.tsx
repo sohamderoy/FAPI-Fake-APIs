@@ -33,6 +33,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Save as SaveIcon } from "lucide-react";
+import PrivacyBanner from "@/components/lib/privacyBanner";
 
 const FapiSimulatorPage = () => {
   const dispatch = useDispatch();
@@ -277,13 +278,9 @@ const FapiSimulatorPage = () => {
     },
     {
       label: "Merge",
-      onClick: isAtLimit
-        ? () => {}
-        : () => handleImportStrategy(IMPORT_STRATEGY.MERGE),
+      onClick: () => handleImportStrategy(IMPORT_STRATEGY.MERGE),
       variant: "primary",
-      className: isAtLimit
-        ? "flex-1 px-4 py-3 text-gray-400 font-medium rounded-lg bg-gray-700 cursor-not-allowed opacity-60"
-        : undefined,
+      disabled: isAtLimit,
     },
     {
       label: "Replace All",
@@ -375,77 +372,80 @@ const FapiSimulatorPage = () => {
           </div>
         </div>
 
-        {/* Project Name Section */}
-        <div className="mb-4 flex items-start gap-2">
-          <div className="flex-1 max-w-lg">
-            <TextField
-              fullWidth
-              size="small"
-              label="Add the name of you project that FAPI is supporting (Optional)"
-              value={currentProjectName}
-              onChange={handleProjectNameChange}
-              error={!!projectNameError}
-              helperText={projectNameError}
-              placeholder="e.g., The Next Big Web Application"
-              className="font-outfit"
-              InputProps={{
-                className: "font-outfit",
-              }}
-              inputProps={{
-                maxLength: 50,
-              }}
-            />
-          </div>
-          <Tooltip
-            arrow
-            placement="top"
-            title={
-              hasProjectNameChanges && !projectNameError
-                ? "Save project name"
-                : projectNameError
-                ? "Fix errors first"
-                : "No changes to save"
-            }
-          >
-            <span>
-              <IconButton
-                onClick={handleSaveProjectName}
-                color="secondary"
-                disabled={
-                  !hasProjectNameChanges ||
-                  !!projectNameError ||
-                  isSavingProjectName
-                }
+        {/* Project Name and FAPI Counter Section */}
+        <div className="mb-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          {/* Project Name - Left */}
+          <div className="flex items-start gap-2 flex-1">
+            <div className="flex-1 max-w-lg">
+              <TextField
+                fullWidth
                 size="small"
-              >
-                {isSavingProjectName ? (
-                  <CircularProgress size={20} color="secondary" />
-                ) : (
-                  <SaveIcon size={20} />
-                )}
-              </IconButton>
-            </span>
-          </Tooltip>
-        </div>
-
-        {/* FAPI Counter Display */}
-        <div className="mb-6">
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-lg">
-            <span className="text-sm text-gray-400 font-outfit">
-              No. of FAPIs Created:
-            </span>
-            <span className="text-lg font-semibold text-white font-outfit">
-              {currentEndpointCount}
-            </span>
-            <span className="text-gray-500">/</span>
-            <span className="text-lg font-semibold text-gray-400 font-outfit">
-              {FAPI_LIMITS.MAX_ENDPOINTS}
-            </span>
-            {currentEndpointCount >= FAPI_LIMITS.MAX_ENDPOINTS && (
-              <span className="ml-2 px-2 py-1 text-xs bg-red-600/20 text-red-400 rounded border border-red-600/30">
-                Max FAPI Creation Limit Reached
+                label="Add the name of you project that FAPI is supporting (Optional)"
+                value={currentProjectName}
+                onChange={handleProjectNameChange}
+                error={!!projectNameError}
+                helperText={projectNameError}
+                placeholder="e.g., The Next Big Web Application"
+                className="font-outfit"
+                InputProps={{
+                  className: "font-outfit",
+                }}
+                inputProps={{
+                  maxLength: 50,
+                }}
+              />
+            </div>
+            <Tooltip
+              arrow
+              placement="top"
+              title={
+                hasProjectNameChanges && !projectNameError
+                  ? "Save project name"
+                  : projectNameError
+                  ? "Fix errors first"
+                  : "No changes to save"
+              }
+            >
+              <span>
+                <IconButton
+                  onClick={handleSaveProjectName}
+                  color="secondary"
+                  disabled={
+                    !hasProjectNameChanges ||
+                    !!projectNameError ||
+                    isSavingProjectName
+                  }
+                  size="small"
+                >
+                  {isSavingProjectName ? (
+                    <CircularProgress size={20} color="secondary" />
+                  ) : (
+                    <SaveIcon size={20} />
+                  )}
+                </IconButton>
               </span>
-            )}
+            </Tooltip>
+          </div>
+
+          {/* FAPI Counter - Right */}
+          <div className="flex-shrink-0">
+            <div className="inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-lg">
+              <span className="text-sm text-gray-400 font-outfit">
+                No. of FAPIs Created:
+              </span>
+              <span className="text-lg font-semibold text-white font-outfit">
+                {currentEndpointCount}
+              </span>
+              <span className="text-gray-500">/</span>
+              <span className="text-lg font-semibold text-gray-400 font-outfit">
+                {FAPI_LIMITS.MAX_ENDPOINTS}
+              </span>
+              {currentEndpointCount >= FAPI_LIMITS.MAX_ENDPOINTS && (
+                <span className="ml-2 px-2 py-1 text-xs bg-red-600/20 text-red-400 rounded border border-red-600/30">
+                  Max FAPI Creation Limit Reached
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -478,11 +478,69 @@ const FapiSimulatorPage = () => {
       <ConfirmationModal
         isOpen={importModalOpen}
         title="Choose Import Strategy"
-        message={`You are about to import endpoints from:\n${
-          pendingImportFile?.name || "unknown file"
-        }\n\nHow would you like to proceed?\n\n• Merge: Keep existing endpoints, add new ones (skip duplicates)\n• Replace All: Delete all existing endpoints and import fresh`}
+        message={
+          <div className="space-y-5">
+            {/* Privacy Banner */}
+            <PrivacyBanner />
+
+            <p>You are about to import endpoints from:</p>
+            <div className="bg-black/80 px-4 py-3 rounded-md border border-gray-600">
+              <span className="font-jetbrains text-white break-all">
+                {pendingImportFile?.name || "unknown file"}
+              </span>
+            </div>
+            <p className="font-semibold text-base">
+              How would you like to proceed?
+            </p>
+
+            {/* Merge Strategy Card */}
+            <div className="bg-gradient-to-r from-green-950/50 to-emerald-950/30 border-l-4 border-green-500 p-4 rounded-md">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center mt-0.5">
+                  <span className="text-green-400 text-lg">+</span>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-green-300 mb-1">Merge</h4>
+                  <p className="text-sm text-gray-300">
+                    Keep existing endpoints and add new ones from the file
+                    (duplicates will be skipped)
+                  </p>
+                  {isAtLimit && (
+                    <p className="text-xs text-red-400 mt-2">
+                      ⚠️ Disabled: Maximum endpoint limit reached
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Replace All Strategy Card */}
+            <div className="bg-gradient-to-r from-red-950/50 to-rose-950/30 border-l-4 border-red-500 p-4 rounded-md">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center mt-0.5">
+                  <span className="text-red-400 text-lg leading-none flex items-center justify-center">
+                    ⚠
+                  </span>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-red-300 mb-1">
+                    Replace All
+                  </h4>
+                  <p className="text-sm text-gray-300">
+                    Delete all existing endpoints and import fresh from the file
+                  </p>
+                  <p className="text-xs text-red-400 mt-2">
+                    ⚠️ The action of deleting existing endpoints cannot be
+                    undone
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
         buttons={importConfirmationButtons}
         onClose={handleImportCancel}
+        size="lg"
       />
     </div>
   );

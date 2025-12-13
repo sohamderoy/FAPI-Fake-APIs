@@ -3,7 +3,7 @@ import { Zap, Clock, Shield, Server } from "lucide-react";
 export const BANNER_DATA = {
   defaultTitle: "FAPI Simulator",
   defaultSubtitle:
-    "A Local-first mock API server for rapid frontend development",
+    "A 100% local mock API server for rapid frontend development",
   alternativeTaglines: [
     "Empowering frontend developers with instant mock APIs",
     "Create, customize, and deploy mock APIs in seconds",
@@ -24,8 +24,8 @@ export const BANNER_DATA = {
       gradient: "from-blue-500 to-cyan-500",
     },
     {
-      title: "Local First",
-      description: "No data leaves your local machine, runs completely offline",
+      title: "100% Local & Private",
+      description: "No data leaves your machine, runs completely offline",
       icon: Shield,
       gradient: "from-green-500 to-emerald-500",
     },

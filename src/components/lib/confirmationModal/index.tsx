@@ -1,4 +1,6 @@
 import React from "react";
+import Modal from "@/components/lib/modal";
+import Button from "@/components/lib/button";
 import { ConfirmationModalProps } from "./types";
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -7,66 +9,68 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   message,
   buttons,
   onClose,
+  size = "md",
 }) => {
-  if (!isOpen) return null;
-
-  const getButtonStyles = (variant: string = "primary"): string => {
-    const baseStyles = "flex-1 px-4 py-3 text-white font-medium rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 hover:opacity-90";
-
-    const variantStyles = {
-      primary: "bg-gradient-to-r from-blue-600 to-purple-600",
-      danger: "bg-gradient-to-r from-red-600 to-red-700",
-      secondary: "bg-gradient-to-r from-gray-600 to-gray-700",
-      success: "bg-gradient-to-r from-green-600 to-green-700",
-    };
-
-    return `${baseStyles} ${variantStyles[variant as keyof typeof variantStyles] || variantStyles.primary}`;
+  // Map confirmation button variants to our Button component variants
+  const getButtonVariant = (variant?: string): "primary" | "secondary" => {
+    if (variant === "secondary") return "secondary";
+    return "primary";
   };
 
-  const handleBackdropClick = () => {
-    if (onClose) {
-      onClose();
-    }
+  // For danger variant, we'll use custom styling
+  const getDangerButtonClass = () => {
+    return "relative w-full sm:w-auto font-outfit font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center bg-red-600 text-white hover:bg-red-700 border-2 border-red-600 hover:border-red-700";
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
-      onClick={handleBackdropClick}
+    <Modal
+      isModalOpen={isOpen}
+      onClose={onClose || (() => {})}
+      title={title}
+      size={size}
+      showCloseButton={true}
+      contentStyle={{ height: "h-auto" }}
     >
-      <div
-        className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-700"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Gradient border effect */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-20 blur-xl"></div>
+      <div className="px-6 pb-6">
+        {/* Message */}
+        <div className="text-gray-300 mb-8 leading-relaxed whitespace-pre-line font-jetbrains break-words overflow-wrap-anywhere">
+          {message}
+        </div>
 
-        <div className="relative p-6">
-          {/* Title */}
-          <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            {title}
-          </h2>
+        {/* Dynamic Action Buttons */}
+        <div className="flex gap-3 justify-end">
+          {buttons.map((button, index) => {
+            // Use custom styling for danger buttons
+            if (button.variant === "danger") {
+              return (
+                <button
+                  key={index}
+                  onClick={button.onClick}
+                  disabled={button.disabled}
+                  className={`${getDangerButtonClass()} ${
+                    button.disabled ? "opacity-60 cursor-not-allowed" : ""
+                  }`}
+                >
+                  {button.label}
+                </button>
+              );
+            }
 
-          {/* Message */}
-          <p className="text-gray-300 mb-6 leading-relaxed whitespace-pre-line font-jetbrains">
-            {message}
-          </p>
-
-          {/* Dynamic Action Buttons */}
-          <div className="flex gap-3 flex-wrap">
-            {buttons.map((button, index) => (
-              <button
-                key={index}
-                onClick={button.onClick}
-                className={button.className || getButtonStyles(button.variant)}
-              >
-                {button.label}
-              </button>
-            ))}
-          </div>
+            // Use the standard Button component for other variants
+            return (
+              <div key={index}>
+                <Button
+                  name={button.label}
+                  onClick={button.onClick}
+                  variant={getButtonVariant(button.variant)}
+                  disabled={button.disabled}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 

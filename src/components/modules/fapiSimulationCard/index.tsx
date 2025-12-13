@@ -21,6 +21,7 @@ import {
   Edit as EditIcon,
   Trash2 as DeleteIcon,
   Save as SaveIcon,
+  Copy as CopyIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Snackbar from "@/components/lib/snackbar";
@@ -54,6 +55,31 @@ const FapiSimulationCard = ({
     message: "",
     backgroundColor: "",
   });
+
+  // Map method to border color
+  const borderColorMap = {
+    GET: "border-emerald-500/75",
+    POST: "border-blue-500/75",
+    PUT: "border-amber-500/75",
+    DELETE: "border-red-500/75",
+  };
+
+  const handleCopyEndpoint = async () => {
+    try {
+      await navigator.clipboard.writeText(path);
+      setSnackbar({
+        isOpen: true,
+        message: "Endpoint copied to clipboard",
+        backgroundColor: STATUS_COLORS.SUCCESS,
+      });
+    } catch (error) {
+      setSnackbar({
+        isOpen: true,
+        message: "Failed to copy endpoint",
+        backgroundColor: STATUS_COLORS.ERROR,
+      });
+    }
+  };
 
   const handleEditResponse = () => {
     // Reset local state to saved values when opening modal
@@ -192,20 +218,23 @@ const FapiSimulationCard = ({
     <>
       <Card borderGradient="hover" height="full" width="full">
         <div className="h-full flex flex-col">
-          {/* Header Section with Path and Method Badge */}
-          <div className="flex items-center justify-between w-full gap-4">
-            <div className="flex items-center gap-2 min-w-0">
-              <span
-                className="text-xs font-semibold uppercase text-gray-800 px-2 py-0.5 rounded border border-gray-400 flex-shrink-0"
-                style={{ backgroundColor: "#b0b0b0" }}
-              >
-                Endpoint
-              </span>
-              <div className="h-4 w-px bg-gray-500"></div>
+          {/* Header Section with Method Badge and Path */}
+          <div className="flex items-center justify-between gap-2 w-full min-w-0">
+            <div
+              className={`flex items-center gap-2 bg-black px-2 py-1 rounded-md border min-w-0 ${borderColorMap[method]}`}
+            >
               <Tooltip title={path} arrow placement="top">
-                <span className="text-base font-semibold truncate text-gray-100 font-jetbrains bg-gray-800/50 px-3 py-1.5 rounded-md">
+                <span className="text-base font-semibold truncate text-white font-jetbrains block min-w-0">
                   {path}
                 </span>
+              </Tooltip>
+              <Tooltip title="Copy endpoint" arrow placement="top">
+                <button
+                  onClick={handleCopyEndpoint}
+                  className="flex-shrink-0 hover:opacity-70 transition-opacity"
+                >
+                  <CopyIcon size={14} className="text-gray-400" />
+                </button>
               </Tooltip>
             </div>
             <Badge method={method}></Badge>
@@ -322,7 +351,18 @@ const FapiSimulationCard = ({
       <ConfirmationModal
         isOpen={showDeleteConfirm}
         title="Delete FAPI Endpoint?"
-        message={`Are you sure you want to delete this endpoint?\n\nMethod: ${method}\nPath: ${path}\n\n⚠️ This action cannot be undone.`}
+        message={
+          <div className="space-y-4">
+            <p>Are you sure you want to delete this endpoint?</p>
+            <div className="flex items-center gap-2 bg-black/50 px-3 py-2 rounded-md border border-gray-700">
+              <Badge method={method} />
+              <span className="font-jetbrains text-white break-all">
+                {path}
+              </span>
+            </div>
+            <p className="text-red-400">⚠️ This action cannot be undone.</p>
+          </div>
+        }
         buttons={deleteConfirmationButtons}
         onClose={handleDeleteCancel}
       />

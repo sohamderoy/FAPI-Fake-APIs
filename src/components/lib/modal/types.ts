@@ -6,4 +6,7 @@ export interface ModalProps {
   title: string;
   showCloseButton?: boolean;
   footer?: React.ReactElement;
+  contentStyle?: {
+    height?: string;
+  };
 }

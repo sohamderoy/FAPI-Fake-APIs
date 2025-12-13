@@ -1,7 +1,7 @@
 import { Modal as MuiModal, IconButton, Backdrop } from "@mui/material";
 import { X as CloseIcon } from "lucide-react";
 import { ModalProps } from "./types";
-import { MODAL_SIZES } from "./data";
+import { MODAL_SIZES, BASE_STYLE } from "./data";
 
 const Modal = ({
   isModalOpen,
@@ -11,12 +11,13 @@ const Modal = ({
   title,
   footer,
   showCloseButton = true,
+  contentStyle = BASE_STYLE,
 }: ModalProps) => {
   return (
     <MuiModal
       open={isModalOpen}
       onClose={onClose}
-      slot={{ backdrop: Backdrop }}
+      slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
           className: "backdrop-blur-sm bg-black/30",
@@ -43,7 +44,7 @@ const Modal = ({
 
         {/* Main Content */}
 
-        <div className="relative h-[calc(90vh-120px)]">{children}</div>
+        <div className={`relative ${contentStyle.height}`}>{children}</div>
 
         {/* Footer Section */}
         {footer && (
