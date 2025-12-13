@@ -3,7 +3,7 @@ import { EditorProps } from "./types";
 
 const Editor = ({ value, onChange }: EditorProps) => {
   const modernIDEThemeOptions = {
-    base: "vs-dark",
+    base: "vs-dark" as const,
     inherit: true,
     rules: [
       { token: "string", foreground: "#5DE4C7" },

@@ -41,9 +41,9 @@ const normalizeQueryString = (url: URL): string => {
   );
   return queryString ? `${queryString}` : "";
 };
-export const delay = (time: number) =>
+const delay = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
-export const createMethodHandler = (method: HttpMethods) => {
+const createMethodHandler = (method: HttpMethods) => {
   return async (
     req: NextRequest,
     { params }: { params: { path?: string[] } }

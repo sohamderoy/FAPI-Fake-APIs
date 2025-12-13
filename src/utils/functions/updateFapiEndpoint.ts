@@ -4,7 +4,7 @@ import { HttpMethods } from "@/types/fapi";
 export interface UpdateFapiEndpointParams {
   method: HttpMethods;
   path: string;
-  response?: object;
+  response?: string;
   responseCode?: number;
   responseDelay?: number;
 }

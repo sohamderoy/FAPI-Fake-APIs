@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 export const POST = async (req: NextRequest) => {
   try {
     const { endpoints, strategy = "merge" }: {
-      endpoints: Record<EndpointKey, { responseCode: number; responseDelay: number; response: object }>;
+      endpoints: Record<EndpointKey, { responseCode: number; responseDelay: number; response: string }>;
       strategy: "merge" | "replace";
     } = await req.json();
 
@@ -76,7 +76,7 @@ export const POST = async (req: NextRequest) => {
         method: method as any,
         responseCode: details.responseCode,
         responseDelay: details.responseDelay,
-        response: details.response,
+        response: typeof details.response === 'string' ? details.response : JSON.stringify(details.response),
         createdAt: new Date().toISOString(),
       };
       addedCount++;
