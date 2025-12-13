@@ -92,7 +92,7 @@ export const FAPI_EXPORT_FILENAME_PREFIX = "FAPI-Endpoints";
 
 // FAPI Limits
 export const FAPI_LIMITS = {
-  MAX_ENDPOINTS: 5, // Total limit for endpoints (applies to both file import and total count)
+  MAX_ENDPOINTS: 20, // Total limit for endpoints (applies to both file import and total count)
   MAX_FILE_SIZE_MB: 5,
   MAX_FILE_SIZE_BYTES: 5 * 1024 * 1024, // 5MB in bytes
 } as const;

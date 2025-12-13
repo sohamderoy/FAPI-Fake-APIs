@@ -351,8 +351,12 @@ const EndpointModal = ({
                   onBlur={handlePathBlur}
                   error={Boolean(formTouched.path && formErrors.path)}
                   helperText={formTouched.path && formErrors.path}
-                  className="font-outfit"
                   disabled={isEditMode}
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      fontFamily: 'var(--font-jetbrains-mono)',
+                    },
+                  }}
                 ></TextField>
 
                 {/* HTTP Method */}

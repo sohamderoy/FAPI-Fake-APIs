@@ -194,11 +194,20 @@ const FapiSimulationCard = ({
         <div className="h-full flex flex-col">
           {/* Header Section with Path and Method Badge */}
           <div className="flex items-center justify-between w-full gap-4">
-            <Tooltip title={path} arrow placement="top">
-              <span className="text-base font-semibold font-mono truncate bg-gray-800/50 px-3 py-1.5 rounded-md text-gray-100">
-                {path}
+            <div className="flex items-center gap-2 min-w-0">
+              <span
+                className="text-xs font-semibold uppercase text-gray-800 px-2 py-0.5 rounded border border-gray-400 flex-shrink-0"
+                style={{ backgroundColor: "#b0b0b0" }}
+              >
+                Endpoint
               </span>
-            </Tooltip>
+              <div className="h-4 w-px bg-gray-500"></div>
+              <Tooltip title={path} arrow placement="top">
+                <span className="text-base font-semibold truncate text-gray-100 font-jetbrains bg-gray-800/50 px-3 py-1.5 rounded-md">
+                  {path}
+                </span>
+              </Tooltip>
+            </div>
             <Badge method={method}></Badge>
           </div>
 

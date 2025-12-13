@@ -3,6 +3,7 @@
 import Button from "@/components/lib/button";
 import EndpointModal from "@/components/modules/endpointModal";
 import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
+import AnimatedBackground from "@/components/lib/animatedBackground";
 import { EndpointsListForFapiSimulationCard } from "@/components/modules/fapiSimulationCard/types";
 import { RootState } from "@/store/store";
 import { HttpMethods } from "@/types/fapi";
@@ -292,8 +293,8 @@ const FapiSimulatorPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-tl from-black via-gray-900 to-black p-6">
-      <div className="backdrop-blur-3xl bg-black/20 min-h-screen fixed inset-0 -z-10" />
+    <div className="min-h-screen relative p-6 overflow-hidden">
+      <AnimatedBackground />
 
       {/* Hidden file input for import */}
       <input

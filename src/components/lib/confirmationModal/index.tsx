@@ -48,7 +48,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           </h2>
 
           {/* Message */}
-          <p className="text-gray-300 mb-6 leading-relaxed whitespace-pre-line">
+          <p className="text-gray-300 mb-6 leading-relaxed whitespace-pre-line font-jetbrains">
             {message}
           </p>
 
