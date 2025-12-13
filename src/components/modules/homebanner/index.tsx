@@ -22,12 +22,12 @@ const HomeBanner = ({
     <div className="flex flex-col items-center justify-center h-full w-full p-4">
       <div className="text-center max-w-3xl mx-auto">
         <h1
-          className="text-8xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 font-montserrat tracking-[10px]"
+          className="text-8xl font-extrabold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 font-montserrat tracking-[10px]"
           style={getGradientStyles()}
         >
           {title}
         </h1>
-        <p className="text-xl text-gray-200 leading-relaxed font-outfit font-light">
+        <p className="text-lg text-gray-200 leading-relaxed font-outfit font-light">
           {subtitle}
         </p>
 
