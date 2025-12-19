@@ -19,7 +19,7 @@ for (let i = 0; i < args.length; i++) {
 // Validate port
 if (isNaN(port) || port < 1 || port > 65535) {
   console.error('Error: Invalid port number. Please provide a valid port between 1 and 65535.');
-  console.error('Usage: npx create-fapi --port <port_number>');
+  console.error('Usage: npx start-fapi --port <port_number>');
   process.exit(1);
 }
 

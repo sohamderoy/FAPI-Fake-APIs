@@ -17,11 +17,11 @@ Run FAPI directly with npx (no installation required):
 
 ```bash
 # Start on default port 3000
-npx create-fapi
+npx start-fapi
 
 # Start on custom port
-npx create-fapi --port 4000
-npx create-fapi -p 5000
+npx start-fapi --port 4000
+npx start-fapi -p 5000
 ```
 
 ## Running Multiple Instances
@@ -30,20 +30,20 @@ You can run multiple instances of FAPI on different ports to maintain separate A
 
 ```bash
 # Terminal 1
-npx create-fapi --port 3000
+npx start-fapi --port 3000
 
 # Terminal 2
-npx create-fapi --port 3001
+npx start-fapi --port 3001
 
 # Terminal 3
-npx create-fapi --port 3002
+npx start-fapi --port 3002
 ```
 
 Each instance will have its own storage in the `.fapi-storage` folder.
 
 ## How It Works
 
-1. Run the command `npx create-fapi`
+1. Run the command `npx start-fapi`
 2. Open your browser at `http://localhost:3000`
 3. Create fake API endpoints through the UI
 4. Your endpoints are immediately available at `http://localhost:3000/api/fapi/your-endpoint`
