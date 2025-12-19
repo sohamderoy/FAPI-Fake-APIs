@@ -28,13 +28,9 @@ export const GET = async (req: NextRequest) => {
     // Read storage file
     let storage: FapiStorage;
     try {
-      console.log('[GET-ENDPOINTS] Reading from:', fapiStorageFilePathPerPort);
       const fileContent = await fs.readFile(fapiStorageFilePathPerPort, "utf-8");
       storage = JSON.parse(fileContent);
-      console.log('[GET-ENDPOINTS] Loaded endpoints:', Object.keys(storage.endpoints));
-      console.log('[GET-ENDPOINTS] Total endpoints:', Object.keys(storage.endpoints).length);
     } catch (err) {
-      console.log('[GET-ENDPOINTS] File not found or invalid, returning empty');
       // File doesn't exist or is invalid - return empty storage
       return new NextResponse(
         JSON.stringify({

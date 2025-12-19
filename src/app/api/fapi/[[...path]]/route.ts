@@ -46,10 +46,11 @@ const delay = (time: number) =>
 const createMethodHandler = (method: HttpMethods) => {
   return async (
     req: NextRequest,
-    { params }: { params: { path?: string[] } }
+    context: { params: Promise<{ path?: string[] }> }
   ) => {
     try {
       const port = process.env.PORT || "3000";
+      const params = await context.params;
       const pathSegments = params.path || [];
       const requestPath = `/${pathSegments.join("/")}`;
 
