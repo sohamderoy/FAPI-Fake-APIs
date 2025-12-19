@@ -47,10 +47,18 @@ console.log('\x1b[33m%s\x1b[0m', 'Press Ctrl+C to stop the server');
 console.log('');
 
 // Start the Next.js server
+// IMPORTANT: We pass the user's current directory as FAPI_USER_DIR
+// so that .fapi-storage is created where the user runs the command
+const userDir = process.cwd();
+
 const child = spawn('npx', ['next', 'start', '-p', port], {
   cwd: packageDir,
   stdio: 'inherit',
-  env: { ...process.env, PORT: port }
+  env: {
+    ...process.env,
+    PORT: port,
+    FAPI_USER_DIR: userDir  // Pass user's directory to Next.js
+  }
 });
 
 // Handle process termination
