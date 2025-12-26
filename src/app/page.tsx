@@ -1,13 +1,6 @@
-import HomeBanner from "@/components/modules/homebanner";
-import AnimatedBackground from "@/components/lib/animatedBackground";
+import { redirect } from "next/navigation";
+import { HOME_PAGE_PATH } from "@/utils/data/paths/paths.ui.constants";
 
-const Home = () => {
-  return (
-    <div className="h-screen overflow-y-auto overflow-hidden">
-      <AnimatedBackground />
-      <HomeBanner></HomeBanner>
-    </div>
-  );
-};
-
-export default Home;
+export default function RootPage() {
+  redirect(HOME_PAGE_PATH);
+}

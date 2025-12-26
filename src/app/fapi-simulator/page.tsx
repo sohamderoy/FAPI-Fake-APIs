@@ -4,6 +4,7 @@ import Button from "@/components/lib/button";
 import EndpointModal from "@/components/modules/endpointModal";
 import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
 import AnimatedBackground from "@/components/lib/animatedBackground";
+import AppName from "@/components/lib/appName";
 import { EndpointsListForFapiSimulationCard } from "@/components/modules/fapiSimulationCard/types";
 import { RootState } from "@/store/store";
 import { HttpMethods } from "@/types/fapi";
@@ -305,9 +306,7 @@ const FapiSimulatorPage = () => {
       <div className="max-w-[1440px] mx-auto">
         {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-googleSansFlex">
-            FAPI
-          </h1>
+          <AppName style={{ fontSize: "3rem", fontWeight: "bold" }} />
           <div className="flex items-center gap-2">
             <Tooltip
               title={
