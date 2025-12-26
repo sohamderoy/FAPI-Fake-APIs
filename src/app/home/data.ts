@@ -4,11 +4,6 @@ export const BANNER_DATA = {
   defaultTitle: "FAPI",
   defaultSubtitle:
     "Create & simulate mock APIs within seconds, for rapid & independent frontend development",
-  alternativeTaglines: [
-    "Empowering frontend developers with instant mock APIs",
-    "Create, customize, and deploy mock APIs in seconds",
-    "Your local API mocking companion for seamless development",
-  ],
   features: [
     {
       title: "Quick Setup",
