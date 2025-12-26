@@ -1,4 +1,4 @@
-import { getFapiStorageFilePathPerPort } from "./../../../utils/functions/getFapiStorageFilePathPerPort.util";
+import { getFapiStorageFilePathPerPort } from "@/utils/functions/getFapiStorageFilePathPerPort.util";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import { promises as fs } from "fs";

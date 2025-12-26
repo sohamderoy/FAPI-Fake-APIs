@@ -5,7 +5,7 @@ import { SUBTITLE, FEATURE_CARDS_DATA } from "./data";
 import { FeatureCard } from "@/components/modules";
 import { Button, AnimatedBackground, AppName } from "@/components/lib";
 import { useRouter } from "next/navigation";
-import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data/paths/paths.ui.constants";
+import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data";
 import { ArrowRight, Rocket } from "lucide-react";
 
 const HomePage = () => {

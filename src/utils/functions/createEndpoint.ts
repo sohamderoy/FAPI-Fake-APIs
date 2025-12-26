@@ -1,4 +1,4 @@
-import { CREATE_API_ENDPOINT_API_PATH } from "@/utils/data/paths/paths.api.constants";
+import { CREATE_API_ENDPOINT_API_PATH } from "@/utils/data";
 import { easing } from "./../../../node_modules/@mui/material/styles/createTransitions.d";
 import { FapiEndpoint, FapiEndpointBase } from "@/types/fapi";
 
