@@ -6,7 +6,7 @@ const Badge = ({ method }: BadgeProps) => {
 
   return (
     <span
-      className={`inline-flex items-center justify-center px-2 py-1 text-base font-medium rounded-md font-jetbrains ${color.background} ${color.text}`}
+      className={`inline-flex items-center justify-center px-2 py-1 text-base font-medium rounded-md font-googleSansCode ${color.background} ${color.text}`}
     >
       {method}
     </span>

@@ -217,14 +217,14 @@ const FapiSimulationCard = ({
   return (
     <>
       <Card borderGradient="hover" height="full" width="full">
-        <div className="h-full flex flex-col">
+        <div className="h-full flex flex-col font-googleSansFlex">
           {/* Header Section with Method Badge and Path */}
           <div className="flex items-center justify-between gap-2 w-full min-w-0">
             <div
               className={`flex items-center gap-2 bg-black px-2 py-1 rounded-md border min-w-0 ${borderColorMap[method]}`}
             >
               <Tooltip title={path} arrow placement="top">
-                <span className="text-base font-semibold truncate text-white font-jetbrains block min-w-0">
+                <span className="text-base font-semibold truncate text-white font-googleSansCode block min-w-0">
                   {path}
                 </span>
               </Tooltip>
@@ -252,7 +252,7 @@ const FapiSimulationCard = ({
                     setCurrentResponseCode(e.target.value as number)
                   }
                   label="HTTP Response Status Code"
-                  className="font-outfit"
+                  className="font-googleSansFlex"
                 >
                   {Object.values(FAPI.SUPPORTED_HTTP_RESPONSE_STATUS_CODE).map(
                     (responseCode) => (
@@ -278,7 +278,7 @@ const FapiSimulationCard = ({
                     setCurrentResponseDelay(e.target.value as number)
                   }
                   label="Delay"
-                  className="font-outfit"
+                  className="font-googleSansFlex"
                 >
                   {Object.values(FAPI.SUPPORTED_RESPONSE_DELAYS).map(
                     (delay) => (
@@ -298,7 +298,7 @@ const FapiSimulationCard = ({
             <Button
               startIcon={<EditIcon size={18} />}
               onClick={handleEditResponse}
-              className="font-outfit"
+              className="font-googleSansFlex"
               variant="outlined"
               color="primary"
             >
@@ -356,7 +356,7 @@ const FapiSimulationCard = ({
             <p>Are you sure you want to delete this endpoint?</p>
             <div className="flex items-center gap-2 bg-black/50 px-3 py-2 rounded-md border border-gray-700">
               <Badge method={method} />
-              <span className="font-jetbrains text-white break-all">
+              <span className="font-googleSansCode text-white break-all">
                 {path}
               </span>
             </div>

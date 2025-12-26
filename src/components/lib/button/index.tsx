@@ -31,7 +31,7 @@ const Button = ({
         <button
           onClick={onClick}
           disabled={disabled}
-          className={`relative w-full sm:w-auto font-outfit font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center ${
+          className={`relative w-full sm:w-auto font-googleSansFlex font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center ${
             disabled
               ? "bg-gray-700 text-gray-500 cursor-not-allowed border-2 border-gray-700"
               : isPrimary

@@ -305,7 +305,7 @@ const FapiSimulatorPage = () => {
       <div className="max-w-[1440px] mx-auto">
         {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-montserrat">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-googleSansFlex">
             FAPI
           </h1>
           <div className="flex items-center gap-2">
@@ -386,9 +386,9 @@ const FapiSimulatorPage = () => {
                 error={!!projectNameError}
                 helperText={projectNameError}
                 placeholder="e.g., The Next Big Web Application"
-                className="font-outfit"
+                className="font-googleSansFlex"
                 InputProps={{
-                  className: "font-outfit",
+                  className: "font-googleSansFlex",
                 }}
                 inputProps={{
                   maxLength: 50,
@@ -430,14 +430,14 @@ const FapiSimulatorPage = () => {
           {/* FAPI Counter - Right */}
           <div className="flex-shrink-0">
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-lg">
-              <span className="text-sm text-gray-400 font-outfit">
+              <span className="text-sm text-gray-400 font-googleSansFlex">
                 No. of FAPIs Created:
               </span>
-              <span className="text-lg font-semibold text-white font-outfit">
+              <span className="text-lg font-semibold text-white font-googleSansFlex">
                 {currentEndpointCount}
               </span>
               <span className="text-gray-500">/</span>
-              <span className="text-lg font-semibold text-gray-400 font-outfit">
+              <span className="text-lg font-semibold text-gray-400 font-googleSansFlex">
                 {FAPI_LIMITS.MAX_ENDPOINTS}
               </span>
               {currentEndpointCount >= FAPI_LIMITS.MAX_ENDPOINTS && (
@@ -485,7 +485,7 @@ const FapiSimulatorPage = () => {
 
             <p>You are about to import endpoints from:</p>
             <div className="bg-black/80 px-4 py-3 rounded-md border border-gray-600">
-              <span className="font-jetbrains text-white break-all">
+              <span className="font-googleSansCode text-white break-all">
                 {pendingImportFile?.name || "unknown file"}
               </span>
             </div>

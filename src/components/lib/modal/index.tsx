@@ -25,7 +25,7 @@ const Modal = ({
       }}
     >
       <div
-        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 p-6 rounded-xl border border-gray-800 outline-none font-outfit overflow-y-auto shadow-2xl ${MODAL_SIZES[size]}`}
+        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 p-6 rounded-xl border border-gray-800 outline-none font-googleSansFlex overflow-y-auto shadow-2xl ${MODAL_SIZES[size]}`}
       >
         {/* Header Section */}
         <div className="flex justify-between items-center px-6 py-4">

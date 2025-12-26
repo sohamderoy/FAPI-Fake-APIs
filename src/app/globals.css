@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-family-googleSansFlex: var(--font-google-sans-flex);
+  --font-family-googleSansCode: var(--font-google-sans-code);
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -26,4 +29,12 @@ html,
 body {
   height: 100%;
   overflow-x: hidden;
+}
+
+.font-googleSansCode {
+  font-family: var(--font-google-sans-code), monospace !important;
+}
+
+.font-googleSansFlex {
+  font-family: var(--font-google-sans-flex), sans-serif !important;
 }
