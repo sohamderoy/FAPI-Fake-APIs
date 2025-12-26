@@ -23,7 +23,7 @@ import {
   Save as SaveIcon,
   Copy as CopyIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Snackbar from "@/components/lib/snackbar";
 import ConfirmationModal from "@/components/lib/confirmationModal";
 import { ConfirmationButton } from "@/components/lib/confirmationModal/types";
@@ -64,7 +64,7 @@ const FapiSimulationCard = ({
     DELETE: "border-red-500/75",
   };
 
-  const handleCopyEndpoint = async () => {
+  const handleCopyEndpoint = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(path);
       setSnackbar({
@@ -79,19 +79,19 @@ const FapiSimulationCard = ({
         backgroundColor: STATUS_COLORS.ERROR,
       });
     }
-  };
+  }, [path]);
 
-  const handleEditResponse = () => {
+  const handleEditResponse = useCallback(() => {
     // Reset local state to saved values when opening modal
     // This ensures modal shows the source of truth and avoids confusion
     setCurrentResponseCode(details.responseCode);
     setCurrentResponseDelay(details.responseDelay);
     setShowEditModal(true);
-  };
+  }, [details.responseCode, details.responseDelay]);
 
-  const handleCloseEditModal = () => {
+  const handleCloseEditModal = useCallback(() => {
     setShowEditModal(false);
-  };
+  }, []);
 
   // Sync local state with details prop when it changes (e.g., after modal update)
   useEffect(() => {
@@ -104,7 +104,7 @@ const FapiSimulationCard = ({
     currentResponseCode !== details.responseCode ||
     currentResponseDelay !== details.responseDelay;
 
-  const handleUpdateFapi = async () => {
+  const handleUpdateFapi = useCallback(async () => {
     if (!hasChanges) return;
 
     setIsSaving(true);
@@ -160,13 +160,13 @@ const FapiSimulationCard = ({
     } finally {
       setIsSaving(false);
     }
-  };
+  }, [method, path, currentResponseCode, currentResponseDelay, details.responseCode, details.responseDelay, dispatch, hasChanges]);
 
-  const handleDeleteCancel = () => {
+  const handleDeleteCancel = useCallback(() => {
     setShowDeleteConfirm(false);
-  };
+  }, []);
 
-  const handleDeleteFapi = async () => {
+  const handleDeleteFapi = useCallback(async () => {
     setShowDeleteConfirm(false);
     setIsDeleting(true);
 
@@ -200,7 +200,7 @@ const FapiSimulationCard = ({
     } finally {
       setIsDeleting(false);
     }
-  };
+  }, [method, path, dispatch]);
 
   const deleteConfirmationButtons: ConfirmationButton[] = [
     {

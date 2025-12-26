@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { CircularProgress } from "@mui/material";
 import { LoadingOverlayProps } from "./types";
 
@@ -12,4 +13,4 @@ const LoadingOverlay = ({ overlayMessage }: LoadingOverlayProps) => {
   );
 };
 
-export default LoadingOverlay;
+export default memo(LoadingOverlay);

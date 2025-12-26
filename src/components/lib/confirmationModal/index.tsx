@@ -12,14 +12,12 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   size = "md",
 }) => {
   // Map confirmation button variants to our Button component variants
-  const getButtonVariant = (variant?: string): "primary" | "secondary" => {
+  const getButtonVariant = (
+    variant?: string
+  ): "primary" | "secondary" | "danger" => {
     if (variant === "secondary") return "secondary";
+    if (variant === "danger") return "danger";
     return "primary";
-  };
-
-  // For danger variant, we'll use custom styling
-  const getDangerButtonClass = () => {
-    return "relative w-full sm:w-auto font-googleSansFlex font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center bg-red-600 text-white hover:bg-red-700 border-2 border-red-600 hover:border-red-700";
   };
 
   return (
@@ -39,35 +37,16 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
         {/* Dynamic Action Buttons */}
         <div className="flex gap-3 justify-end">
-          {buttons.map((button, index) => {
-            // Use custom styling for danger buttons
-            if (button.variant === "danger") {
-              return (
-                <button
-                  key={index}
-                  onClick={button.onClick}
-                  disabled={button.disabled}
-                  className={`${getDangerButtonClass()} ${
-                    button.disabled ? "opacity-60 cursor-not-allowed" : ""
-                  }`}
-                >
-                  {button.label}
-                </button>
-              );
-            }
-
-            // Use the standard Button component for other variants
-            return (
-              <div key={index}>
-                <Button
-                  name={button.label}
-                  onClick={button.onClick}
-                  variant={getButtonVariant(button.variant)}
-                  disabled={button.disabled}
-                />
-              </div>
-            );
-          })}
+          {buttons.map((button, index) => (
+            <div key={index}>
+              <Button
+                name={button.label}
+                onClick={button.onClick}
+                variant={getButtonVariant(button.variant)}
+                disabled={button.disabled}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </Modal>
