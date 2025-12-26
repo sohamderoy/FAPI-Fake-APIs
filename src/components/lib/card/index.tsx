@@ -7,7 +7,6 @@ const Card = ({
   width = "md",
   height = "md",
   borderGradient = "hover",
-  hoverEffect = true,
 }: CardProps) => {
   const getBorderClasses = () => {
     if (borderGradient === "hover") {

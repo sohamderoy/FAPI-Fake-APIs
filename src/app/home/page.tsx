@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { HomeBannerProps } from "./types";
-import { BANNER_DATA } from "./data";
+import { SUBTITLE, FEATURE_CARDS_DATA } from "./data";
 import FeatureCard from "@/components/modules/featureCard";
 import Button from "@/components/lib/button";
 import AnimatedBackground from "@/components/lib/animatedBackground";
@@ -11,9 +10,7 @@ import { useRouter } from "next/navigation";
 import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data/paths/paths.ui.constants";
 import { ArrowRight, Rocket } from "lucide-react";
 
-const HomePage = ({
-  subtitle = BANNER_DATA.defaultSubtitle,
-}: HomeBannerProps) => {
+const HomePage = () => {
   const router = useRouter();
   const handleNavigateToSimulator = () => {
     router.push(FAPI_SIMULATOR_PAGE_PATH);
@@ -25,18 +22,18 @@ const HomePage = ({
         <div className="text-center max-w-3xl mx-auto">
           <AppName style={{ fontSize: "6rem", letterSpacing: "10px" }} />
           <p className="text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light">
-            {subtitle}
+            {SUBTITLE}
           </p>
 
           {/* Feature highlights */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {BANNER_DATA.features.map((feature, index) => (
+            {FEATURE_CARDS_DATA.map((feature, index) => (
               <FeatureCard
                 key={index}
                 title={feature.title}
                 description={feature.description}
                 icon={feature.icon}
-                gradient={feature.gradient}
+                iconColor={feature.iconColor}
               />
             ))}
           </div>

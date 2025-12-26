@@ -25,8 +25,10 @@ import {
   FAPI_REGEX,
   IMPORT_STRATEGY,
   FAPI_LIMITS,
+  UI_LIMITS,
 } from "@/utils/data/global.constants";
 import { updateProjectName } from "@/utils/functions/updateProjectName";
+import { createEndpointKey } from "@/utils/functions/createEndpointKey";
 import {
   TextField,
   IconButton,
@@ -126,8 +128,10 @@ const FapiSimulatorPage = () => {
     if (!hasProjectNameChanges || projectNameError) return;
 
     // Validate length
-    if (currentProjectName.length > 50) {
-      setProjectNameError("Project name cannot exceed 50 characters");
+    if (currentProjectName.length > UI_LIMITS.PROJECT_NAME_MAX_LENGTH) {
+      setProjectNameError(
+        `Project name cannot exceed ${UI_LIMITS.PROJECT_NAME_MAX_LENGTH} characters`
+      );
       return;
     }
 
@@ -303,7 +307,7 @@ const FapiSimulatorPage = () => {
         style={{ display: "none" }}
       />
 
-      <div className="max-w-[1440px] mx-auto">
+      <div className="mx-auto" style={{ maxWidth: UI_LIMITS.UI_CONTAINER_MAX_WIDTH }}>
         {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
           <AppName style={{ fontSize: "3rem", fontWeight: "bold" }} />
@@ -390,7 +394,7 @@ const FapiSimulatorPage = () => {
                   className: "font-googleSansFlex",
                 }}
                 inputProps={{
-                  maxLength: 50,
+                  maxLength: UI_LIMITS.PROJECT_NAME_MAX_LENGTH,
                 }}
               />
             </div>
@@ -450,9 +454,9 @@ const FapiSimulatorPage = () => {
 
         {/* FAPI Simulation Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-7">
-          {endpointsList.map((endpoint, index) => (
+          {endpointsList.map((endpoint) => (
             <FapiSimulationCard
-              key={index}
+              key={createEndpointKey(endpoint.method, endpoint.path)}
               method={endpoint.method}
               path={endpoint.path}
               details={endpoint.details}
