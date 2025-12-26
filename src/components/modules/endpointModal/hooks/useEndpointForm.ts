@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import { FapiEndpointBase, HttpMethods } from "@/types/fapi";
 import { CREATE_FAPI_ENDPOINT_INITIAL_DATA } from "../data";
-import { FAPI_REGEX } from "@/utils/data/global.constants";
+import { FAPI_REGEX } from "@/utils/data";
 import { FormErrors, FormTouched } from "../types";
-import { validateJSON } from "@/utils/functions/validateJSON";
+import { validateJSON } from "@/utils/functions";
 
 interface UseEndpointFormProps {
   mode: "create" | "edit";

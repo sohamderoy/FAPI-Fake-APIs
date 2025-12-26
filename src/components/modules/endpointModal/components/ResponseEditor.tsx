@@ -1,4 +1,4 @@
-import Editor from "@/components/lib/editor";
+import { Editor } from "@/components/lib";
 
 interface ResponseEditorProps {
   value: string;

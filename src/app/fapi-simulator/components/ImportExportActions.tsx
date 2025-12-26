@@ -1,9 +1,9 @@
 import { Tooltip } from "@mui/material";
-import Button from "@/components/lib/button";
-import { STATUS_COLORS } from "@/utils/data/global.constants";
-import { exportEndpoints } from "@/utils/functions/exportEndpoints";
+import { Button } from "@/components/lib";
+import { STATUS_COLORS } from "@/utils/data";
+import { exportEndpoints } from "@/utils/functions";
 import { EndpointKey } from "@/types/fapi";
-import { EndpointDetails } from "@/store/types/endpoints";
+import type { EndpointDetails } from "@/store";
 
 interface ImportExportActionsProps {
   isImporting: boolean;

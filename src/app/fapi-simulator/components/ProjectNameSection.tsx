@@ -1,6 +1,6 @@
 import { TextField, IconButton, Tooltip, CircularProgress } from "@mui/material";
 import { Save as SaveIcon } from "lucide-react";
-import { UI_LIMITS } from "@/utils/data/global.constants";
+import { UI_LIMITS } from "@/utils/data";
 
 interface ProjectNameSectionProps {
   currentProjectName: string;

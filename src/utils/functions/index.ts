@@ -1,5 +1,5 @@
-// Barrel export for all utility functions
-// This file provides a single entry point for importing utility functions
+// Barrel export for client-safe utility functions
+// Server-only utilities (fs-based) must be imported directly in API routes
 
 // Endpoint operations
 export { createEndpoint } from "./createEndpoint";
@@ -17,12 +17,3 @@ export { updateProjectName } from "./updateProjectName";
 // Utility helpers
 export { createEndpointKey } from "./createEndpointKey";
 export { validateJSON } from "./validateJSON";
-
-// Storage utilities
-export { getStorageDirectory } from "./getStorageDirectory.util";
-export { getFapiStorageFilePathPerPort } from "./getFapiStorageFilePathPerPort.util";
-export { getInitialStorage } from "./getInitialStorage.util";
-export { initializeFapiStorage } from "./initializeFapiStorage.util";
-
-// App initialization
-export { initializeApp } from "./initializeApp";

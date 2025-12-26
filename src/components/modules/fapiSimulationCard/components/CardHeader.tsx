@@ -1,6 +1,6 @@
 import { Tooltip } from "@mui/material";
 import { Copy as CopyIcon } from "lucide-react";
-import Badge from "@/components/lib/badge";
+import { Badge } from "@/components/lib";
 import { HttpMethods } from "@/types/fapi";
 
 interface CardHeaderProps {

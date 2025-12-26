@@ -1,13 +1,8 @@
 import { useState, useRef, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import {
-  FAPI_LIMITS,
-  STATUS_COLORS,
-  IMPORT_STRATEGY,
-} from "@/utils/data/global.constants";
-import { importEndpoints } from "@/utils/functions/importEndpoints";
-import { loadEndpoints } from "@/utils/functions/loadEndpoints";
-import { hydrateEndpoints } from "@/store/slices/endpointsSlice";
+import { FAPI_LIMITS, STATUS_COLORS, IMPORT_STRATEGY } from "@/utils/data";
+import { importEndpoints, loadEndpoints } from "@/utils/functions";
+import { hydrateEndpoints } from "@/store";
 
 interface SnackbarState {
   isOpen: boolean;

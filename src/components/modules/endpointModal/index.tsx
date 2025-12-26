@@ -1,9 +1,6 @@
 import { useCallback, useEffect } from "react";
-import Modal from "@/components/lib/modal";
+import { Modal, LoadingOverlay, Snackbar, PrivacyBanner } from "@/components/lib";
 import { EndpointModalProps } from "./types";
-import LoadingOverlay from "@/components/lib/loadingOverlay";
-import Snackbar from "@/components/lib/snackbar";
-import PrivacyBanner from "@/components/lib/privacyBanner";
 import { useEndpointForm } from "./hooks/useEndpointForm";
 import { useEndpointSubmit } from "./hooks/useEndpointSubmit";
 import EndpointFormFields from "./components/EndpointFormFields";

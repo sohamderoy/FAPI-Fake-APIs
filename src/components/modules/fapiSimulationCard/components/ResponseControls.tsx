@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { FAPI } from "@/utils/data/global.constants";
+import { FAPI } from "@/utils/data";
 
 interface ResponseControlsProps {
   currentResponseCode: number;

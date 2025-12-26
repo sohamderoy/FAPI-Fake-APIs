@@ -1,11 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { HttpMethods } from "@/types/fapi";
-import { STATUS_COLORS } from "@/utils/data/global.constants";
-import { updateFapiEndpoint } from "@/utils/functions/updateFapiEndpoint";
-import { deleteEndpoint } from "@/utils/functions/deleteEndpoint";
-import { removeEndpoint, updateEndpoint } from "@/store/slices/endpointsSlice";
-import { createEndpointKey } from "@/utils/functions/createEndpointKey";
+import { STATUS_COLORS } from "@/utils/data";
+import { updateFapiEndpoint, deleteEndpoint, createEndpointKey } from "@/utils/functions";
+import { removeEndpoint, updateEndpoint } from "@/store";
 
 interface SnackbarState {
   isOpen: boolean;

@@ -6,7 +6,7 @@ import {
   TextField,
 } from "@mui/material";
 import { FapiEndpointBase, HttpMethods } from "@/types/fapi";
-import { FAPI } from "@/utils/data/global.constants";
+import { FAPI } from "@/utils/data";
 import { FormErrors, FormTouched } from "../types";
 
 interface EndpointFormFieldsProps {

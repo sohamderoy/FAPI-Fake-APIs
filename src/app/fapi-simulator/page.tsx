@@ -3,23 +3,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tooltip } from "@mui/material";
-import EndpointModal from "@/components/modules/endpointModal";
-import FapiSimulationCard from "@/components/modules/fapiSimulationCard";
-import AnimatedBackground from "@/components/lib/animatedBackground";
-import AppName from "@/components/lib/appName";
-import Button from "@/components/lib/button";
-import Snackbar from "@/components/lib/snackbar";
-import { EndpointsListForFapiSimulationCard } from "@/components/modules/fapiSimulationCard/types";
-import { RootState } from "@/store/store";
+import { EndpointModal, FapiSimulationCard } from "@/components/modules";
+import type { EndpointsListForFapiSimulationCard } from "@/components/modules";
+import { AnimatedBackground, AppName, Button, Snackbar } from "@/components/lib";
+import type { RootState } from "@/store";
+import { hydrateEndpoints } from "@/store";
 import { HttpMethods } from "@/types/fapi";
-import { hydrateEndpoints } from "@/store/slices/endpointsSlice";
-import { loadEndpoints } from "@/utils/functions/loadEndpoints";
-import { createEndpointKey } from "@/utils/functions/createEndpointKey";
-import {
-  FAPI_LIMITS,
-  UI_LIMITS,
-  IMPORT_STRATEGY,
-} from "@/utils/data/global.constants";
+import { loadEndpoints, createEndpointKey } from "@/utils/functions";
+import { FAPI_LIMITS, UI_LIMITS, IMPORT_STRATEGY } from "@/utils/data";
 import { useProjectName } from "./hooks/useProjectName";
 import { useEndpointImport } from "./hooks/useEndpointImport";
 import ProjectNameSection from "./components/ProjectNameSection";
