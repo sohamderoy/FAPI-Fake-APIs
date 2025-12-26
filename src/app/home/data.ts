@@ -1,7 +1,6 @@
 import { Zap, Clock, Shield, Server } from "lucide-react";
 
 export const BANNER_DATA = {
-  defaultTitle: "FAPI",
   defaultSubtitle:
     "Create & simulate mock APIs within seconds, for rapid & independent frontend development",
   features: [

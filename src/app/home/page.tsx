@@ -3,16 +3,15 @@
 import React from "react";
 import { HomeBannerProps } from "./types";
 import { BANNER_DATA } from "./data";
-import { getGradientStyles } from "./utils";
 import FeatureCard from "@/components/modules/featureCard";
 import Button from "@/components/lib/button";
 import AnimatedBackground from "@/components/lib/animatedBackground";
+import AppName from "@/components/lib/appName";
 import { useRouter } from "next/navigation";
 import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data/paths/paths.ui.constants";
 import { ArrowRight, Rocket } from "lucide-react";
 
 const HomePage = ({
-  title = BANNER_DATA.defaultTitle,
   subtitle = BANNER_DATA.defaultSubtitle,
 }: HomeBannerProps) => {
   const router = useRouter();
@@ -24,12 +23,7 @@ const HomePage = ({
       <AnimatedBackground />
       <div className="flex flex-col items-center justify-center h-full w-full p-4">
         <div className="text-center max-w-3xl mx-auto">
-          <h1
-            className="text-8xl font-extrabold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 font-googleSansFlex tracking-[10px]"
-            style={getGradientStyles()}
-          >
-            {title}
-          </h1>
+          <AppName style={{ fontSize: "6rem", letterSpacing: "10px" }} />
           <p className="text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light">
             {subtitle}
           </p>
