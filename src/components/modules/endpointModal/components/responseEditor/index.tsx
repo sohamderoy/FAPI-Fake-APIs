@@ -1,4 +1,4 @@
-import { Editor } from "@/components/lib";
+import { Editor } from "@/lib";
 import { ResponseEditorProps } from "./types";
 
 const ResponseEditor = ({ value, onChange }: ResponseEditorProps) => {

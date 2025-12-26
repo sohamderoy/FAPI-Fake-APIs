@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material";
-import { Button } from "@/components/lib";
+import { Button } from "@/lib";
 import { FormActionsProps } from "./types";
 import { getButtonLabel } from "./utils";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { Card, Badge, Snackbar, ConfirmationModal } from "@/components/lib";
-import type { ConfirmationButton } from "@/components/lib";
+import { Card, Badge, Snackbar, ConfirmationModal } from "@/lib";
+import type { ConfirmationButton } from "@/lib";
 import { EndpointModal } from "@/components/modules";
 import { EndpointsListForFapiSimulationCard } from "./types";
 import { useCardActions } from "./hooks/useCardActions";

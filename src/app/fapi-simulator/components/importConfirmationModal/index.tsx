@@ -1,5 +1,5 @@
-import { ConfirmationModal, PrivacyBanner } from "@/components/lib";
-import type { ConfirmationButton } from "@/components/lib";
+import { ConfirmationModal, PrivacyBanner } from "@/lib";
+import type { ConfirmationButton } from "@/lib";
 import { ImportConfirmationModalProps } from "./types";
 
 const ImportConfirmationModal = ({

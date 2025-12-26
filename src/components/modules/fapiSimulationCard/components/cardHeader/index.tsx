@@ -1,6 +1,6 @@
 import { Tooltip } from "@mui/material";
 import { Copy as CopyIcon } from "lucide-react";
-import { Badge } from "@/components/lib";
+import { Badge } from "@/lib";
 import { CardHeaderProps } from "./types";
 import { BORDER_COLOR_MAP } from "./data";
 

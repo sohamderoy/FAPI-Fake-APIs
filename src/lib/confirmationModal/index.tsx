@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from "@/components/lib/modal";
-import Button from "@/components/lib/button";
+import Modal from "@/lib/modal";
+import Button from "@/lib/button";
 import { ConfirmationModalProps } from "./types";
 import { getButtonVariant } from "./utils";
 

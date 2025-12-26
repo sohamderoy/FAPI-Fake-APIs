@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material";
-import { Button } from "@/components/lib";
+import { Button } from "@/lib";
 import { STATUS_COLORS } from "@/utils/data";
 import { exportEndpoints } from "@/utils/functions";
 import { ImportExportActionsProps } from "./types";
