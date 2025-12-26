@@ -1,7 +1,6 @@
-import ConfirmationModal from "@/components/lib/confirmationModal";
-import PrivacyBanner from "@/components/lib/privacyBanner";
-import { ConfirmationButton } from "@/components/lib/confirmationModal/types";
-import { IMPORT_STRATEGY } from "@/utils/data/global.constants";
+import { ConfirmationModal, PrivacyBanner } from "@/components/lib";
+import type { ConfirmationButton } from "@/components/lib";
+import { IMPORT_STRATEGY } from "@/utils/data";
 
 interface ImportConfirmationModalProps {
   isOpen: boolean;

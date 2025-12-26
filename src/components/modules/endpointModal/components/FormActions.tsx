@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material";
-import Button from "@/components/lib/button";
+import { Button } from "@/components/lib";
 
 interface FormActionsProps {
   isEditMode: boolean;

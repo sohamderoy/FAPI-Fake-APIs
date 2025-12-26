@@ -1,9 +1,9 @@
-import { getFapiStorageFilePathPerPort } from "./../../../utils/functions/getFapiStorageFilePathPerPort.util";
+import { getFapiStorageFilePathPerPort } from "@/utils/functions/getFapiStorageFilePathPerPort.util";
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import { FapiStorage, HttpMethods } from "@/types/fapi";
 import { getStorageDirectory } from "@/utils/functions/getStorageDirectory.util";
-import { createEndpointKey } from "@/utils/functions/createEndpointKey";
+import { createEndpointKey } from "@/utils/functions";
 
 export const POST = async (req: NextRequest) => {
   try {

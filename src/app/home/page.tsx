@@ -2,12 +2,10 @@
 
 import React from "react";
 import { SUBTITLE, FEATURE_CARDS_DATA } from "./data";
-import FeatureCard from "@/components/modules/featureCard";
-import Button from "@/components/lib/button";
-import AnimatedBackground from "@/components/lib/animatedBackground";
-import AppName from "@/components/lib/appName";
+import { FeatureCard } from "@/components/modules";
+import { Button, AnimatedBackground, AppName } from "@/components/lib";
 import { useRouter } from "next/navigation";
-import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data/paths/paths.ui.constants";
+import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data";
 import { ArrowRight, Rocket } from "lucide-react";
 
 const HomePage = () => {

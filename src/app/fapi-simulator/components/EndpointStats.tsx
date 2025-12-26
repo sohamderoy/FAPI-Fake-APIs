@@ -1,4 +1,4 @@
-import { FAPI_LIMITS } from "@/utils/data/global.constants";
+import { FAPI_LIMITS } from "@/utils/data";
 
 interface EndpointStatsProps {
   currentEndpointCount: number;

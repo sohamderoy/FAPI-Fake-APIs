@@ -1,6 +1,6 @@
 import { EndpointKey } from "@/types/fapi";
-import { EndpointDetails } from "@/store/types/endpoints";
-import { FAPI_EXPORT_FILENAME_PREFIX } from "@/utils/data/global.constants";
+import type { EndpointDetails } from "@/store";
+import { FAPI_EXPORT_FILENAME_PREFIX } from "@/utils/data";
 
 export interface ExportData {
   version: string;

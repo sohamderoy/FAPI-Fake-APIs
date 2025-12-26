@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HOME_PAGE_PATH } from "@/utils/data/paths/paths.ui.constants";
+import { HOME_PAGE_PATH } from "@/utils/data";
 import { AppNameProps } from "./types";
 
 const AppName = ({ style }: AppNameProps) => {

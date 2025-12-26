@@ -1,12 +1,9 @@
 "use client";
 
-import Card from "@/components/lib/card";
+import { Card, Badge, Snackbar, ConfirmationModal } from "@/components/lib";
+import type { ConfirmationButton } from "@/components/lib";
+import { EndpointModal } from "@/components/modules";
 import { EndpointsListForFapiSimulationCard } from "./types";
-import Badge from "@/components/lib/badge";
-import Snackbar from "@/components/lib/snackbar";
-import ConfirmationModal from "@/components/lib/confirmationModal";
-import { ConfirmationButton } from "@/components/lib/confirmationModal/types";
-import EndpointModal from "@/components/modules/endpointModal";
 import { useCardActions } from "./hooks/useCardActions";
 import CardHeader from "./components/CardHeader";
 import ResponseControls from "./components/ResponseControls";

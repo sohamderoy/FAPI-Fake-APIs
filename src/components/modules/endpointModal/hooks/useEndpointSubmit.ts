@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { EndpointKey, FapiEndpointBase } from "@/types/fapi";
-import { STATUS_COLORS } from "@/utils/data/global.constants";
-import { validateJSON } from "@/utils/functions/validateJSON";
-import { createEndpoint } from "@/utils/functions/createEndpoint";
-import { updateFapiEndpoint } from "@/utils/functions/updateFapiEndpoint";
-import { setHasFapiEndpoints } from "@/store/slices/navigationSlice";
-import { addEndpoint, updateEndpoint } from "@/store/slices/endpointsSlice";
-import { createEndpointKey } from "@/utils/functions/createEndpointKey";
+import { STATUS_COLORS } from "@/utils/data";
+import { validateJSON, createEndpoint, updateFapiEndpoint, createEndpointKey } from "@/utils/functions";
+import { setHasFapiEndpoints, addEndpoint, updateEndpoint } from "@/store";
 import { SnackbarState } from "../types";
 
 interface UseEndpointSubmitProps {

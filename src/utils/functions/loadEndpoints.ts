@@ -1,4 +1,4 @@
-import { GET_ENDPOINTS_API_PATH } from "@/utils/data/paths/paths.api.constants";
+import { GET_ENDPOINTS_API_PATH } from "@/utils/data";
 import { EndpointKey, FapiEndpoint } from "@/types/fapi";
 import { EndpointDetails } from "@/store/types/endpoints";
 

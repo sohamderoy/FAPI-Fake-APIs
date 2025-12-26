@@ -1,6 +1,6 @@
 import { ValidationResult } from "./types";
 import { validateEndpoint } from "./endpointValidator";
-import { FAPI_LIMITS } from "@/utils/data/global.constants";
+import { FAPI_LIMITS } from "@/utils/data";
 
 /**
  * Validates the structure of import data

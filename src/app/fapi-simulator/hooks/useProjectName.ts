@@ -1,12 +1,8 @@
 import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import {
-  FAPI_REGEX,
-  STATUS_COLORS,
-  UI_LIMITS,
-} from "@/utils/data/global.constants";
-import { updateProjectName as updateProjectNameAPI } from "@/utils/functions/updateProjectName";
-import { setProjectName } from "@/store/slices/endpointsSlice";
+import { FAPI_REGEX, STATUS_COLORS, UI_LIMITS } from "@/utils/data";
+import { updateProjectName as updateProjectNameAPI } from "@/utils/functions";
+import { setProjectName } from "@/store";
 
 interface SnackbarState {
   isOpen: boolean;
