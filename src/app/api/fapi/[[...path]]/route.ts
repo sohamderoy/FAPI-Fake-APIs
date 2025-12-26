@@ -27,18 +27,6 @@ const normalizeQueryString = (url: URL): string => {
 
   const queryString = normalizedParams.toString();
 
-  console.log(
-    "$$w1, url: ",
-    url,
-    "searchParams: ",
-    searchParams,
-    "sortedParams: ",
-    sortedParams,
-    "normalizedParams: ",
-    normalizedParams,
-    "queryString: ",
-    queryString
-  );
   return queryString ? `${queryString}` : "";
 };
 const delay = (time: number) =>
@@ -80,7 +68,6 @@ const createMethodHandler = (method: HttpMethods) => {
         );
         storage = JSON.parse(fileContent);
       } catch (err) {
-        console.error("Error reading storage file: ", err);
         return new NextResponse(
           JSON.stringify({ error: "Internal Server Error" }),
           {
