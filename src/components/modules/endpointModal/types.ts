@@ -1,9 +1,11 @@
+import { HttpMethods } from "@/types/fapi";
+
 export interface EndpointModalProps {
   isOpen: boolean;
   onClose: () => void;
   mode?: "create" | "edit";
   editData?: {
-    method: string;
+    method: HttpMethods;
     path: string;
     responseCode: number;
     responseDelay: number;

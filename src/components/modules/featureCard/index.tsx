@@ -4,17 +4,8 @@ const FeatureCard = ({
   title,
   description,
   icon: Icon,
-  gradient,
+  iconColor,
 }: FeatureCardProps) => {
-  // Map gradient to icon color
-  const getIconColor = () => {
-    if (gradient?.includes("yellow")) return "text-yellow-400";
-    if (gradient?.includes("blue")) return "text-blue-400";
-    if (gradient?.includes("green")) return "text-green-400";
-    if (gradient?.includes("purple")) return "text-purple-400";
-    return "text-gray-400";
-  };
-
   return (
     <div className="group relative rounded-xl p-[1px] bg-gray-800 hover:bg-gradient-to-r hover:from-[#0EA5E9] hover:via-[#8B5CF6] hover:to-[#EC4899] transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:scale-[1.02]">
       {/* Animated gradient glow on hover */}
@@ -25,7 +16,7 @@ const FeatureCard = ({
         {/* Icon */}
         {Icon && (
           <Icon
-            className={`w-8 h-8 mb-4 ${getIconColor()} group-hover:scale-110 transition-transform duration-300`}
+            className={`w-8 h-8 mb-4 ${iconColor} group-hover:scale-110 transition-transform duration-300`}
             strokeWidth={2}
           />
         )}

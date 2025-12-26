@@ -90,11 +90,17 @@ export const UPDATE_PROJECT_NAME_API_PATH = "/api/update-project-name";
 
 export const FAPI_EXPORT_FILENAME_PREFIX = "FAPI-Endpoints";
 
-// FAPI Limits
+// FAPI Limits (Backend/business constraints)
 export const FAPI_LIMITS = {
   MAX_ENDPOINTS: 1000, // Total limit for endpoints (applies to both file import and total count)
   MAX_FILE_SIZE_MB: 5,
   MAX_FILE_SIZE_BYTES: 5 * 1024 * 1024, // 5MB in bytes
+} as const;
+
+// UI Limits (Frontend/presentation constraints)
+export const UI_LIMITS = {
+  PROJECT_NAME_MAX_LENGTH: 50,
+  UI_CONTAINER_MAX_WIDTH: "1440px",
 } as const;
 
 // Import Strategies

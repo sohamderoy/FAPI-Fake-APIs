@@ -6,5 +6,4 @@ export interface CardProps {
   width?: "sm" | "md" | "lg" | "xl" | "full";
   height?: "sm" | "md" | "lg" | "xl" | "full";
   borderGradient?: boolean | "hover";
-  hoverEffect?: boolean;
 }
