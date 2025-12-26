@@ -76,7 +76,7 @@ export const POST = async (req: NextRequest) => {
         method: method as any,
         responseCode: details.responseCode,
         responseDelay: details.responseDelay,
-        response: typeof details.response === 'string' ? details.response : JSON.stringify(details.response),
+        response: details.response,
         createdAt: new Date().toISOString(),
       };
       addedCount++;
