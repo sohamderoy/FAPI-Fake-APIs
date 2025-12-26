@@ -3,7 +3,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tooltip } from "@mui/material";
-import { EndpointModal, FapiSimulationCard } from "@/components";
+import {
+  EndpointModal,
+  FapiSimulationCard,
+  ProjectNameSection,
+  EndpointStats,
+  ImportExportActions,
+  ImportConfirmationModal,
+} from "@/components";
 import type { EndpointsListForFapiSimulationCard } from "@/components";
 import { AnimatedBackground, AppName, Button, Snackbar } from "@/lib";
 import type { RootState } from "@/store";
@@ -13,10 +20,6 @@ import { loadEndpoints, createEndpointKey } from "@/utils/functions";
 import { FAPI_LIMITS, UI_LIMITS, IMPORT_STRATEGY } from "@/utils/data";
 import { useProjectName } from "./hooks/useProjectName";
 import { useEndpointImport } from "./hooks/useEndpointImport";
-import ProjectNameSection from "./components/projectNameSection";
-import EndpointStats from "./components/endpointStats";
-import ImportExportActions from "./components/importExportActions";
-import ImportConfirmationModal from "./components/importConfirmationModal";
 
 const FapiSimulatorPage = () => {
   const dispatch = useDispatch();
