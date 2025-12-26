@@ -1,4 +1,4 @@
-import { UPDATE_PROJECT_NAME_API_PATH } from "@/utils/data/global.constants";
+import { UPDATE_PROJECT_NAME_API_PATH } from "@/utils/data";
 
 export const updateProjectName = async (
   projectName: string

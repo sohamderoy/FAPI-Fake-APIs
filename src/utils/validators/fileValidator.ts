@@ -1,5 +1,5 @@
 import { ValidationResult } from "./types";
-import { FAPI_LIMITS } from "@/utils/data/global.constants";
+import { FAPI_LIMITS } from "@/utils/data";
 
 /**
  * Validates file extension

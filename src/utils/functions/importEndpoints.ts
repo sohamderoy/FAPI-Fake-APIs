@@ -1,10 +1,9 @@
 import { IMPORT_ENDPOINTS_API_PATH } from "@/utils/data/paths/paths.api.constants";
 import { EndpointKey } from "@/types/fapi";
-import { EndpointDetails } from "@/store/types/endpoints";
+import type { EndpointDetails } from "@/store";
 import { ExportData } from "./exportEndpoints";
-import { validateFile } from "@/utils/validators/fileValidator";
-import { validateImportData } from "@/utils/validators/importValidator";
-import { IMPORT_STRATEGY, ImportStrategy } from "@/utils/data/global.constants";
+import { validateFile, validateImportData } from "@/utils/validators";
+import { IMPORT_STRATEGY, ImportStrategy } from "@/utils/data";
 
 export interface ImportResult {
   success: boolean;

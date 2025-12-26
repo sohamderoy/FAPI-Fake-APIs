@@ -1,5 +1,5 @@
 import { HttpMethods } from "@/types/fapi";
-import { FAPI } from "@/utils/data/global.constants";
+import { FAPI } from "@/utils/data";
 import { EndpointValidationResult } from "./types";
 
 /**
