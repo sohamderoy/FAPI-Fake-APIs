@@ -8,7 +8,7 @@ import AppName from "@/components/lib/appName";
 import { EndpointsListForFapiSimulationCard } from "@/components/modules/fapiSimulationCard/types";
 import { RootState } from "@/store/store";
 import { HttpMethods } from "@/types/fapi";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   hydrateEndpoints,
@@ -94,16 +94,18 @@ const FapiSimulatorPage = () => {
     setCurrentProjectName(projectName);
   }, [projectName]);
 
-  const endpointsList: EndpointsListForFapiSimulationCard[] = Object.entries(
-    endpoints
-  ).map(([key, details]) => {
-    const [method, ...pathParts] = key.split(" ");
-    return {
-      path: pathParts.join(" "),
-      method: method as HttpMethods,
-      details,
-    };
-  });
+  const endpointsList: EndpointsListForFapiSimulationCard[] = useMemo(
+    () =>
+      Object.entries(endpoints).map(([key, details]) => {
+        const [method, ...pathParts] = key.split(" ");
+        return {
+          path: pathParts.join(" "),
+          method: method as HttpMethods,
+          details,
+        };
+      }),
+    [endpoints]
+  );
 
   // Check if project name has changes
   const hasProjectNameChanges = currentProjectName !== projectName;

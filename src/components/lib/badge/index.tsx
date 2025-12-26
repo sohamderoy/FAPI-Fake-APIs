@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { BADGE_COLORS } from "./data";
 import { BadgeProps } from "./types";
 
@@ -13,4 +14,4 @@ const Badge = ({ method }: BadgeProps) => {
   );
 };
 
-export default Badge;
+export default memo(Badge);
