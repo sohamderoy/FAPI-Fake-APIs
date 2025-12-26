@@ -1,12 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { FAPI } from "@/utils/data";
-
-interface ResponseControlsProps {
-  currentResponseCode: number;
-  currentResponseDelay: number;
-  onResponseCodeChange: (code: number) => void;
-  onResponseDelayChange: (delay: number) => void;
-}
+import { ResponseControlsProps } from "./types";
 
 const ResponseControls = ({
   currentResponseCode,

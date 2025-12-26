@@ -3,9 +3,9 @@ import { Modal, LoadingOverlay, Snackbar, PrivacyBanner } from "@/components/lib
 import { EndpointModalProps } from "./types";
 import { useEndpointForm } from "./hooks/useEndpointForm";
 import { useEndpointSubmit } from "./hooks/useEndpointSubmit";
-import EndpointFormFields from "./components/EndpointFormFields";
-import ResponseEditor from "./components/ResponseEditor";
-import FormActions from "./components/FormActions";
+import EndpointFormFields from "./components/endpointFormFields";
+import ResponseEditor from "./components/responseEditor";
+import FormActions from "./components/formActions";
 
 const EndpointModal = ({
   isOpen,

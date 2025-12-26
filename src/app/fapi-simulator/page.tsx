@@ -13,10 +13,10 @@ import { loadEndpoints, createEndpointKey } from "@/utils/functions";
 import { FAPI_LIMITS, UI_LIMITS, IMPORT_STRATEGY } from "@/utils/data";
 import { useProjectName } from "./hooks/useProjectName";
 import { useEndpointImport } from "./hooks/useEndpointImport";
-import ProjectNameSection from "./components/ProjectNameSection";
-import EndpointStats from "./components/EndpointStats";
-import ImportExportActions from "./components/ImportExportActions";
-import ImportConfirmationModal from "./components/ImportConfirmationModal";
+import ProjectNameSection from "./components/projectNameSection";
+import EndpointStats from "./components/endpointStats";
+import ImportExportActions from "./components/importExportActions";
+import ImportConfirmationModal from "./components/importConfirmationModal";
 
 const FapiSimulatorPage = () => {
   const dispatch = useDispatch();

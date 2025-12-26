@@ -1,4 +1,5 @@
 import { ButtonProps } from "./types";
+import { getButtonClasses } from "./utils";
 
 const Button = ({
   name,
@@ -6,22 +7,6 @@ const Button = ({
   disabled,
   variant = "primary",
 }: ButtonProps) => {
-  const getButtonClasses = () => {
-    if (disabled) {
-      return "bg-gray-700 text-gray-500 cursor-not-allowed border-2 border-gray-700";
-    }
-
-    switch (variant) {
-      case "primary":
-        return "bg-blue-600 text-white hover:bg-black hover:text-blue-600 border-2 border-blue-600 hover:border-black cursor-pointer";
-      case "secondary":
-        return "bg-transparent border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 hover:text-white cursor-pointer";
-      case "danger":
-        return "bg-red-600 text-white hover:bg-red-700 border-2 border-red-600 hover:border-red-700 cursor-pointer";
-      default:
-        return "";
-    }
-  };
 
   const isPrimary = variant === "primary";
 
@@ -46,7 +31,7 @@ const Button = ({
       <button
         onClick={onClick}
         disabled={disabled}
-        className={`relative w-full sm:w-auto font-googleSansFlex font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center ${getButtonClasses()}`}
+        className={`relative w-full sm:w-auto font-googleSansFlex font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center ${getButtonClasses(variant, disabled)}`}
       >
         {name}
       </button>

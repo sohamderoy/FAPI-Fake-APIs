@@ -1,8 +1,5 @@
 import { FAPI_LIMITS } from "@/utils/data";
-
-interface EndpointStatsProps {
-  currentEndpointCount: number;
-}
+import { EndpointStatsProps } from "./types";
 
 const EndpointStats = ({ currentEndpointCount }: EndpointStatsProps) => {
   const isAtMaxLimit = currentEndpointCount >= FAPI_LIMITS.MAX_ENDPOINTS;

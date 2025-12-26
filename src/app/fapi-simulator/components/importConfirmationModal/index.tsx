@@ -1,15 +1,6 @@
 import { ConfirmationModal, PrivacyBanner } from "@/components/lib";
 import type { ConfirmationButton } from "@/components/lib";
-import { IMPORT_STRATEGY } from "@/utils/data";
-
-interface ImportConfirmationModalProps {
-  isOpen: boolean;
-  fileName: string;
-  isAtLimit: boolean;
-  onMerge: () => void;
-  onReplace: () => void;
-  onCancel: () => void;
-}
+import { ImportConfirmationModalProps } from "./types";
 
 const ImportConfirmationModal = ({
   isOpen,

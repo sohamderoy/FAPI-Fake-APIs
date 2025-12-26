@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "@/components/lib/modal";
 import Button from "@/components/lib/button";
 import { ConfirmationModalProps } from "./types";
+import { getButtonVariant } from "./utils";
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   isOpen,
@@ -11,14 +12,6 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onClose,
   size = "md",
 }) => {
-  // Map confirmation button variants to our Button component variants
-  const getButtonVariant = (
-    variant?: string
-  ): "primary" | "secondary" | "danger" => {
-    if (variant === "secondary") return "secondary";
-    if (variant === "danger") return "danger";
-    return "primary";
-  };
 
   return (
     <Modal

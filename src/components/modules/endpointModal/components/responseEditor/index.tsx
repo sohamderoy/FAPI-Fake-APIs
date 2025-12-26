@@ -1,9 +1,5 @@
 import { Editor } from "@/components/lib";
-
-interface ResponseEditorProps {
-  value: string;
-  onChange: (value: string | undefined) => void;
-}
+import { ResponseEditorProps } from "./types";
 
 const ResponseEditor = ({ value, onChange }: ResponseEditorProps) => {
   return (

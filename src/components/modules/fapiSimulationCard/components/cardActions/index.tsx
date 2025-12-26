@@ -4,15 +4,7 @@ import {
   Trash2 as DeleteIcon,
   Save as SaveIcon,
 } from "lucide-react";
-
-interface CardActionsProps {
-  hasChanges: boolean;
-  isSaving: boolean;
-  isDeleting: boolean;
-  onEditResponse: () => void;
-  onUpdateFapi: () => void;
-  onDeleteClick: () => void;
-}
+import { CardActionsProps } from "./types";
 
 const CardActions = ({
   hasChanges,

@@ -5,9 +5,9 @@ import type { ConfirmationButton } from "@/components/lib";
 import { EndpointModal } from "@/components/modules";
 import { EndpointsListForFapiSimulationCard } from "./types";
 import { useCardActions } from "./hooks/useCardActions";
-import CardHeader from "./components/CardHeader";
-import ResponseControls from "./components/ResponseControls";
-import CardActions from "./components/CardActions";
+import CardHeader from "./components/cardHeader";
+import ResponseControls from "./components/responseControls";
+import CardActions from "./components/cardActions";
 
 const FapiSimulationCard = ({
   method,
