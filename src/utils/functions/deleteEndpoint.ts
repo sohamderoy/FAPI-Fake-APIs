@@ -1,4 +1,4 @@
-import { DELETE_API_ENDPOINT_API_PATH } from "@/utils/data/paths/paths.api.constants";
+import { DELETE_API_ENDPOINT_API_PATH } from "@/utils/data";
 import { HttpMethods } from "@/types/fapi";
 
 export const deleteEndpoint = async (

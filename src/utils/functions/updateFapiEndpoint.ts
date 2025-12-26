@@ -1,4 +1,4 @@
-import { UPDATE_ENDPOINT_API_PATH } from "@/utils/data/paths/paths.api.constants";
+import { UPDATE_ENDPOINT_API_PATH } from "@/utils/data";
 import { HttpMethods } from "@/types/fapi";
 
 export interface UpdateFapiEndpointParams {

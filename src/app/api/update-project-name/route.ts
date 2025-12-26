@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 import { FapiStorage } from "@/types/fapi";
 import { getStorageDirectory } from "@/utils/functions/getStorageDirectory.util";
 import { getFapiStorageFilePathPerPort } from "@/utils/functions/getFapiStorageFilePathPerPort.util";
-import { FAPI_REGEX } from "@/utils/data/global.constants";
+import { FAPI_REGEX } from "@/utils/data";
 
 export const PUT = async (req: NextRequest) => {
   try {

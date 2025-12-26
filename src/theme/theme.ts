@@ -23,30 +23,30 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "var(--font-outfit), Outfit, sans-serif",
+    fontFamily: "var(--font-google-sans-flex), sans-serif",
     h1: {
-      fontFamily: "var(--font-outfit), Outfit, sans-serif",
+      fontFamily: "var(--font-google-sans-flex), sans-serif",
       fontSize: "3.5rem",
       fontWeight: 700,
       letterSpacing: "0.2em",
     },
     h2: {
-      fontFamily: "var(--font-outfit), Outfit, sans-serif",
+      fontFamily: "var(--font-google-sans-flex), sans-serif",
       fontSize: "2.5rem",
       fontWeight: 600,
     },
     h3: {
-      fontFamily: "var(--font-outfit), Outfit, sans-serif",
+      fontFamily: "var(--font-google-sans-flex), sans-serif",
       fontSize: "2rem",
       fontWeight: 600,
     },
     body1: {
-      fontFamily: "var(--font-outfit), Outfit, sans-serif",
+      fontFamily: "var(--font-google-sans-flex), sans-serif",
       fontSize: "1rem",
       lineHeight: 1.5,
     },
     button: {
-      fontFamily: "var(--font-outfit), Outfit, sans-serif",
+      fontFamily: "var(--font-google-sans-flex), sans-serif",
       textTransform: "none",
       fontWeight: 500,
     },
@@ -55,7 +55,7 @@ export const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          fontFamily: "var(--font-outfit), Outfit, sans-serif",
+          fontFamily: "var(--font-google-sans-flex), sans-serif",
           backgroundColor: "#000000",
         },
       },

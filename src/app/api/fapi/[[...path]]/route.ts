@@ -1,10 +1,10 @@
 import { FapiEndpoint, HttpMethods } from "@/types/fapi";
-import { FAPI } from "@/utils/data/global.constants";
+import { FAPI } from "@/utils/data";
 import { getFapiStorageFilePathPerPort } from "@/utils/functions/getFapiStorageFilePathPerPort.util";
 import { getStorageDirectory } from "@/utils/functions/getStorageDirectory.util";
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
-import { createEndpointKey } from "@/utils/functions/createEndpointKey";
+import { createEndpointKey } from "@/utils/functions";
 
 const normalizeQueryString = (url: URL): string => {
   const searchParams = new URLSearchParams(url.search);
@@ -27,18 +27,6 @@ const normalizeQueryString = (url: URL): string => {
 
   const queryString = normalizedParams.toString();
 
-  console.log(
-    "$$w1, url: ",
-    url,
-    "searchParams: ",
-    searchParams,
-    "sortedParams: ",
-    sortedParams,
-    "normalizedParams: ",
-    normalizedParams,
-    "queryString: ",
-    queryString
-  );
   return queryString ? `${queryString}` : "";
 };
 const delay = (time: number) =>
@@ -80,7 +68,6 @@ const createMethodHandler = (method: HttpMethods) => {
         );
         storage = JSON.parse(fileContent);
       } catch (err) {
-        console.error("Error reading storage file: ", err);
         return new NextResponse(
           JSON.stringify({ error: "Internal Server Error" }),
           {
