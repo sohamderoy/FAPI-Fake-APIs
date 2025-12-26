@@ -2,7 +2,7 @@
 
 import React from "react";
 import { SUBTITLE, FEATURE_CARDS_DATA } from "./data";
-import { FeatureCard } from "@/components/modules";
+import { FeatureCard } from "@/components";
 import { Button, AnimatedBackground, AppName } from "@/lib";
 import { useRouter } from "next/navigation";
 import { FAPI_SIMULATOR_PAGE_PATH } from "@/utils/data";

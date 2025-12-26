@@ -1,7 +1,7 @@
-// Barrel export for all module components
-// This file provides a single entry point for importing feature modules
+// Barrel export for all components
+// This file provides a single entry point for importing feature components
 
-// Modules
+// Components
 export { default as EndpointModal } from "./endpointModal";
 export { default as FapiSimulationCard } from "./fapiSimulationCard";
 export { default as FeatureCard } from "./featureCard";

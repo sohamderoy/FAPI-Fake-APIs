@@ -13,7 +13,6 @@ export { default as LoadingOverlay } from "./loadingOverlay";
 export { default as Modal } from "./modal";
 export { default as PrivacyBanner } from "./privacyBanner";
 export { default as Snackbar } from "./snackbar";
-export { default as SpeedDial } from "./speedDial";
 
 // Types
 export type { AppNameProps } from "./appName/types";
@@ -25,7 +24,6 @@ export type { EditorProps } from "./editor/types";
 export type { LoadingOverlayProps } from "./loadingOverlay/types";
 export type { ModalProps } from "./modal/types";
 export type { SnackbarProps } from "./snackbar/types";
-export type { SpeedDialProps, SpeedDialAction } from "./speedDial/types";
 
 // Data/Constants (if needed externally)
 export { BADGE_COLORS } from "./badge/data";

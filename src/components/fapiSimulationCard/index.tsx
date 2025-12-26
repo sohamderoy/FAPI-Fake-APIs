@@ -2,7 +2,7 @@
 
 import { Card, Badge, Snackbar, ConfirmationModal } from "@/lib";
 import type { ConfirmationButton } from "@/lib";
-import { EndpointModal } from "@/components/modules";
+import { EndpointModal } from "@/components";
 import { EndpointsListForFapiSimulationCard } from "./types";
 import { useCardActions } from "./hooks/useCardActions";
 import CardHeader from "./components/cardHeader";

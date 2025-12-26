@@ -3,8 +3,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tooltip } from "@mui/material";
-import { EndpointModal, FapiSimulationCard } from "@/components/modules";
-import type { EndpointsListForFapiSimulationCard } from "@/components/modules";
+import { EndpointModal, FapiSimulationCard } from "@/components";
+import type { EndpointsListForFapiSimulationCard } from "@/components";
 import { AnimatedBackground, AppName, Button, Snackbar } from "@/lib";
 import type { RootState } from "@/store";
 import { hydrateEndpoints } from "@/store";
