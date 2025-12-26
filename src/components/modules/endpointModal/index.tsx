@@ -364,7 +364,7 @@ const EndpointModal = ({
                   disabled={isEditMode}
                   sx={{
                     "& .MuiInputBase-input": {
-                      fontFamily: "var(--font-jetbrains-mono)",
+                      fontFamily: "var(--font-google-sans-code)",
                     },
                   }}
                 ></TextField>

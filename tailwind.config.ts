@@ -13,11 +13,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-    },
-    fontFamily: {
-      outfit: ["var(--font-outfit)"],
-      jetbrains: ["var(--font-jetbrains-mono)"],
-      montserrat: ["var(--font-montserrat)"],
+      fontFamily: {
+        googleSansFlex: ["var(--font-google-sans-flex)", "sans-serif"],
+        googleSansCode: ["var(--font-google-sans-code)", "monospace"],
+      },
     },
   },
   plugins: [],

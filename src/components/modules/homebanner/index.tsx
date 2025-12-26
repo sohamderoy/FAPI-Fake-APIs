@@ -22,12 +22,12 @@ const HomeBanner = ({
     <div className="flex flex-col items-center justify-center h-full w-full p-4">
       <div className="text-center max-w-3xl mx-auto">
         <h1
-          className="text-8xl font-extrabold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 font-montserrat tracking-[10px]"
+          className="text-8xl font-extrabold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 font-googleSansFlex tracking-[10px]"
           style={getGradientStyles()}
         >
           {title}
         </h1>
-        <p className="text-lg text-gray-200 leading-relaxed font-outfit font-light">
+        <p className="text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light">
           {subtitle}
         </p>
 
@@ -54,7 +54,7 @@ const HomeBanner = ({
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition duration-500"></div>
 
             {/* Main card container */}
-            <div className="relative h-full p-8 bg-black rounded-2xl font-outfit">
+            <div className="relative h-full p-8 bg-black rounded-2xl font-googleSansFlex">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-5">
                   <div className="group-hover:scale-110 transition-transform duration-300 flex-shrink-0">

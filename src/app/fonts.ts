@@ -1,16 +1,11 @@
-import { Outfit, JetBrains_Mono, Montserrat } from "next/font/google";
+import { Google_Sans_Flex, Google_Sans_Code } from "next/font/google";
 
-export const outfit = Outfit({
+export const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-google-sans-flex",
 });
 
-export const jetbrainsMono = JetBrains_Mono({
+export const googleSansCode = Google_Sans_Code({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-});
-
-export const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-google-sans-code",
 });

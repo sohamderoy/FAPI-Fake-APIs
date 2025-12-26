@@ -21,7 +21,7 @@ const FeatureCard = ({
       <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
 
       {/* Main card container */}
-      <div className="relative h-full p-6 bg-black rounded-xl font-outfit">
+      <div className="relative h-full p-6 bg-black rounded-xl font-googleSansFlex">
         {/* Icon */}
         {Icon && (
           <Icon

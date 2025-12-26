@@ -41,7 +41,7 @@ const Snackbar = ({
           borderRadius: "8px",
           padding: "12px 24px",
           fontSize: "18px",
-          fontFamily: "var(--font-outfit)",
+          fontFamily: "var(--font-google-sans-flex)",
         },
       }}
     />

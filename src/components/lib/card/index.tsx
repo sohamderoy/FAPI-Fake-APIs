@@ -26,7 +26,7 @@ const Card = ({
 
       <div className={`relative rounded-lg p-[1px] ${getBorderClasses()} transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]`}>
         <div
-          className={`relative rounded-lg bg-black font-outfit p-4 ${CARD_SIZES.width[width]} ${CARD_SIZES.height[height]} ${className}`}
+          className={`relative rounded-lg bg-black p-4 ${CARD_SIZES.width[width]} ${CARD_SIZES.height[height]} ${className}`}
         >
           {children}
         </div>

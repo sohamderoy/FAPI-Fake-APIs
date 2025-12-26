@@ -19,7 +19,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   // For danger variant, we'll use custom styling
   const getDangerButtonClass = () => {
-    return "relative w-full sm:w-auto font-outfit font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center bg-red-600 text-white hover:bg-red-700 border-2 border-red-600 hover:border-red-700";
+    return "relative w-full sm:w-auto font-googleSansFlex font-normal px-6 py-3 text-base rounded-lg transition-all duration-500 ease-out text-center flex justify-center items-center bg-red-600 text-white hover:bg-red-700 border-2 border-red-600 hover:border-red-700";
   };
 
   return (
@@ -33,7 +33,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     >
       <div className="px-6 pb-6">
         {/* Message */}
-        <div className="text-gray-300 mb-8 leading-relaxed whitespace-pre-line font-jetbrains break-words overflow-wrap-anywhere">
+        <div className="text-gray-300 mb-8 leading-relaxed whitespace-pre-line break-words overflow-wrap-anywhere">
           {message}
         </div>
 

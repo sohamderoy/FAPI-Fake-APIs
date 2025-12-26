@@ -67,7 +67,7 @@ const Editor = ({ value, onChange }: EditorProps) => {
             roundedSelection: false,
             wordWrap: "on",
             automaticLayout: true,
-            fontFamily: "'JetBrains Mono', Consolas, 'Courier New', monospace",
+            fontFamily: "var(--font-google-sans-code), Consolas, 'Courier New', monospace",
             fontLigatures: true,
             scrollbar: {
               verticalScrollbarSize: 6,
