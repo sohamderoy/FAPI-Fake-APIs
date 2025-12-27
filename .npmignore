@@ -29,8 +29,12 @@ yarn-error.log*
 *.pem
 
 # Build artifacts (keep .next for production)
-# .next is included for the built app
+# Exclude development and cache files from .next
 .next/cache
+.next/dev
+.next/trace
+.next/trace-build
+.next/diagnostics
 
 # Storage (user data should be created fresh)
 .fapi-storage
