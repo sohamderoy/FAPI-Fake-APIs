@@ -2,9 +2,49 @@
 
 A developer tool for creating and simulating fake APIs (FAPIs) locally for rapid and independent frontend development.
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/sohamderoy/FAPI-Fake-APIs/blob/main/CONTRIBUTING.md)
+[![npm version](https://img.shields.io/npm/v/start-fapi.svg)](https://www.npmjs.com/package/start-fapi)
+[![npm downloads](https://img.shields.io/npm/dm/start-fapi.svg)](https://www.npmjs.com/package/start-fapi)
+[![license](https://img.shields.io/npm/l/start-fapi.svg)](https://github.com/sohamderoy/FAPI-Fake-APIs/blob/main/LICENSE)
+
+> **Document Version:** v1.0.0
+> **Document Last Updated:** December 28, 2025
+
+## What is FAPI?
+
+FAPI (Fake API) is a lightweight, zero-configuration developer tool that allows you to create and simulate mock API endpoints locally. It enables frontend developers to work independently without waiting for backend APIs to be ready, test error scenarios, and prototype rapidly—all while keeping your data 100% local and private.
+
 > [!IMPORTANT]
 >
 > **FAPI is 100% Local & Private.** FAPI data never leaves your machine unless you explicitly choose to export and share it.
+
+## Table of Contents
+
+- [What is FAPI?](#what-is-fapi)
+- [NPM Package](#npm-package)
+- [Use Cases FAPI Addresses](#use-cases-fapi-addresses)
+- [Key Features](#key-features)
+- [Installation & Usage](#installation--usage)
+- [Running Multiple FAPI Instances](#running-multiple-fapi-instances)
+- [How It Works](#how-it-works)
+- [Examples](#examples)
+  - [Basic Endpoint Creation](#basic-endpoint-creation)
+  - [Complete Workflow Example](#complete-workflow-example)
+  - [Successful Response Examples](#successful-response-examples)
+  - [Error Response Examples](#error-response-examples)
+  - [Using FAPI Endpoints in Your Frontend Code](#using-fapi-endpoints-in-your-frontend-code)
+- [Requirements](#requirements)
+- [Contributing](#contributing)
+- [License](#license)
+
+## NPM Package
+
+FAPI is available as an npm package for easy installation and usage.
+
+- **Package Name:** `start-fapi`
+- **Registry:** [https://www.npmjs.com/package/start-fapi](https://www.npmjs.com/package/start-fapi)
+- **Installation:** No installation required - use directly with `npx start-fapi`
+- **Repository:** [https://github.com/sohamderoy/FAPI-Fake-APIs](https://github.com/sohamderoy/FAPI-Fake-APIs)
 
 ## Use Cases FAPI Addresses
 
@@ -207,7 +247,7 @@ Create an endpoint:
 
 ### Using FAPI Endpoints in Your Frontend Code
 
-#### With Fetch API
+Once you've created endpoints, call the API via Postman or similar application or use them like any standard API:
 
 ```javascript
 // Get all users
@@ -252,100 +292,20 @@ fetch("http://localhost:3000/api/fapi/users/1", {
   .then((data) => console.log(data));
 ```
 
-#### With Axios
-
-```javascript
-import axios from "axios";
-
-const API_BASE = "http://localhost:3000/api/fapi";
-
-// Get all users
-const getUsers = async () => {
-  const response = await axios.get(`${API_BASE}/users`);
-  return response.data;
-};
-
-// Create a new user
-const createUser = async (userData) => {
-  const response = await axios.post(`${API_BASE}/users`, userData);
-  return response.data;
-};
-
-// Update a user
-const updateUser = async (id, userData) => {
-  const response = await axios.put(`${API_BASE}/users/${id}`, userData);
-  return response.data;
-};
-
-// Delete a user
-const deleteUser = async (id) => {
-  const response = await axios.delete(`${API_BASE}/users/${id}`);
-  return response.data;
-};
-```
-
-#### With React Query
-
-```javascript
-import { useQuery, useMutation } from "@tanstack/react-query";
-
-const API_BASE = "http://localhost:3000/api/fapi";
-
-// Fetch users
-function UsersList() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE}/users`);
-      return response.json();
-    },
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  return (
-    <ul>
-      {data.users.map((user) => (
-        <li key={user.id}>
-          {user.name} - {user.email}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-// Create user mutation
-function CreateUserForm() {
-  const mutation = useMutation({
-    mutationFn: async (newUser) => {
-      const response = await fetch(`${API_BASE}/users`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
-      });
-      return response.json();
-    },
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    mutation.mutate({ name: "New User", email: "new@example.com" });
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <button type="submit">Create User</button>
-      {mutation.isLoading && <p>Creating user...</p>}
-      {mutation.isSuccess && <p>User created!</p>}
-    </form>
-  );
-}
-```
+Use with any HTTP client: fetch, axios, React Query, etc.
 
 ## Requirements
 
 - Node.js >= 20.9.0
+
+## Contributing
+
+This project is open for contributions and your efforts will be highly appreciated.
+
+For details please see:
+
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contribution guidelines, development setup, and PR process
+- **[RELEASE_PROCESS.md](RELEASE_PROCESS.md)** - Release strategy, versioning, and branching model
 
 ## License
 
