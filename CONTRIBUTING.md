@@ -1,7 +1,7 @@
-# Contributing to FAPI
+# Contribution Guide
 
-> **Version:** v1.0.0
-> **Last Updated:** December 27, 2025
+> **Document Version:** v1.0.1
+> **Document Last Updated:** December 28, 2025
 
 Thank you for your interest in contributing to FAPI! This guide will help you get started with contributing to the project.
 
@@ -16,6 +16,11 @@ Thank you for your interest in contributing to FAPI! This guide will help you ge
 - [Testing](#testing)
 - [Submitting Changes](#submitting-changes)
 - [Reporting Issues](#reporting-issues)
+- [Development Tips](#development-tips)
+- [Questions?](#questions)
+- [License](#license)
+
+**For release workflow and versioning details, see [RELEASE_PROCESS.md](RELEASE_PROCESS.md)**
 
 ## Code of Conduct
 
@@ -128,7 +133,7 @@ git checkout -b feature/your-feature-name
 
 ### 2. Make Your Changes
 
-- Write clean, readable code following our [coding standards](#coding-standards)
+- Write clean, readable code following the [coding standards](#coding-standards)
 - Keep commits focused and atomic
 - Write descriptive commit messages
 
@@ -147,7 +152,7 @@ git commit -m "feat: add new feature description"
 
 #### Commit Message Format
 
-We follow conventional commit messages:
+This project follows conventional commit messages:
 
 - `feat:` New feature
 - `fix:` Bug fix
@@ -184,9 +189,12 @@ git push origin feature/your-feature-name
 
 - Go to your fork on GitHub
 - Click "New Pull Request"
-- Select `develop` as the base branch
+- **Important:** Always select `develop` as the base branch
+- ⚠️ **Do NOT create PRs to `main`** - they will be closed
 - Provide a clear description of your changes
 - Reference any related issues
+
+**Note:** For details on the release workflow and branching strategy, see [RELEASE_PROCESS.md](RELEASE_PROCESS.md).
 
 ## Testing
 
