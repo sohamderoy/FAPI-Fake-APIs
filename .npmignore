@@ -30,6 +30,7 @@ yarn-error.log*
 
 # Build artifacts (keep .next for production)
 # .next is included for the built app
+.next/cache
 
 # Storage (user data should be created fresh)
 .fapi-storage
