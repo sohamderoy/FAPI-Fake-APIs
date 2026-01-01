@@ -88,7 +88,7 @@ export const FAPI_REGEX = {
 
 export const UPDATE_PROJECT_NAME_API_PATH = "/api/update-project-name";
 
-export const FAPI_EXPORT_FILENAME_PREFIX = "FAPI-Endpoints";
+export const FAPI_EXPORT_FILENAME_PREFIX = "FAPI-Endpoints-Backup";
 
 // FAPI Limits (Backend/business constraints)
 export const FAPI_LIMITS = {
