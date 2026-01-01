@@ -1,3 +1,5 @@
+![FAPI Logo](./assets/img/fapi.png)
+
 # FAPI
 
 A developer tool for creating and simulating fake APIs (FAPIs) locally for rapid and independent frontend development.

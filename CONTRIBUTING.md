@@ -1,3 +1,5 @@
+![FAPI Logo](./assets/img/fapi.png)
+
 # Contribution Guide
 
 > **Document Version:** v1.0.1

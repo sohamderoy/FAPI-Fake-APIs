@@ -1,3 +1,5 @@
+![FAPI Logo](./assets/img/fapi.png)
+
 # Release Strategy & Versioning Guide
 
 > **Document Version:** v1.0.0
