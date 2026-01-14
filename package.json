@@ -1,6 +1,6 @@
 {
   "name": "start-fapi",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "A developer tool for creating and simulating fake APIs (FAPIs) locally for rapid and independent frontend development.",
   "bin": {
     "start-fapi": "./bin/start-fapi.js"
