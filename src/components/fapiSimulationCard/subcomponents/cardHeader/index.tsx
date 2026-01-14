@@ -1,10 +1,12 @@
 import { Tooltip } from "@mui/material";
-import { Copy as CopyIcon } from "lucide-react";
-import { Badge } from "@/lib";
+import { Badge, CopyButton } from "@/lib";
+import { getFapiUrl } from "@/utils/functions";
 import { CardHeaderProps } from "./types";
 import { BORDER_COLOR_MAP } from "./data";
 
-const CardHeader = ({ method, path, onCopyEndpoint }: CardHeaderProps) => {
+const CardHeader = ({ method, path }: CardHeaderProps) => {
+  const fullUrl = getFapiUrl(path);
+
   return (
     <div className="flex items-center justify-between gap-2 w-full min-w-0">
       <div
@@ -15,14 +17,11 @@ const CardHeader = ({ method, path, onCopyEndpoint }: CardHeaderProps) => {
             {path}
           </span>
         </Tooltip>
-        <Tooltip title="Copy endpoint" arrow placement="top">
-          <button
-            onClick={onCopyEndpoint}
-            className="flex-shrink-0 hover:opacity-70 transition-opacity"
-          >
-            <CopyIcon size={14} className="text-gray-400" />
-          </button>
-        </Tooltip>
+        <CopyButton
+          textToCopy={fullUrl}
+          tooltipText="Copy FAPI URL"
+          size={14}
+        />
       </div>
       <Badge method={method} />
     </div>

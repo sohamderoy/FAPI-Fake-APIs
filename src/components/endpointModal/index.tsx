@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from "react";
-import { Modal, LoadingOverlay, Snackbar, PrivacyBanner } from "@/lib";
+import { Modal, LoadingOverlay, Snackbar } from "@/lib";
+import { EndpointUrlPreview } from "@/components";
 import { EndpointModalProps } from "./types";
 import { useEndpointForm } from "./hooks/useEndpointForm";
 import { useEndpointSubmit } from "./hooks/useEndpointSubmit";
@@ -62,7 +63,9 @@ const EndpointModal = ({
         isModalOpen={isOpen}
         onClose={handelModalClose}
         title={
-          isEditMode ? "Edit Mock API Endpoint" : "Create New Mock API Endpoint"
+          isEditMode
+            ? "Edit Fake API (FAPI) Endpoint"
+            : "Create New Fake API (FAPI) Endpoint"
         }
         size="fullscreen"
       >
@@ -79,11 +82,6 @@ const EndpointModal = ({
           )}
 
           <div className="flex flex-col h-full">
-            {/* Privacy Banner */}
-            <div className="mb-4">
-              <PrivacyBanner />
-            </div>
-
             {/* Form Fields */}
             <EndpointFormFields
               formData={formData}
@@ -96,6 +94,9 @@ const EndpointModal = ({
               onResponseCodeChange={handleResponseCodeChange}
               onResponseDelayChange={handleResponseDelayChange}
             />
+
+            {/* Endpoint URL Preview */}
+            <EndpointUrlPreview path={formData.path} />
 
             {/* Response Editor */}
             <ResponseEditor

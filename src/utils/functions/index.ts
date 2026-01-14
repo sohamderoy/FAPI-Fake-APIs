@@ -17,3 +17,4 @@ export { updateProjectName } from "./updateProjectName";
 // Utility helpers
 export { createEndpointKey } from "./createEndpointKey";
 export { validateJSON } from "./validateJSON";
+export { getFapiUrl, copyFapiUrlToClipboard } from "./getFapiUrl";

@@ -4,6 +4,7 @@
 // Components
 export { default as EndpointModal } from "./endpointModal";
 export { default as EndpointStats } from "./endpointStats";
+export { default as EndpointUrlPreview } from "./endpointUrlPreview";
 export { default as FapiSimulationCard } from "./fapiSimulationCard";
 export { default as FeatureCard } from "./featureCard";
 export { default as ImportConfirmationModal } from "./importConfirmationModal";

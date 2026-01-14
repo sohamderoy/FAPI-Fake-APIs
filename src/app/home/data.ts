@@ -2,7 +2,7 @@ import { Zap, Clock, Shield, Server } from "lucide-react";
 import { FeatureCardData } from "./types";
 
 export const SUBTITLE =
-  "Create & simulate mock APIs within seconds, for rapid & independent frontend development";
+  "Create & simulate Fake APIs (FAPIs) within seconds, for rapid & independent frontend development";
 
 export const FEATURE_CARDS_DATA: FeatureCardData[] = [
   {

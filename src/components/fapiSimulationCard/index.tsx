@@ -28,7 +28,6 @@ const FapiSimulationCard = ({
     snackbar,
     setSnackbar,
     hasChanges,
-    handleCopyEndpoint,
     handleEditResponse,
     handleCloseEditModal,
     handleUpdateFapi,
@@ -61,7 +60,6 @@ const FapiSimulationCard = ({
           <CardHeader
             method={method}
             path={path}
-            onCopyEndpoint={handleCopyEndpoint}
           />
 
           {/* Simulation Controls Section */}
