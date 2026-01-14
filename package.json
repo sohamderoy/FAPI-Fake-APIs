@@ -30,6 +30,7 @@
     "api-testing",
     "fapi",
     "mock-server",
+    "fake-server",
     "fake-rest-api"
   ],
   "author": "Soham De Roy",

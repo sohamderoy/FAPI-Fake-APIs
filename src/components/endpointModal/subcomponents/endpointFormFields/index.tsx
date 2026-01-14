@@ -21,26 +21,28 @@ const EndpointFormFields = ({
   onResponseDelayChange,
 }: EndpointFormFieldsProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-4">
-      {/* FAPI Endpoint Path */}
-      <TextField
-        fullWidth
-        label="FAPI Endpoint Path"
-        placeholder={`/api/endpoint/paths?query="params"`}
-        value={formData.path}
-        onChange={(e) => onPathChange(e.target.value)}
-        onBlur={onPathBlur}
-        error={Boolean(formTouched.path && formErrors.path)}
-        helperText={formTouched.path && formErrors.path}
-        disabled={isEditMode}
-        sx={{
-          "& .MuiInputBase-input": {
-            fontFamily: "var(--font-google-sans-code)",
-          },
-        }}
-      ></TextField>
+    <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 lg:gap-6 mb-4">
+      {/* FAPI Endpoint Path - Takes up 3 columns (50%) */}
+      <div className="lg:col-span-3">
+        <TextField
+          fullWidth
+          label="Enter FAPI Endpoint Path"
+          placeholder={`FAPI Endpoint Path eg.: /api/hello-world/path?key=value_1,value_2`}
+          value={formData.path}
+          onChange={(e) => onPathChange(e.target.value)}
+          onBlur={onPathBlur}
+          error={Boolean(formTouched.path && formErrors.path)}
+          helperText={formTouched.path && formErrors.path}
+          disabled={isEditMode}
+          sx={{
+            "& .MuiInputBase-input": {
+              fontFamily: "var(--font-google-sans-code)",
+            },
+          }}
+        ></TextField>
+      </div>
 
-      {/* HTTP Method */}
+      {/* HTTP Method - Takes up 1 column */}
       <FormControl fullWidth disabled={isEditMode}>
         <InputLabel>HTTP Method</InputLabel>
         <Select
@@ -58,7 +60,7 @@ const EndpointFormFields = ({
         </Select>
       </FormControl>
 
-      {/* HTTP Response Code */}
+      {/* HTTP Response Code - Takes up 1 column */}
       <FormControl fullWidth>
         <InputLabel>HTTP Response Status Code</InputLabel>
         <Select
@@ -76,7 +78,7 @@ const EndpointFormFields = ({
         </Select>
       </FormControl>
 
-      {/* Response Delay */}
+      {/* Response Delay - Takes up 1 column */}
       <FormControl fullWidth>
         <InputLabel>Response Delay</InputLabel>
         <Select

@@ -14,7 +14,7 @@ A developer tool for creating and simulating fake APIs (FAPIs) locally for rapid
 
 ## What is FAPI?
 
-FAPI (Fake API) is a lightweight, zero-configuration developer tool that allows you to create and simulate mock API endpoints locally. It enables frontend developers to work independently without waiting for backend APIs to be ready, test error scenarios, and prototype rapidly—all while keeping your data 100% local and private.
+FAPI (Fake API) is a lightweight, zero-configuration developer tool that allows you to create and simulate fake/ mock API endpoints locally. It enables frontend developers to work independently without waiting for backend APIs to be ready, test error scenarios, and prototype rapidly—all while keeping your data 100% local and private.
 
 > [!IMPORTANT]
 >

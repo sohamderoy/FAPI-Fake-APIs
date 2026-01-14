@@ -51,23 +51,6 @@ export const useCardActions = ({
     currentResponseCode !== initialResponseCode ||
     currentResponseDelay !== initialResponseDelay;
 
-  const handleCopyEndpoint = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(path);
-      setSnackbar({
-        isOpen: true,
-        message: "Endpoint copied to clipboard",
-        backgroundColor: STATUS_COLORS.SUCCESS,
-      });
-    } catch (error) {
-      setSnackbar({
-        isOpen: true,
-        message: "Failed to copy endpoint",
-        backgroundColor: STATUS_COLORS.ERROR,
-      });
-    }
-  }, [path]);
-
   const handleEditResponse = useCallback(() => {
     // Reset local state to saved values when opening modal
     // This ensures modal shows the source of truth and avoids confusion
@@ -200,7 +183,6 @@ export const useCardActions = ({
     snackbar,
     setSnackbar,
     hasChanges,
-    handleCopyEndpoint,
     handleEditResponse,
     handleCloseEditModal,
     handleUpdateFapi,
