@@ -1,4 +1,9 @@
-import { TextField, IconButton, Tooltip, CircularProgress } from "@mui/material";
+import {
+  TextField,
+  IconButton,
+  Tooltip,
+  CircularProgress,
+} from "@mui/material";
 import { Save as SaveIcon } from "lucide-react";
 import { UI_LIMITS } from "@/utils/data";
 import { ProjectNameSectionProps } from "./types";
@@ -12,13 +17,15 @@ const ProjectNameSection = ({
   onProjectNameChange,
   onSaveProjectName,
 }: ProjectNameSectionProps) => {
+  const port = process.env.PORT || "3000";
+
   return (
     <div className="flex items-start gap-2 flex-1">
-      <div className="flex-1 max-w-lg">
+      <div className="flex-1 max-w-3xl">
         <TextField
           fullWidth
           size="small"
-          label="Add the name of you project that FAPI is supporting (Optional)"
+          label={`Add the name of your project that is supported by FAPI running on PORT: ${port} (Optional)`}
           value={currentProjectName}
           onChange={onProjectNameChange}
           error={!!projectNameError}
