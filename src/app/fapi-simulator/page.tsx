@@ -12,7 +12,13 @@ import {
   ImportConfirmationModal,
 } from "@/components";
 import type { EndpointsListForFapiSimulationCard } from "@/components";
-import { AnimatedBackground, AppName, Button, Snackbar } from "@/lib";
+import {
+  AnimatedBackground,
+  AppName,
+  Button,
+  PrivacyBanner,
+  Snackbar,
+} from "@/lib";
 import type { RootState } from "@/store";
 import { hydrateEndpoints } from "@/store";
 import { HttpMethods } from "@/types/fapi";
@@ -167,7 +173,7 @@ const FapiSimulatorPage = () => {
         </div>
 
         {/* Project Name and FAPI Counter Section */}
-        <div className="mb-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+        <div className="mb-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
           {/* Project Name - Left */}
           <ProjectNameSection
             currentProjectName={currentProjectName}
@@ -180,6 +186,11 @@ const FapiSimulatorPage = () => {
 
           {/* FAPI Counter - Right */}
           <EndpointStats currentEndpointCount={currentEndpointCount} />
+        </div>
+
+        {/* Privacy Banner */}
+        <div className="mb-8">
+          <PrivacyBanner />
         </div>
 
         {/* FAPI Simulation Cards Grid */}

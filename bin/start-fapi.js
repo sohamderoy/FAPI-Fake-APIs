@@ -26,6 +26,10 @@ if (isNaN(port) || port < 1 || port > 65535) {
 // Get the package directory (where FAPI is installed)
 const packageDir = path.join(__dirname, '..');
 
+// Read package version
+const packageJson = require(path.join(packageDir, 'package.json'));
+const version = packageJson.version;
+
 // Check if .next directory exists, if not, show error
 const nextDir = path.join(packageDir, '.next');
 if (!fs.existsSync(nextDir)) {
@@ -41,6 +45,7 @@ console.log('\x1b[36m%s\x1b[0m', '│     🚀 Starting FAPI Server...      │'
 console.log('\x1b[36m%s\x1b[0m', '│                                     │');
 console.log('\x1b[36m%s\x1b[0m', '└─────────────────────────────────────┘');
 console.log('');
+console.log('\x1b[90m%s\x1b[0m', `Version: ${version}`);
 console.log('\x1b[32m%s\x1b[0m', `Port: ${port}`);
 console.log('');
 console.log('\x1b[33m%s\x1b[0m', 'Press Ctrl+C to stop the server');
