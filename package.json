@@ -46,9 +46,8 @@
     "node": ">=20.9.0"
   },
   "scripts": {
-    "dev": "next dev",
-    "dev:3001": "PORT=3001 next dev",
-    "dev:3002": "PORT=3002 next dev",
+    "dev": "node bin/dev-with-consent.js",
+    "dev:3001": "PORT=3001 node bin/dev-with-consent.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

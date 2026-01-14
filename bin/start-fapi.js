@@ -48,44 +48,62 @@ console.log('');
 console.log('\x1b[90m%s\x1b[0m', `Version: ${version}`);
 console.log('\x1b[32m%s\x1b[0m', `Port: ${port}`);
 console.log('');
-console.log('\x1b[33m%s\x1b[0m', 'Press Ctrl+C to stop the server');
-console.log('');
 
-// Start the Next.js server
 // IMPORTANT: We pass the user's current directory as FAPI_USER_DIR
 // so that .fapi-storage is created where the user runs the command
 const userDir = process.cwd();
 
-const child = spawn('npx', ['next', 'start', '-p', port], {
-  cwd: packageDir,
+// Check for storage consent BEFORE starting the server
+const consentCheck = spawn('node', [path.join(__dirname, 'check-storage-consent.js')], {
   stdio: 'inherit',
   env: {
     ...process.env,
     PORT: port,
-    FAPI_USER_DIR: userDir  // Pass user's directory to Next.js
+    FAPI_USER_DIR: userDir
   }
 });
 
-// Handle process termination
-process.on('SIGINT', () => {
-  console.log('\n\nStopping FAPI server...');
-  child.kill('SIGINT');
-  process.exit(0);
-});
-
-process.on('SIGTERM', () => {
-  child.kill('SIGTERM');
-  process.exit(0);
-});
-
-child.on('error', (error) => {
-  console.error('Failed to start FAPI server:', error);
-  process.exit(1);
-});
-
-child.on('exit', (code) => {
-  if (code !== 0 && code !== null) {
-    console.error(`\nFAPI server exited with code ${code}`);
-    process.exit(code);
+consentCheck.on('exit', (code) => {
+  if (code !== 0) {
+    console.log('FAPI startup cancelled.');
+    process.exit(1);
   }
+
+  // Consent given, now start the Next.js server
+  console.log('\x1b[33m%s\x1b[0m', 'Press Ctrl+C to stop the server');
+  console.log('');
+
+  const child = spawn('npx', ['next', 'start', '-p', port], {
+    cwd: packageDir,
+    stdio: 'inherit',
+    env: {
+      ...process.env,
+      PORT: port,
+      FAPI_USER_DIR: userDir
+    }
+  });
+
+  // Handle process termination
+  process.on('SIGINT', () => {
+    console.log('\n\nStopping FAPI server...');
+    child.kill('SIGINT');
+    process.exit(0);
+  });
+
+  process.on('SIGTERM', () => {
+    child.kill('SIGTERM');
+    process.exit(0);
+  });
+
+  child.on('error', (error) => {
+    console.error('Failed to start FAPI server:', error);
+    process.exit(1);
+  });
+
+  child.on('exit', (code) => {
+    if (code !== 0 && code !== null) {
+      console.error(`\nFAPI server exited with code ${code}`);
+      process.exit(code);
+    }
+  });
 });
