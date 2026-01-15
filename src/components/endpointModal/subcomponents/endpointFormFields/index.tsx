@@ -27,7 +27,7 @@ const EndpointFormFields = ({
         <TextField
           fullWidth
           label="Enter FAPI Endpoint Path"
-          placeholder={`FAPI Endpoint Path eg.: /api/hello-world/path?key=value_1,value_2`}
+          placeholder={`Enter FAPI Endpoint Path eg.: /api/hello-world/path?key=value_1,value_2`}
           value={formData.path}
           onChange={(e) => onPathChange(e.target.value)}
           onBlur={onPathBlur}

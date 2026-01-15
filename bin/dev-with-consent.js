@@ -2,8 +2,19 @@
 
 const { spawn } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 const port = process.env.PORT || '3000';
+
+// Clean up stale Next.js lock file
+const lockFile = path.join(process.cwd(), '.next', 'dev', 'lock');
+try {
+  if (fs.existsSync(lockFile)) {
+    fs.unlinkSync(lockFile);
+  }
+} catch (err) {
+  // Ignore errors if lock file doesn't exist or can't be deleted
+}
 
 console.log('\n🔍 Checking storage consent...\n');
 

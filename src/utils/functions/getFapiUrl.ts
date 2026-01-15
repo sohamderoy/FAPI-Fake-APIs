@@ -1,5 +1,5 @@
 export const getFapiUrl = (path: string): string => {
-  const port = process.env.PORT || "3000";
+  const port = typeof window !== 'undefined' ? window.location.port : "3000";
   const baseUrl = `http://localhost:${port}/api/fapi`;
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   return `${baseUrl}${cleanPath}`;

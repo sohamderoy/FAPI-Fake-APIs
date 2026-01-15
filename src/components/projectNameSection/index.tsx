@@ -17,7 +17,7 @@ const ProjectNameSection = ({
   onProjectNameChange,
   onSaveProjectName,
 }: ProjectNameSectionProps) => {
-  const port = process.env.PORT || "3000";
+  const port = typeof window !== "undefined" ? window.location.port : "3000";
 
   return (
     <div className="flex items-start gap-2 flex-1">

@@ -12,14 +12,14 @@ const CardHeader = ({ method, path }: CardHeaderProps) => {
       <div
         className={`flex items-center gap-2 bg-black px-2 py-1 rounded-md border min-w-0 ${BORDER_COLOR_MAP[method]}`}
       >
-        <Tooltip title={path} arrow placement="top">
+        <Tooltip title={fullUrl} arrow placement="top">
           <span className="text-base font-semibold truncate text-white font-googleSansCode block min-w-0">
             {path}
           </span>
         </Tooltip>
         <CopyButton
           textToCopy={fullUrl}
-          tooltipText="Copy FAPI URL"
+          tooltipText="Copy full FAPI URL"
           size={14}
         />
       </div>
