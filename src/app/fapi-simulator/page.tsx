@@ -16,6 +16,7 @@ import {
   AnimatedBackground,
   AppName,
   Button,
+  CopyButton,
   PrivacyBanner,
   Snackbar,
 } from "@/lib";
@@ -29,6 +30,11 @@ import { useEndpointImport } from "./hooks/useEndpointImport";
 
 const FapiSimulatorPage = () => {
   const dispatch = useDispatch();
+  const [port, setPort] = useState("3000");
+
+  useEffect(() => {
+    setPort(window.location.port || "3000");
+  }, []);
   const endpoints = useSelector(
     (state: RootState) => state.endpoints.endpoints
   );
@@ -136,7 +142,7 @@ const FapiSimulatorPage = () => {
         style={{ maxWidth: UI_LIMITS.UI_CONTAINER_MAX_WIDTH }}
       >
         {/* Header Section - Title and Action Buttons*/}
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
           <AppName style={{ fontSize: "3rem", fontWeight: "bold" }} />
           <div className="flex items-center gap-2">
             {/* Create New FAPI Button */}
@@ -191,6 +197,22 @@ const FapiSimulatorPage = () => {
         {/* Privacy Banner */}
         <div className="mb-8">
           <PrivacyBanner />
+        </div>
+
+        {/* FAPI Base URL Info Banner */}
+        <div className="mb-6 flex item-center gap-1">
+          <span className="text-gray-200 font-semibold size">
+            FAPIs are available at:
+          </span>
+          <code className="text-yellow-400 font-googleSansCode pr-2.5">
+            {`http://localhost:${port}/api/fapi/`}
+            <span className="text-gray-500">{"{your-endpoint}"}</span>
+          </code>
+          <CopyButton
+            textToCopy={`http://localhost:${port}/api/fapi/`}
+            size={14}
+            tooltipText="Copy base URL"
+          />
         </div>
 
         {/* FAPI Simulation Cards Grid */}

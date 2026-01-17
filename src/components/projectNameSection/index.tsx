@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import {
   TextField,
   IconButton,
@@ -21,6 +21,7 @@ const ProjectNameSection = ({
   onSaveProjectName,
 }: ProjectNameSectionProps) => {
   const [port, setPort] = useState("3000");
+  const projectNameInputId = useId();
 
   useEffect(() => {
     setPort(window.location.port || "3000");
@@ -30,6 +31,7 @@ const ProjectNameSection = ({
     <div className="flex items-start gap-2 flex-1">
       <div className="flex-1 max-w-3xl">
         <TextField
+          id={projectNameInputId}
           fullWidth
           size="small"
           label={`Add the name of your project that is supported by FAPI running on PORT: ${port} (Optional)`}
