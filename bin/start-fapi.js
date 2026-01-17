@@ -39,14 +39,24 @@ if (!fs.existsSync(nextDir)) {
 }
 
 console.log('');
-console.log('\x1b[36m%s\x1b[0m', '┌─────────────────────────────────────┐');
-console.log('\x1b[36m%s\x1b[0m', '│                                     │');
-console.log('\x1b[36m%s\x1b[0m', '│     🚀 Starting FAPI Server...      │');
-console.log('\x1b[36m%s\x1b[0m', '│                                     │');
-console.log('\x1b[36m%s\x1b[0m', '└─────────────────────────────────────┘');
+console.log('\x1b[36m%s\x1b[0m', '  ______   _____   ______  ______ ');
+console.log('\x1b[36m%s\x1b[0m', ' |  ____| |  _  | |  ___ | |_  _|');
+console.log('\x1b[36m%s\x1b[0m', ' | |__    | |_| | | |__| |   ||  ');
+console.log('\x1b[36m%s\x1b[0m', ' |  __|   |  _  | |  ____/   ||  ');
+console.log('\x1b[36m%s\x1b[0m', ' | |      | | | | | |        ||  ');
+console.log('\x1b[36m%s\x1b[0m', ' |_|      |_| |_| |_|       |__| ');
 console.log('');
-console.log('\x1b[90m%s\x1b[0m', `Version: ${version}`);
-console.log('\x1b[32m%s\x1b[0m', `Port: ${port}`);
+console.log('\x1b[90m%s\x1b[0m', ' Create & simulate Fake APIs (FAPIs) within seconds,');
+console.log('\x1b[90m%s\x1b[0m', ' for rapid & independent frontend development');
+console.log('');
+console.log('\x1b[36m%s\x1b[0m', '+---------------------------------------+');
+console.log('\x1b[36m%s\x1b[0m', '|                                       |');
+console.log('\x1b[36m%s\x1b[0m', '|       Starting FAPI Server...         |');
+console.log('\x1b[36m%s\x1b[0m', '|                                       |');
+console.log('\x1b[36m%s\x1b[0m', '+---------------------------------------+');
+console.log('');
+console.log('\x1b[90m%s\x1b[0m', `FAPI Version:           ${version}`);
+console.log('\x1b[90m%s\x1b[0m', `FAPI starting on PORT:  ${port}`);
 console.log('');
 
 // IMPORTANT: We pass the user's current directory as FAPI_USER_DIR
@@ -70,6 +80,7 @@ consentCheck.on('exit', (code) => {
   }
 
   // Consent given, now start the Next.js server
+  console.log('\x1b[32m%s\x1b[0m', `FAPI started on PORT:   ${port}`);
   console.log('\x1b[33m%s\x1b[0m', 'Press Ctrl+C to stop the server');
   console.log('');
 
