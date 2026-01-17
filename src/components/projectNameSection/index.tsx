@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import {
   TextField,
   IconButton,
@@ -17,7 +20,11 @@ const ProjectNameSection = ({
   onProjectNameChange,
   onSaveProjectName,
 }: ProjectNameSectionProps) => {
-  const port = typeof window !== "undefined" ? window.location.port : "3000";
+  const [port, setPort] = useState("3000");
+
+  useEffect(() => {
+    setPort(window.location.port || "3000");
+  }, []);
 
   return (
     <div className="flex items-start gap-2 flex-1">
