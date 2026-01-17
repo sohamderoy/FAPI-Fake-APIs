@@ -76,6 +76,7 @@ consentCheck.on('exit', (code) => {
   const child = spawn('npx', ['next', 'start', '-p', port], {
     cwd: packageDir,
     stdio: 'inherit',
+    shell: true,
     env: {
       ...process.env,
       PORT: port,
