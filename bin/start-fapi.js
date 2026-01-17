@@ -84,16 +84,44 @@ consentCheck.on('exit', (code) => {
     }
   });
 
-  // Handle process termination
-  process.on('SIGINT', () => {
-    console.log('\n\nStopping FAPI server...');
-    child.kill('SIGINT');
-    process.exit(0);
+  // Cleanup function to ensure child process is terminated
+  const cleanup = (signal) => {
+    console.log(`\n\nStopping FAPI server... (${signal})`);
+
+    if (process.platform === 'win32') {
+      // On Windows, use taskkill to ensure all child processes are killed
+      spawn('taskkill', ['/pid', child.pid, '/f', '/t'], { shell: true });
+    } else {
+      // On Unix, kill the process group
+      try {
+        process.kill(-child.pid, 'SIGTERM');
+      } catch {
+        child.kill('SIGTERM');
+      }
+    }
+
+    // Force exit after a short delay if child doesn't exit
+    setTimeout(() => {
+      process.exit(0);
+    }, 1000);
+  };
+
+  // Handle various termination signals
+  process.on('SIGINT', () => cleanup('SIGINT'));   // Ctrl+C
+  process.on('SIGTERM', () => cleanup('SIGTERM')); // kill command
+  process.on('SIGHUP', () => cleanup('SIGHUP'));   // Terminal closed
+
+  // Handle parent process exit (covers most terminal close scenarios)
+  process.on('exit', () => {
+    if (child && !child.killed) {
+      child.kill();
+    }
   });
 
-  process.on('SIGTERM', () => {
-    child.kill('SIGTERM');
-    process.exit(0);
+  // Handle uncaught errors
+  process.on('uncaughtException', (err) => {
+    console.error('Uncaught exception:', err);
+    cleanup('uncaughtException');
   });
 
   child.on('error', (error) => {
@@ -106,5 +134,6 @@ consentCheck.on('exit', (code) => {
       console.error(`\nFAPI server exited with code ${code}`);
       process.exit(code);
     }
+    process.exit(0);
   });
 });
