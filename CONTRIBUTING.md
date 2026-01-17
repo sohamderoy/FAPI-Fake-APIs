@@ -1,4 +1,4 @@
-![FAPI Logo](./assets/img/fapi.png)
+![FAPI Logo](./assets/img/fapi.svg)
 
 # Contribution Guide
 
