@@ -143,7 +143,7 @@ const FapiSimulatorPage = () => {
       >
         {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
-          <AppName style={{ fontSize: "3rem", fontWeight: "bold" }} />
+          <AppName logoWidth={134} logoHeight={48} />
           <div className="flex items-center gap-2">
             {/* Create New FAPI Button */}
             <Tooltip

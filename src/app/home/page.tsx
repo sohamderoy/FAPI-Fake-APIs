@@ -18,8 +18,8 @@ const HomePage = () => {
       <AnimatedBackground />
       <div className="flex flex-col items-center justify-center h-full w-full p-4">
         <div className="text-center max-w-3xl mx-auto">
-          <AppName style={{ fontSize: "6rem", letterSpacing: "10px" }} />
-          <p className="text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light">
+          <AppName logoWidth={350} logoHeight={126} />
+          <p className="text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light whitespace-nowrap">
             {SUBTITLE}
           </p>
 
