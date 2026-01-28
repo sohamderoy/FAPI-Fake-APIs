@@ -14,9 +14,9 @@ const HomePage = () => {
     router.push(FAPI_SIMULATOR_PAGE_PATH);
   };
   return (
-    <div className="h-screen overflow-y-auto overflow-hidden">
+    <div className="min-h-screen overflow-y-auto">
       <AnimatedBackground />
-      <div className="flex flex-col items-center justify-center h-full w-full p-4">
+      <div className="flex flex-col items-center justify-center min-h-screen w-full py-12 px-4">
         <div className="text-center max-w-3xl mx-auto">
           <AppName logoWidth={350} logoHeight={126} />
           <p className="text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light whitespace-nowrap">
