@@ -82,7 +82,8 @@ export const STATUS_COLORS = {
 };
 
 export const FAPI_REGEX = {
-  ENDPOINT_PATH: /^[/a-zA-Z0-9-_]+(?:[?&=a-zA-Z0-9-_,'"% ])*$/,
+  ENDPOINT_PATH:
+    /^[/a-zA-Z0-9\-._~:@!$&'()*+,;=]+(?:[?#][a-zA-Z0-9\-._~:@!$&'()*+,;=/?% ]*)?$/,
   PROJECT_NAME: /^[a-zA-Z0-9 ]*$/,
 };
 

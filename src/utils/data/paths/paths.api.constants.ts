@@ -4,3 +4,4 @@ export const UPDATE_ENDPOINT_API_PATH = "/api/update-endpoint";
 export const FAPI_HEALTH_CHECK_API_PATH = "/api/fapi-health-check";
 export const GET_ENDPOINTS_API_PATH = "/api/get-endpoints";
 export const IMPORT_ENDPOINTS_API_PATH = "/api/import-endpoints";
+export const GET_ENDPOINT_RESPONSE_API_PATH = "/api/get-endpoint-response";
