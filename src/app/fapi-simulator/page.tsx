@@ -36,10 +36,10 @@ const FapiSimulatorPage = () => {
     setPort(window.location.port || "3000");
   }, []);
   const endpoints = useSelector(
-    (state: RootState) => state.endpoints.endpoints
+    (state: RootState) => state.endpoints.endpoints,
   );
   const projectName = useSelector(
-    (state: RootState) => state.endpoints.projectName
+    (state: RootState) => state.endpoints.projectName,
   );
 
   const [isCreateEndpointModalOpen, setIsCreateEndpointModalOpen] =
@@ -64,7 +64,7 @@ const FapiSimulatorPage = () => {
           hydrateEndpoints({
             endpoints: result.endpoints,
             projectName: result.projectName || "",
-          })
+          }),
         );
       } else {
         console.error("Failed to load endpoints:", result.error);
@@ -107,6 +107,15 @@ const FapiSimulatorPage = () => {
     setCurrentProjectName(projectName);
   }, [projectName, setCurrentProjectName]);
 
+  // Update browser tab title based on project name
+  useEffect(() => {
+    if (projectName && projectName.trim()) {
+      document.title = `FAPI x ${projectName.trim()}`;
+    } else {
+      document.title = "FAPI";
+    }
+  }, [projectName]);
+
   const endpointsList: EndpointsListForFapiSimulationCard[] = useMemo(
     () =>
       Object.entries(endpoints).map(([key, details]) => {
@@ -117,7 +126,7 @@ const FapiSimulatorPage = () => {
           details,
         };
       }),
-    [endpoints]
+    [endpoints],
   );
 
   // Check if at limit for disabling Create and Merge options
