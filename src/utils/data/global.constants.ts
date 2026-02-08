@@ -94,8 +94,8 @@ export const FAPI_EXPORT_FILENAME_PREFIX = "FAPI-Endpoints-Backup";
 // FAPI Limits (Backend/business constraints)
 export const FAPI_LIMITS = {
   MAX_ENDPOINTS: 1000, // Total limit for endpoints (applies to both file import and total count)
-  MAX_FILE_SIZE_MB: 5,
-  MAX_FILE_SIZE_BYTES: 5 * 1024 * 1024, // 5MB in bytes
+  MAX_FILE_SIZE_MB: Infinity,
+  MAX_FILE_SIZE_BYTES: Infinity,
 } as const;
 
 // UI Limits (Frontend/presentation constraints)

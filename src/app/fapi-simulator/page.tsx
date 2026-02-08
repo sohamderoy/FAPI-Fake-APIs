@@ -179,7 +179,6 @@ const FapiSimulatorPage = () => {
             <ImportExportActions
               isImporting={isImporting}
               currentEndpointCount={currentEndpointCount}
-              endpoints={endpoints}
               projectName={projectName}
               onImport={handleImport}
               setSnackbar={setSnackbar}

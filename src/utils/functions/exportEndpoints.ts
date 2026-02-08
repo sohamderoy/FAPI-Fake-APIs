@@ -1,53 +1,77 @@
-import { EndpointKey } from "@/types/fapi";
-import type { EndpointDetails } from "@/store";
-import { FAPI_EXPORT_FILENAME_PREFIX } from "@/utils/data";
+import { EXPORT_ENDPOINTS_API_PATH, FAPI_EXPORT_FILENAME_PREFIX } from "@/utils/data";
 
-export interface ExportData {
-  version: string;
-  exportedAt: string;
-  endpoints: Record<EndpointKey, EndpointDetails>;
+export interface ExportResult {
+  success: boolean;
+  error?: string;
 }
 
-export const exportEndpoints = (
-  endpoints: Record<EndpointKey, EndpointDetails>,
+export const exportEndpoints = async (
   projectName?: string
-): void => {
-  const exportData: ExportData = {
-    version: "1.0",
-    exportedAt: new Date().toISOString(),
-    endpoints,
-  };
+): Promise<ExportResult> => {
+  try {
+    // Fetch complete endpoint data from backend
+    const response = await fetch(EXPORT_ENDPOINTS_API_PATH, {
+      method: "GET",
+      cache: "no-store",
+    });
 
-  const jsonString = JSON.stringify(exportData, null, 2);
-  const blob = new Blob([jsonString], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
+    if (!response.ok) {
+      const data = await response.json();
+      return {
+        success: false,
+        error: data.error || "Failed to export endpoints",
+      };
+    }
 
-  // Generate filename with project name if provided
-  const now = new Date();
-  const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-  const timeStr = `${hours}${minutes}${seconds}`; // HHmmss
+    const data = await response.json();
 
-  let filename = `${FAPI_EXPORT_FILENAME_PREFIX}-`;
+    // Build export format
+    const exportData = {
+      version: "1.0",
+      exportedAt: new Date().toISOString(),
+      endpoints: data.endpoints,
+    };
 
-  if (projectName && projectName.trim()) {
-    // Replace spaces with underscores
-    const sanitizedProjectName = projectName.trim().replace(/\s+/g, '_');
-    filename += `${sanitizedProjectName}-`;
+    const jsonString = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    // Generate filename with project name if provided
+    const now = new Date();
+    const dateStr = now.toISOString().split("T")[0]; // YYYY-MM-DD
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const seconds = now.getSeconds().toString().padStart(2, "0");
+    const timeStr = `${hours}${minutes}${seconds}`; // HHmmss
+
+    let filename = `${FAPI_EXPORT_FILENAME_PREFIX}-`;
+
+    // Use projectName from API response if not provided
+    const finalProjectName = projectName ?? data.projectName;
+    if (finalProjectName && finalProjectName.trim()) {
+      const sanitizedProjectName = finalProjectName.trim().replace(/\s+/g, "_");
+      filename += `${sanitizedProjectName}-`;
+    }
+
+    filename += `${dateStr}-${timeStr}.json`;
+
+    // Create temporary download link
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error exporting endpoints:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error occurred",
+    };
   }
-
-  filename += `${dateStr}-${timeStr}.json`;
-
-  // Create temporary download link
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-
-  // Cleanup
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
 };

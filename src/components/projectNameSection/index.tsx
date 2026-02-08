@@ -39,7 +39,7 @@ const ProjectNameSection = ({
           onChange={onProjectNameChange}
           error={!!projectNameError}
           helperText={projectNameError}
-          placeholder="e.g., The Next Big Web Application"
+          placeholder="e.g., My Next Big Web Application"
           className="font-googleSansFlex"
           InputProps={{
             className: "font-googleSansFlex",
