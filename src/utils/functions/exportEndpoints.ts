@@ -1,4 +1,7 @@
-import { EXPORT_ENDPOINTS_API_PATH, FAPI_EXPORT_FILENAME_PREFIX } from "@/utils/data";
+import {
+  EXPORT_ENDPOINTS_API_PATH,
+  FAPI_EXPORT_FILENAME_PREFIX,
+} from "@/utils/data";
 
 export interface ExportResult {
   success: boolean;
@@ -6,7 +9,7 @@ export interface ExportResult {
 }
 
 export const exportEndpoints = async (
-  projectName?: string
+  projectName?: string,
 ): Promise<ExportResult> => {
   try {
     // Fetch complete endpoint data from backend
@@ -38,7 +41,10 @@ export const exportEndpoints = async (
 
     // Generate filename with project name if provided
     const now = new Date();
-    const dateStr = now.toISOString().split("T")[0]; // YYYY-MM-DD
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const day = now.getDate().toString().padStart(2, "0");
+    const dateStr = `${year}-${month}-${day}`; // YYYY-MM-DD in local timezone
     const hours = now.getHours().toString().padStart(2, "0");
     const minutes = now.getMinutes().toString().padStart(2, "0");
     const seconds = now.getSeconds().toString().padStart(2, "0");
