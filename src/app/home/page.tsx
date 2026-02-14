@@ -14,27 +14,14 @@ const HomePage = () => {
     router.push(FAPI_SIMULATOR_PAGE_PATH);
   };
   return (
-    <div className="h-screen overflow-y-auto overflow-hidden">
+    <div className="min-h-screen overflow-y-auto">
       <AnimatedBackground />
-      <div className="flex flex-col items-center justify-center h-full w-full p-4">
+      <div className="flex flex-col items-center justify-center min-h-screen w-full py-12 px-4">
         <div className="text-center max-w-3xl mx-auto">
-          <AppName style={{ fontSize: "6rem", letterSpacing: "10px" }} />
-          <p className="text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light">
+          <AppName logoWidth={350} logoHeight={126} />
+          <p className="mt-2 text-lg text-gray-200 leading-relaxed font-googleSansFlex font-light whitespace-nowrap">
             {SUBTITLE}
           </p>
-
-          {/* Feature highlights */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {FEATURE_CARDS_DATA.map((feature, index) => (
-              <FeatureCard
-                key={index}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-                iconColor={feature.iconColor}
-              />
-            ))}
-          </div>
 
           {/* Hero CTA Card */}
           <div className="mt-12">
@@ -57,11 +44,8 @@ const HomePage = () => {
                     </div>
                     <div className="flex flex-col items-start">
                       <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
-                        Ready to start?
+                        Create your FAPIs in seconds
                       </h3>
-                      <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">
-                        Create your first mock API in seconds
-                      </p>
                     </div>
                   </div>
                   <ArrowRight
@@ -71,6 +55,20 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Feature highlights */}
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            {FEATURE_CARDS_DATA.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                title={feature.title}
+                description={feature.description}
+                icon={feature.icon}
+                iconColor={feature.iconColor}
+              />
+            ))}
           </div>
         </div>
       </div>

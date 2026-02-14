@@ -64,7 +64,7 @@ export const POST = async (req: NextRequest) => {
       method: data.method,
       responseCode: data.responseCode,
       responseDelay: data.responseDelay || 0,
-      response: data.response || "",
+      response: data.response ?? "",
       createdAt: new Date().toISOString(),
     };
     storage.metadata = {

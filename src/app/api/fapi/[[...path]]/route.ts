@@ -119,7 +119,11 @@ const createMethodHandler = (method: HttpMethods) => {
       }
 
       /* Return configured response set by user */
-      return new NextResponse(JSON.stringify(endpoint.response), {
+      const responseBody = typeof endpoint.response === "string"
+        ? endpoint.response
+        : JSON.stringify(endpoint.response);
+
+      return new NextResponse(responseBody || null, {
         status: endpoint.responseCode,
         headers: {
           "Content-Type": "application/json",

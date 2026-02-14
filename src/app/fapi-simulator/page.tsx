@@ -16,6 +16,7 @@ import {
   AnimatedBackground,
   AppName,
   Button,
+  CopyButton,
   PrivacyBanner,
   Snackbar,
 } from "@/lib";
@@ -29,11 +30,16 @@ import { useEndpointImport } from "./hooks/useEndpointImport";
 
 const FapiSimulatorPage = () => {
   const dispatch = useDispatch();
+  const [port, setPort] = useState("3000");
+
+  useEffect(() => {
+    setPort(window.location.port || "3000");
+  }, []);
   const endpoints = useSelector(
-    (state: RootState) => state.endpoints.endpoints
+    (state: RootState) => state.endpoints.endpoints,
   );
   const projectName = useSelector(
-    (state: RootState) => state.endpoints.projectName
+    (state: RootState) => state.endpoints.projectName,
   );
 
   const [isCreateEndpointModalOpen, setIsCreateEndpointModalOpen] =
@@ -58,7 +64,7 @@ const FapiSimulatorPage = () => {
           hydrateEndpoints({
             endpoints: result.endpoints,
             projectName: result.projectName || "",
-          })
+          }),
         );
       } else {
         console.error("Failed to load endpoints:", result.error);
@@ -101,6 +107,15 @@ const FapiSimulatorPage = () => {
     setCurrentProjectName(projectName);
   }, [projectName, setCurrentProjectName]);
 
+  // Update browser tab title based on project name
+  useEffect(() => {
+    if (projectName && projectName.trim()) {
+      document.title = `FAPI x ${projectName.trim()}`;
+    } else {
+      document.title = "FAPI";
+    }
+  }, [projectName]);
+
   const endpointsList: EndpointsListForFapiSimulationCard[] = useMemo(
     () =>
       Object.entries(endpoints).map(([key, details]) => {
@@ -111,7 +126,7 @@ const FapiSimulatorPage = () => {
           details,
         };
       }),
-    [endpoints]
+    [endpoints],
   );
 
   // Check if at limit for disabling Create and Merge options
@@ -137,7 +152,7 @@ const FapiSimulatorPage = () => {
       >
         {/* Header Section - Title and Action Buttons*/}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-          <AppName style={{ fontSize: "3rem", fontWeight: "bold" }} />
+          <AppName logoWidth={134} logoHeight={48} />
           <div className="flex items-center gap-2">
             {/* Create New FAPI Button */}
             <Tooltip
@@ -164,7 +179,6 @@ const FapiSimulatorPage = () => {
             <ImportExportActions
               isImporting={isImporting}
               currentEndpointCount={currentEndpointCount}
-              endpoints={endpoints}
               projectName={projectName}
               onImport={handleImport}
               setSnackbar={setSnackbar}
@@ -191,6 +205,22 @@ const FapiSimulatorPage = () => {
         {/* Privacy Banner */}
         <div className="mb-8">
           <PrivacyBanner />
+        </div>
+
+        {/* FAPI Base URL Info Banner */}
+        <div className="mb-6 flex item-center gap-1">
+          <span className="text-gray-200 font-semibold size">
+            FAPIs are available at:
+          </span>
+          <code className="text-yellow-400 font-googleSansCode pr-2.5">
+            {`http://localhost:${port}/api/fapi/`}
+            <span className="text-gray-500">{"{your-endpoint}"}</span>
+          </code>
+          <CopyButton
+            textToCopy={`http://localhost:${port}/api/fapi/`}
+            size={14}
+            tooltipText="Copy base URL"
+          />
         </div>
 
         {/* FAPI Simulation Cards Grid */}
