@@ -1,6 +1,6 @@
 {
   "name": "start-fapi",
-  "version": "1.0.2",
+  "version": "1.0.3-alpha.0",
   "description": "A developer tool for creating and simulating Fake APIs (FAPIs) in seconds.",
   "bin": {
     "start-fapi": "./bin/start-fapi.js"
