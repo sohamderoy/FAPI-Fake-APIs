@@ -2,19 +2,20 @@
 
 # FAPI
 
-A developer tool for creating and simulating fake APIs (FAPIs) locally for rapid and independent frontend development.
+A developer tool for creating and simulating Fake APIs (FAPIs) in seconds.
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/sohamderoy/FAPI-Fake-APIs/blob/main/CONTRIBUTING.md)
 [![npm version](https://img.shields.io/npm/v/start-fapi.svg)](https://www.npmjs.com/package/start-fapi)
 [![npm downloads](https://img.shields.io/npm/dm/start-fapi.svg)](https://www.npmjs.com/package/start-fapi)
 [![license](https://img.shields.io/npm/l/start-fapi.svg)](https://github.com/sohamderoy/FAPI-Fake-APIs/blob/main/LICENSE)
 
-> **Document Version:** v1.0.0
-> **Document Last Updated:** December 28, 2025
+> **Document Version:** v1.0.1
+> **Document Last Updated:** February 15, 2026
 
 ## What is FAPI?
 
-FAPI (Fake API) is a lightweight, zero-configuration developer tool that allows you to create and simulate fake/ mock API endpoints locally. It enables frontend developers to work independently without waiting for backend APIs to be ready, test error scenarios, and prototype rapidly—all while keeping your data 100% local and private.
+FAPI (Fake API) is a lightweight, zero-configuration developer tool that allows you to create and simulate fake/ mock API endpoints locally. 
+It enables developers to work independently without waiting for real APIs to be ready. FAPI lets you quickly simulate different API responses and behaviors in just a few clicks, without making any changes to the actual API or database — all while keeping your data 100% local and private.
 
 > [!IMPORTANT]
 >
@@ -35,6 +36,7 @@ FAPI (Fake API) is a lightweight, zero-configuration developer tool that allows 
   - [Successful Response Examples](#successful-response-examples)
   - [Error Response Examples](#error-response-examples)
   - [Using FAPI Endpoints in Your Frontend Code](#using-fapi-endpoints-in-your-frontend-code)
+  - [Use FAPI with Any Service](#use-fapi-with-any-service)
 - [Requirements](#requirements)
 - [Contributing](#contributing)
 - [License](#license)
@@ -46,10 +48,12 @@ FAPI is available as an npm package for easy installation and usage.
 - **Package Name:** `start-fapi`
 - **Registry:** [https://www.npmjs.com/package/start-fapi](https://www.npmjs.com/package/start-fapi)
 - **Installation:** No installation required - use directly with `npx start-fapi`
+- **Node.js Requirement:** >= 20.9.0
 - **Repository:** [https://github.com/sohamderoy/FAPI-Fake-APIs](https://github.com/sohamderoy/FAPI-Fake-APIs)
 
 ## Use Cases FAPI Addresses
 
+- **Any Service Needing Mock APIs**: Whether you're building a frontend app, backend service, mobile application, or any system that consumes APIs—FAPI can simulate the endpoints you need
 - **Parallel Development**: Enable frontend and backend teams to work simultaneously with agreed-upon API contracts
 - **Rapid API Response Prototyping**: Experiment with API response structures before actual implementation
 - **Error & Edge Case Testing**: Test error handling and edge cases handling by simulating various API failure scenarios, status codes, responses and response delays
@@ -295,6 +299,32 @@ fetch("http://localhost:3000/api/fapi/users/1", {
 ```
 
 Use with any HTTP client: fetch, axios, React Query, etc.
+
+### Use FAPI with Any Service
+
+FAPI endpoints are standard HTTP endpoints that work with any service or tool that can make HTTP requests.
+
+**Command Line**
+
+```bash
+# Using curl
+curl http://localhost:3000/api/fapi/users
+
+# Using httpie
+http GET http://localhost:3000/api/fapi/users
+```
+
+**Backend Services**
+
+Any backend service (Node.js, Python, Go, Java, etc.) can call FAPI endpoints just like any other API.
+
+**API Testing Tools**
+
+Works with Postman, Insomnia, Thunder Client, or any API testing tool.
+
+**Mobile Apps**
+
+iOS, Android, or cross-platform apps (React Native, Flutter) can use FAPI during development.
 
 ## Requirements
 
