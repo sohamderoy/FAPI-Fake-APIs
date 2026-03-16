@@ -35,16 +35,18 @@ export const useEndpointSubmit = ({
 
   const handleSubmitFapiDetails = async (formData: FapiEndpointBase) => {
     /* Validate JSON Response */
-    const jsonValidation = validateJSON(formData.response);
+    if (formData.response.trim() !== "") {
+      const jsonValidation = validateJSON(formData.response);
 
-    if (!jsonValidation.isValid) {
-      setSnackbar({
-        isOpen: true,
-        message: `Invalid JSON in response: ${jsonValidation.error}`,
-        backgroundColor: STATUS_COLORS.ERROR,
-      });
+      if (!jsonValidation.isValid) {
+        setSnackbar({
+          isOpen: true,
+          message: `Invalid JSON in response: ${jsonValidation.error}`,
+          backgroundColor: STATUS_COLORS.ERROR,
+        });
 
-      return;
+        return;
+      }
     }
 
     /* Validating all fields before submission (skip path validation in edit mode) */
@@ -67,12 +69,10 @@ export const useEndpointSubmit = ({
       setIsSubmittingEndpointDetails(true);
 
       if (isEditMode) {
-        // Update existing endpoint
-        const parsedResponse = JSON.parse(formData.response);
         const result = await updateFapiEndpoint({
           method: formData.method,
           path: formData.path,
-          response: parsedResponse,
+          response: formData.response,
           responseCode: formData.responseCode,
           responseDelay: formData.responseDelay,
         });
@@ -84,12 +84,11 @@ export const useEndpointSubmit = ({
             backgroundColor: STATUS_COLORS.SUCCESS,
           });
 
-          // Update Redux store
           dispatch(
             updateEndpoint({
               key: createEndpointKey(formData.method, formData.path),
               details: {
-                response: parsedResponse,
+                response: formData.response,
                 responseCode: formData.responseCode,
                 responseDelay: formData.responseDelay,
               },
@@ -105,7 +104,6 @@ export const useEndpointSubmit = ({
           });
         }
       } else {
-        // Create new endpoint
         const result = await createEndpoint(formData);
         dispatch(setHasFapiEndpoints(true));
 
@@ -122,7 +120,7 @@ export const useEndpointSubmit = ({
                 details: {
                   responseCode: result?.endpoint?.responseCode as number,
                   responseDelay: result?.endpoint?.responseDelay as number,
-                  response: (result?.endpoint?.response || "") as string,
+                  response: (result?.endpoint?.response ?? "") as string,
                 },
               })
             );

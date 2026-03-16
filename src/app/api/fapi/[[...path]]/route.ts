@@ -70,9 +70,7 @@ const createMethodHandler = (method: HttpMethods) => {
       } catch (err) {
         return new NextResponse(
           JSON.stringify({ error: "Internal Server Error" }),
-          {
-            status: 500,
-          }
+          { status: 500 }
         );
       }
 
@@ -119,7 +117,11 @@ const createMethodHandler = (method: HttpMethods) => {
       }
 
       /* Return configured response set by user */
-      return new NextResponse(JSON.stringify(endpoint.response), {
+      const responseBody = typeof endpoint.response === "string"
+        ? endpoint.response
+        : JSON.stringify(endpoint.response);
+
+      return new NextResponse(responseBody || null, {
         status: endpoint.responseCode,
         headers: {
           "Content-Type": "application/json",
@@ -131,16 +133,17 @@ const createMethodHandler = (method: HttpMethods) => {
         JSON.stringify({
           error: "Internal Server Error",
         }),
-        {
-          status: 500,
-        }
+        { status: 500 }
       );
     }
   };
 };
 
-/* Create handlers for supported HTTP methods */
 export const GET = createMethodHandler(FAPI.SUPPORTED_HTTP_METHODS.GET);
 export const POST = createMethodHandler(FAPI.SUPPORTED_HTTP_METHODS.POST);
 export const PUT = createMethodHandler(FAPI.SUPPORTED_HTTP_METHODS.PUT);
 export const DELETE = createMethodHandler(FAPI.SUPPORTED_HTTP_METHODS.DELETE);
+
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 204 });
+}

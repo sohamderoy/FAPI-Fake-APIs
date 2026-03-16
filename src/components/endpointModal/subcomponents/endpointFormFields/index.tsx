@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   FormControl,
   InputLabel,
@@ -20,14 +21,34 @@ const EndpointFormFields = ({
   onResponseCodeChange,
   onResponseDelayChange,
 }: EndpointFormFieldsProps) => {
+  const pathInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isEditMode && pathInputRef.current) {
+      const input = pathInputRef.current;
+      input.focus();
+      const length = input.value.length;
+      input.setSelectionRange(length, length);
+    }
+  }, [isEditMode]);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 lg:gap-6 mb-4">
       {/* FAPI Endpoint Path - Takes up 3 columns (50%) */}
       <div className="lg:col-span-3">
         <TextField
           fullWidth
-          label="Enter FAPI Endpoint Path"
-          placeholder={`Enter FAPI Endpoint Path eg.: /api/hello-world/path?key=value_1,value_2`}
+          inputRef={pathInputRef}
+          label={
+            isEditMode
+              ? "FAPI Endpoint Path"
+              : "Enter FAPI Endpoint Path (For Eg.: /api/hello-world/sub-path?key=value_1,value_2)"
+          }
+          placeholder={
+            isEditMode
+              ? ""
+              : `Enter FAPI Endpoint Path (For Eg.: /api/hello-world/sub-path?key=value_1,value_2)`
+          }
           value={formData.path}
           onChange={(e) => onPathChange(e.target.value)}
           onBlur={onPathBlur}
@@ -55,7 +76,7 @@ const EndpointFormFields = ({
               <MenuItem key={method} value={method}>
                 {method}
               </MenuItem>
-            )
+            ),
           )}
         </Select>
       </FormControl>
@@ -73,7 +94,7 @@ const EndpointFormFields = ({
               <MenuItem key={responseCode.code} value={responseCode.code}>
                 {responseCode.label}
               </MenuItem>
-            )
+            ),
           )}
         </Select>
       </FormControl>

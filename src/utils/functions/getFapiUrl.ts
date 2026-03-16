@@ -1,6 +1,6 @@
-export const getFapiUrl = (path: string): string => {
-  const port = typeof window !== 'undefined' ? window.location.port : "3000";
-  const baseUrl = `http://localhost:${port}/api/fapi`;
+export const getFapiUrl = (path: string, port?: string): string => {
+  const resolvedPort = port || (typeof window !== 'undefined' ? window.location.port : "3000") || "3000";
+  const baseUrl = `http://localhost:${resolvedPort}/api/fapi`;
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   return `${baseUrl}${cleanPath}`;
 };

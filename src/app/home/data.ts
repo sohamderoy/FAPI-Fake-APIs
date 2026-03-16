@@ -2,7 +2,7 @@ import { Zap, Clock, Shield, Server } from "lucide-react";
 import { FeatureCardData } from "./types";
 
 export const SUBTITLE =
-  "Create & simulate Fake APIs (FAPIs) within seconds, for rapid & independent frontend development";
+  "A developer tool for creating and simulating Fake APIs (FAPIs) in seconds.";
 
 export const FEATURE_CARDS_DATA: FeatureCardData[] = [
   {
@@ -27,7 +27,7 @@ export const FEATURE_CARDS_DATA: FeatureCardData[] = [
   {
     title: "Multi Instance Support",
     description:
-      "Run multiple instances of FAPI on different ports to support multiple UI project development and testing",
+      "Run multiple instances of FAPI on different ports to support multiple products/ services development and testing",
     icon: Server,
     iconColor: "text-purple-400",
   },

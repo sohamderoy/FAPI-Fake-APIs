@@ -11,10 +11,7 @@ export const createEndpoint = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        ...endpoint,
-        response: JSON.parse(endpoint.response),
-      }),
+      body: JSON.stringify(endpoint),
     });
 
     const data = await createEndpointResponse.json();

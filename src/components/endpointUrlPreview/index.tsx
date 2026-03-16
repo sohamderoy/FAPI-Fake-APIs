@@ -1,15 +1,21 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { CheckCircle } from "lucide-react";
 import { CopyButton } from "@/lib";
 import { getFapiUrl } from "@/utils/functions";
 import { EndpointUrlPreviewProps } from "./types";
 
 const EndpointUrlPreview = ({ path }: EndpointUrlPreviewProps) => {
-  const port = typeof window !== "undefined" ? window.location.port : "3000";
+  const [port, setPort] = useState("3000");
+
+  useEffect(() => {
+    setPort(window.location.port || "3000");
+  }, []);
+
   const baseUrl = `http://localhost:${port}/api/fapi`;
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  const fullUrl = getFapiUrl(path);
+  const fullUrl = getFapiUrl(path, port);
 
   return (
     <div className="mb-2 px-3 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-md flex items-start gap-2">

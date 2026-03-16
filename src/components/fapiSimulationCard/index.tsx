@@ -112,7 +112,6 @@ const FapiSimulationCard = ({
           path,
           responseCode: details.responseCode,
           responseDelay: details.responseDelay,
-          response: details.response,
         }}
       />
 

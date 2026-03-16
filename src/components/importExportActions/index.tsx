@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Tooltip } from "@mui/material";
 import { Button } from "@/lib";
 import { STATUS_COLORS } from "@/utils/data";
@@ -8,18 +9,30 @@ import { getExportTooltip } from "./utils";
 const ImportExportActions = ({
   isImporting,
   currentEndpointCount,
-  endpoints,
   projectName,
   onImport,
   setSnackbar,
 }: ImportExportActionsProps) => {
-  const handleExport = () => {
-    exportEndpoints(endpoints, projectName);
-    setSnackbar({
-      isOpen: true,
-      message: `Successfully exported ${currentEndpointCount} endpoint(s)`,
-      backgroundColor: STATUS_COLORS.SUCCESS,
-    });
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExport = async () => {
+    setIsExporting(true);
+    const result = await exportEndpoints(projectName);
+    setIsExporting(false);
+
+    if (result.success) {
+      setSnackbar({
+        isOpen: true,
+        message: `Successfully exported ${currentEndpointCount} endpoint(s)`,
+        backgroundColor: STATUS_COLORS.SUCCESS,
+      });
+    } else {
+      setSnackbar({
+        isOpen: true,
+        message: result.error || "Failed to export endpoints",
+        backgroundColor: STATUS_COLORS.ERROR,
+      });
+    }
   };
 
   return (
@@ -44,7 +57,7 @@ const ImportExportActions = ({
           <Button
             onClick={handleExport}
             name="Export FAPIs"
-            disabled={currentEndpointCount === 0}
+            disabled={currentEndpointCount === 0 || isExporting}
             variant="secondary"
           />
         </span>

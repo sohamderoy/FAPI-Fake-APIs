@@ -1,5 +1,5 @@
 import { GET_ENDPOINTS_API_PATH } from "@/utils/data";
-import { EndpointKey, FapiEndpoint } from "@/types/fapi";
+import { EndpointKey } from "@/types/fapi";
 import { EndpointDetails } from "@/store/types/endpoints";
 
 export const loadEndpoints = async (): Promise<{
@@ -23,17 +23,15 @@ export const loadEndpoints = async (): Promise<{
       };
     }
 
-    // Transform FapiEndpoint to EndpointDetails (match Redux state shape)
+    // Response bodies are not included in the listing - they are fetched on-demand
     const transformedEndpoints: Record<EndpointKey, EndpointDetails> = {};
 
-    Object.entries(data.endpoints as Record<EndpointKey, FapiEndpoint>).forEach(
+    Object.entries(data.endpoints).forEach(
       ([key, endpoint]) => {
+        const ep = endpoint as { responseCode: number; responseDelay: number };
         transformedEndpoints[key as EndpointKey] = {
-          responseCode: endpoint.responseCode,
-          responseDelay: endpoint.responseDelay,
-          response: typeof endpoint.response === 'string'
-            ? JSON.parse(endpoint.response)
-            : endpoint.response,
+          responseCode: ep.responseCode,
+          responseDelay: ep.responseDelay,
         };
       }
     );

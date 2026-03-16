@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Copy, Check } from "lucide-react";
 import { Tooltip } from "@mui/material";
 import { CopyButtonProps } from "./types";
@@ -14,6 +14,14 @@ const CopyButton = ({
   iconClassName = "",
 }: CopyButtonProps) => {
   const [copied, setCopied] = useState(false);
+  const [isClipboardAvailable, setIsClipboardAvailable] = useState(false);
+
+  // Check clipboard availability after mount to avoid hydration mismatch
+  useEffect(() => {
+    setIsClipboardAvailable(!!navigator.clipboard?.writeText);
+  }, []);
+
+  if (!isClipboardAvailable) return null;
 
   const handleCopy = async () => {
     try {

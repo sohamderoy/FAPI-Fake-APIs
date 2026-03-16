@@ -38,3 +38,32 @@ body {
 .font-googleSansFlex {
   font-family: var(--font-google-sans-flex), sans-serif !important;
 }
+
+/* Custom Scrollbar Styles */
+* {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(139, 92, 246, 0.5) transparent !important;
+}
+
+*::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.4) !important;
+  border-radius: 10px !important;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.6) !important;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+

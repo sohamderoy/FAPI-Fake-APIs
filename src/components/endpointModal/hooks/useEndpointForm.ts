@@ -12,7 +12,7 @@ interface UseEndpointFormProps {
     path: string;
     responseCode: number;
     responseDelay: number;
-    response: string;
+    response?: string;
   };
 }
 
@@ -27,15 +27,20 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
         method: editData.method as HttpMethods,
         responseCode: editData.responseCode,
         responseDelay: editData.responseDelay,
-        response: JSON.stringify(editData.response, null, 2),
+        response: editData.response
+          ? JSON.stringify(editData.response, null, 2)
+          : "",
       };
     }
     return CREATE_FAPI_ENDPOINT_INITIAL_DATA;
   }, [isEditMode, editData]);
 
   const [formData, setFormData] = useState<FapiEndpointBase>(() =>
-    getInitialFormData()
+    getInitialFormData(),
   );
+
+  // Tracks the original fetched response for change detection in edit mode
+  const [originalResponse, setOriginalResponse] = useState<string | null>(null);
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [formTouched, setFormTouched] = useState<FormTouched>({});
@@ -46,23 +51,31 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
     if (!path.startsWith("/")) return "Endpoint path must start with /";
     if (path.length < 2) return "Endpoint path must have at least 2 characters";
     if (!FAPI_REGEX.ENDPOINT_PATH.test(path))
-      return "Invalid characters in path. Allowed: letters, numbers, and the following special characters: / - _ ? & = , ' \" % space";
+      return "Invalid characters in path. Allowed: letters, numbers, and the following special characters (/ - . _ ~ : @ ! $ & ' ( ) * + , ; = ? # %).";
     return undefined;
+  }, []);
+
+  // Set the response data fetched on-demand and track it as the original for change detection
+  const setFetchedResponse = useCallback((responseString: string) => {
+    setFormData((prev) => ({ ...prev, response: responseString }));
+    setOriginalResponse(responseString);
   }, []);
 
   // Check if any changes have been made in edit mode
   const hasChanges = useCallback((): boolean => {
     if (!isEditMode || !editData) return true; // In create mode, always allow submission
 
-    // Compare current form data with original edit data
+    // Compare current form response with the original fetched response
     const responseChanged =
-      formData.response !== JSON.stringify(editData.response, null, 2);
+      originalResponse !== null
+        ? formData.response !== originalResponse
+        : false;
     const responseCodeChanged = formData.responseCode !== editData.responseCode;
     const responseDelayChanged =
       formData.responseDelay !== editData.responseDelay;
 
     return responseChanged || responseCodeChanged || responseDelayChanged;
-  }, [isEditMode, editData, formData]);
+  }, [isEditMode, editData, formData, originalResponse]);
 
   // Check if the button should be disabled
   const isButtonDisabled = useCallback(
@@ -70,9 +83,11 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
       // Always disable during submission
       if (isSubmitting) return true;
 
-      // Check if JSON is valid
-      const jsonValidation = validateJSON(formData.response);
-      if (!jsonValidation.isValid) return true;
+      // Check if JSON is valid (empty is allowed — treated as empty string on submit)
+      if (formData.response.trim() !== "") {
+        const jsonValidation = validateJSON(formData.response);
+        if (!jsonValidation.isValid) return true;
+      }
 
       // In create mode, check if path is valid
       if (!isEditMode) {
@@ -85,7 +100,7 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
 
       return false;
     },
-    [formData.response, formData.path, isEditMode, hasChanges, validatePath]
+    [formData.response, formData.path, isEditMode, hasChanges, validatePath],
   );
 
   // Get the tooltip message explaining why button is disabled
@@ -93,9 +108,11 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
     (isSubmitting: boolean): string => {
       if (isSubmitting) return "";
 
-      const jsonValidation = validateJSON(formData.response);
-      if (!jsonValidation.isValid) {
-        return `Invalid JSON: ${jsonValidation.error}`;
+      if (formData.response.trim() !== "") {
+        const jsonValidation = validateJSON(formData.response);
+        if (!jsonValidation.isValid) {
+          return `Invalid JSON: ${jsonValidation.error}`;
+        }
       }
 
       if (!isEditMode) {
@@ -109,7 +126,7 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
 
       return "";
     },
-    [formData.response, formData.path, isEditMode, hasChanges, validatePath]
+    [formData.response, formData.path, isEditMode, hasChanges, validatePath],
   );
 
   // Validate the form
@@ -130,10 +147,13 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
         }));
       }
     },
-    [formTouched.path, validatePath]
+    [formTouched.path, validatePath],
   );
 
   const handlePathBlur = useCallback(() => {
+    // Don't show validation errors if the user hasn't modified the path from its initial "/"
+    if (formData.path === CREATE_FAPI_ENDPOINT_INITIAL_DATA.path) return;
+
     setFormTouched((prev) => ({ ...prev, path: true }));
     setFormErrors((prev) => ({
       ...prev,
@@ -156,13 +176,14 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
   const handleResponseChange = useCallback((value: string | undefined) => {
     setFormData((prev) => ({
       ...prev,
-      response: value || JSON.stringify({}, null, 2),
+      response: value ?? "",
     }));
   }, []);
 
   // Reset form state
   const resetForm = useCallback(() => {
     setFormData(getInitialFormData());
+    setOriginalResponse(null);
     setFormErrors({});
     setFormTouched({});
   }, [getInitialFormData]);
@@ -174,6 +195,7 @@ export const useEndpointForm = ({ mode, editData }: UseEndpointFormProps) => {
     isButtonDisabled,
     getButtonDisabledTooltip,
     validateForm,
+    setFetchedResponse,
     handlePathChange,
     handlePathBlur,
     handleMethodChange,
