@@ -28,8 +28,8 @@ export default function RootLayoutClient({
       "color: #3b82f6; font-weight: bold;"
     );
     console.log(
-      "%cCreate & simulate Fake APIs (FAPIs) within seconds,\nfor rapid & independent frontend development",
-      "color: #9ca3af;"
+      "%cCreate & simulate Fake APIs (FAPIs) in seconds.",
+      "color: #9ca3af;",
     );
     console.log("");
     console.log(
