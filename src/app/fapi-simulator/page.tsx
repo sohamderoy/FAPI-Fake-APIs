@@ -134,7 +134,7 @@ const FapiSimulatorPage = () => {
   const isAtLimit = currentEndpointCount >= FAPI_LIMITS.MAX_ENDPOINTS;
 
   return (
-    <div className="min-h-screen relative p-6 overflow-hidden">
+    <div className="min-h-screen relative">
       <AnimatedBackground />
 
       {/* Hidden file input for import */}
@@ -146,12 +146,12 @@ const FapiSimulatorPage = () => {
         style={{ display: "none" }}
       />
 
-      <div
-        className="mx-auto"
-        style={{ maxWidth: UI_LIMITS.UI_CONTAINER_MAX_WIDTH }}
-      >
-        {/* Header Section - Title and Action Buttons*/}
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+      {/* Header Section - Title and Action Buttons (sticky) */}
+      <div className="sticky top-0 z-10 backdrop-blur-md bg-black/30 px-6 py-4" style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)" }}>
+        <div
+          className="mx-auto flex flex-col sm:flex-row justify-between items-center gap-4"
+          style={{ maxWidth: UI_LIMITS.UI_CONTAINER_MAX_WIDTH }}
+        >
           <AppName logoWidth={134} logoHeight={48} />
           <div className="flex items-center gap-2">
             {/* Create New FAPI Button */}
@@ -185,6 +185,14 @@ const FapiSimulatorPage = () => {
             />
           </div>
         </div>
+      </div>
+
+      {/* Scrollable content */}
+      <div className="px-6 pb-6">
+        <div
+          className="mx-auto"
+          style={{ maxWidth: UI_LIMITS.UI_CONTAINER_MAX_WIDTH }}
+        >
 
         {/* Project Name and FAPI Counter Section */}
         <div className="mb-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
@@ -233,6 +241,7 @@ const FapiSimulatorPage = () => {
               details={endpoint.details}
             ></FapiSimulationCard>
           ))}
+        </div>
         </div>
       </div>
 
