@@ -17,6 +17,7 @@ const Modal = ({
     <MuiModal
       open={isModalOpen}
       onClose={onClose}
+      disableEnforceFocus
       slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
