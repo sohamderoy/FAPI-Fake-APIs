@@ -36,7 +36,7 @@ const Editor = ({ value, onChange }: EditorProps) => {
           onChange={onChange}
           height="100%"
           options={EDITOR_OPTIONS}
-          onMount={(editor, monaco) => {
+          onMount={(editor) => {
             editor.layout();
           }}
         />

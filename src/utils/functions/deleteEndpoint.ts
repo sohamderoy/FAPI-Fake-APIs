@@ -7,7 +7,7 @@ export const deleteEndpoint = async (
 ): Promise<{ success: boolean; error?: string }> => {
   try {
     const deleteEndpointResponse = await fetch(DELETE_API_ENDPOINT_API_PATH, {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },

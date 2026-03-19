@@ -14,7 +14,7 @@ export const updateFapiEndpoint = async (
 ): Promise<{ success: boolean; error?: string }> => {
   try {
     const updateEndpointResponse = await fetch(UPDATE_ENDPOINT_API_PATH, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
