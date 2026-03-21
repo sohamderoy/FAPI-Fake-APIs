@@ -1,3 +1,4 @@
+export const UPDATE_PROJECT_API_PATH = "/api/project";
 export const CREATE_API_ENDPOINT_API_PATH = "/api/endpoints";
 export const DELETE_API_ENDPOINT_API_PATH = "/api/endpoints";
 export const UPDATE_ENDPOINT_API_PATH = "/api/endpoints";
