@@ -1,4 +1,4 @@
-import { UPDATE_PROJECT_NAME_API_PATH } from "@/utils/data";
+import { UPDATE_PROJECT_API_PATH } from "@/utils/data";
 
 export const updateProjectName = async (
   projectName: string
@@ -8,7 +8,7 @@ export const updateProjectName = async (
   error?: string;
 }> => {
   try {
-    const response = await fetch(UPDATE_PROJECT_NAME_API_PATH, {
+    const response = await fetch(UPDATE_PROJECT_API_PATH, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
